@@ -12,4 +12,6 @@ library Errors {
     error NotSupportedPool();
     error IncorrectLeverage(uint256 leverage);
     error NotIncludedInPool(address token, address token0, address token1);
+    error OnlyDelegateCalls(address caller, address delegate);
+    error NotAvailableOption(address pool, address owner, uint256 contractId);
 }

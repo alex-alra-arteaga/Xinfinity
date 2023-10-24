@@ -13,14 +13,14 @@ library TWAPOracle {
         bool isBaseTokenWXDC = token1 == Constants.WXDC;
         bool isBaseTokenXUSDT = token1 == Constants.XUSDT;
 
-        uint256 twapPrice = IDiamond(payable(address(this))).estimateWXDConXUSDT(
+        uint256 twapPrice = IDiamond(address(this)).estimateWXDConXUSDT(
             amountIn, 10 hours
         ); // wXDC per xUSDT
 
         if (isBaseTokenWXDC) {
             return 1e36 / twapPrice;
         } else if (isBaseTokenXUSDT) {
-            return IDiamond(payable(address(this))).estimatePriceSupportedPools(token0, token1, poolFee, amountIn, 10 hours);
+            return IDiamond(address(this)).estimatePriceSupportedPools(token0, token1, poolFee, amountIn, 10 hours);
         } else {
             revert Errors.NotSupportedPool();
         }

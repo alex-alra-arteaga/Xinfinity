@@ -3,8 +3,10 @@ import { LucideProps, MessageSquare, User } from "lucide-react";
 export const Icons = {
   user: User,
   logo: (props: LucideProps) => (
-    <img src="/Logo.png" className="w-[80px]" alt="app logo" />
+    <img src="/newLogo.png" className="w-[80px]" alt="app logo" />
   ),
+
+  
   google: (props: LucideProps) => (
     <svg {...props} viewBox="0 0 24 24">
       <path
@@ -28,3 +30,4 @@ export const Icons = {
   ),
   commentReply: MessageSquare,
 };
+ 

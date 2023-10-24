@@ -6,4 +6,15 @@ import { Modifiers } from "../libraries/Modifiers.sol";
 
 contract PerpFuturesFacet is Modifiers {
     
+    function buyFutureContract() external {
+
+    }
+
+    function sellFutureContract() external {
+
+    }
+
+    function closeFutureContract() external {
+
+    }
 }

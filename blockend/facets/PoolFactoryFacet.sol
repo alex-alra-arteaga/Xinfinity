@@ -15,11 +15,15 @@ contract PoolFactoryFacet is Modifiers, Constants {
         if (tokenA != tokenB) revert Error.SameToken(tokenA, tokenB);
         (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA); // lowest value is token0
         if (token0 == address(0)) revert Error.ZeroAddress(token0);
+
         int24 tickSpacing = s.feeAmountTickSpacing[fee];
         if (tickSpacing == 0) revert Error.ExistingPool(token0, token1, fee);
+
         uint24 fee = fee == LOW ? 500 : fee == MEDIUM ? 3000 : 10000; // value in basis points, 500 = 0.05%, 3000 = 0.3%, 10000 = 1%
+
         if (XSWAP_V3_FACTORY.getPool[token0][token1][fee] == address(0)) revert Error.ExistingPool(token0, token1, fee); // non existing Uniswap V3 pool
         if (s.poolRegistry[token0][token1][fee] != address(0)) revert Error.ExistingPool(token0, token1, fee); // existing Xinfinity pool
+        
         s.poolRegistry[token0][token1][fee] = address(new UniswapV3Pool{salt: keccak256(abi.encode(token0, token1, fee))}());
     }
 }

@@ -5,7 +5,7 @@ import { Constants } from "../libraries/Constants.sol";
 
 pragma solidity 0.8.19;
 
-contract XinfinLPManagerFacet is Modifiers, Constants {
+contract XinfinLPManagerFacet is Modifiers {
 
     function depositAllLiquidity() external {
 

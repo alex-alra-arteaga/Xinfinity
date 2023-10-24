@@ -14,4 +14,5 @@ contract Modifiers {
             revert Errors.CallerCanOnlyBeDiamond(msg.sender, address(this));
         _;
     }
+
 }

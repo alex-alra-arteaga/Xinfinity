@@ -38,27 +38,21 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  username      String?   @unique
-  description   String?   @unique
-  emailVerified DateTime?
-  password      String?
-
-  image    String?
-  accounts Account[]
-  sessions Session[]
-  Posts    Post[]
+  id               String    @id @default(cuid())
+  name             String?
+  email            String?   @unique
+  username         String?   @unique
+  description      String?   @unique
+  emailVerified    DateTime?
+  address          String   @unique
+  // wallets          Wallet[]
+  password         String?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  hasActiveAccount Boolean?  @default(false)
+  hasActiveToken   Boolean?  @default(false)
 }
 
-model Post {
-  id          String @id @default(cuid())
-  userId      String
-  title       String @unique
-  description String
-  content     String
-
-  User User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}

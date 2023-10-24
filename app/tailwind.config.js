@@ -8,6 +8,13 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
+    theme: {
+      extend: {
+        textShadow: {
+          'default': '0 0 80px rgba(192, 219, 255, 0.48), 0 0 32px rgba(65, 120, 255, 0.24)',
+        },
+      },
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -51,6 +58,7 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -72,5 +80,6 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require('tailwindcss-textshadow')],
 };
+

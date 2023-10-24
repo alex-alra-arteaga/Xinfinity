@@ -42,6 +42,10 @@ contract Diamond is ISubscriptionOwner {
         ds.supportedInterfaces[type(IDiamondLoupe).interfaceId] = true;
 
         // initialize the protocol AppStorage
+        s.feeAmountTickSpacing[500] = 10;
+        s.feeAmountTickSpacing[3000] = 60;
+        s.feeAmountTickSpacing[10000] = 200;
+
     }
 
     function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external returns (bytes4) {

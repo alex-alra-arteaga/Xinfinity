@@ -9,13 +9,10 @@ export const Footer: React.FC = () => {
             <Image
               width={100}
               height={100}
-              src="/Logo.png"
+              src="/favicon.ico"
               className="mr-3 "
-              alt="Racks Labs Logo"
+              alt="Logo"
             />
-            {/* <span className="self-center whitespace-nowrap font-montserrat text-2xl font-semibold text-white">
-                  Racks Labs
-                </span> */}
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
             <div>
@@ -26,21 +23,21 @@ export const Footer: React.FC = () => {
                 <li className="mb-4">
                   <a
                     target="_blank"
-                    href="https://www.labs.racksmafia.com/en/contact"
+                    href="https://xdc.org/"
                     className="hover:underline"
                     rel="noreferrer"
                   >
-                    Racks Labs
+                    XDC
                   </a>
                 </li>
                 <li>
                   <a
                     target="_blank"
-                    href="https://abastandorra.com/"
+                    href="https://v3.xspswap.finance/#/swap"
                     className="hover:underline"
                     rel="noreferrer"
                   >
-                    Abast
+                    XSwap
                   </a>
                 </li>
               </ul>
@@ -82,17 +79,17 @@ export const Footer: React.FC = () => {
           <span className="text-sm  sm:text-center">
             © 2023{" "}
             <a
-              href="https://abastandorra.com"
+              href=""
               rel="noopener noreferrer"
               target="_blank"
               className="hover:underline"
             >
-              Copyright 2023 Abast Global SL
+              Copyright 2023 XINFINITY EBC
             </a>
           </span>
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <a
-              href="https://www.rackslabs.com/"
+              href=""
               rel="noopener noreferrer"
               target="_blank"
               className=""
@@ -108,7 +105,7 @@ export const Footer: React.FC = () => {
               <span className="sr-only">Website page</span>
             </a>
             <a
-              href="https://www.instagram.com/rackslabs/"
+              href=""
               rel="noopener noreferrer"
               target="_blank"
               className=""
@@ -128,7 +125,7 @@ export const Footer: React.FC = () => {
               <span className="sr-only">Instagram page</span>
             </a>
             <a
-              href="https://opensea.io/collection/mrcrypto-by-racksmafia"
+              href="a"
               rel="noopener noreferrer"
               target="_blank"
               className=""
@@ -144,7 +141,7 @@ export const Footer: React.FC = () => {
               <span className="sr-only">OpenSea page</span>
             </a>
             <a
-              href="https://twitter.com/rackslabs"
+              href=""
               rel="noopener noreferrer"
               target="_blank"
               className=""
@@ -160,7 +157,7 @@ export const Footer: React.FC = () => {
               <span className="sr-only">Twitter page</span>
             </a>
             <a
-              href="https://github.com/Racks-Labs"
+              href=""
               rel="noopener noreferrer"
               target="_blank"
               className=""

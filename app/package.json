@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "npx prisma generate && npx prisma db push && next dev",
     "build": "next build",
+    "dev-test": "next dev",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install",
     "verify-build": "echo 'Build verification successful'"
   },
   "dependencies": {
@@ -50,7 +50,6 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-tailwindcss": "^3.11.0",
-    "husky": "^8.0.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "pretty-quick": "^3.1.3",

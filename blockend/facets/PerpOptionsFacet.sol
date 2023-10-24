@@ -51,7 +51,7 @@ contract PerpOptionsFacet is Modifiers {
         uint256 userBalance = IERC20(token).balanceOf(msg.sender); // no reentrancy possible since code is at the top
         if (amount > userBalance) revert Errors.InsufficientBalance(amount, userBalance);
 
-        uint256 amountCost = getPoolTWAP(token0, token1, poolFee, amount);
+        uint256 amountCost = getPoolTWAP(token0, token1, poolFee, amount, true);
         uint256 price = amountCost / amount;
         if (optionType == Types.OptionType.PUT) {
             if (strike > price) revert Errors.IncorrectStrike(price, strike);
@@ -95,13 +95,30 @@ contract PerpOptionsFacet is Modifiers {
         option.status = Types.OrderStatus.MINTED;
     }
 
+    /**
+     * @notice callable by shorters and longers
+     * @param pool 
+     * @param owner 
+     * @param contractId 
+     */
     function exerciseOptionContract(address pool, address owner, uint256 contractId) external {
-        // callable by shorters and longers
-        // if owner is ITM, then he can exercise the option
         Types.PerpOption memory optionToExercise = s.optionRecord[pool][owner][contractId];
         if (optionToExercise.status != Types.OrderStatus.MINTED && optionToExercise.status != Types.OrderStatus.BOUGHT) revert Errors.NotAvailableOption(pool, owner, contractId);
 
-        IERC20(optionToExercise.collateralToken).transfer(msg.sender, optionToExercise.collateralAmount);
+        // @follow-up Prohibit exercising if is below maintenance margin
+
+        // in basis points
+        int256 priceDiffInPercentage = ((getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), optionToExercise.collateralAmount, true) / optionToExercise.collateralAmount) * optionToExercise.initialPrice) / optionToExercise.initialPrice;
+        
+        int256 profitInPercentage = optionToExercise.optionType == Types.OptionType.CALL ? priceDiff : -priceDiff;
+        // (5% * 10_000) * (100 * 10_000) / 10_000 = 500% in basis points
+        int256 realProfitPercentage = profitInPercentage * optionToExercise.leverage / Constants.BASIS_POINTS;
+        // 100 * (500 * 10_000 / 100) / 10_000 = 500 in tokens
+        int256 netProfit = (optionToExercise.collateralAmount * (realProfitPercentage / 100)) / Constants.BASIS_POINTS;
+
+        // @follow-up Take tokens from the pool to pay the profit
+
+        IERC20(optionToExercise.collateralToken).transfer(msg.sender, netProfit);
 
         delete s.optionRecord[pool][owner][contractId];
     }

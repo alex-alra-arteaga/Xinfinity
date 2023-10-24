@@ -12,7 +12,7 @@ import {Errors} from "../libraries/Errors.sol";
 // See https://github.com/mudgen/diamond-2-hardhat/blob/main/contracts/Diamond.sol
 // All code taken from diamond implementation, other than init code
 
-contract Diamond is ISubscriptionOwner {
+contract Diamond {
     AppStorage internal s;
 
     constructor(address _protocolOwner, address _diamondCutFacet)

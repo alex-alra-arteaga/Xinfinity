@@ -11,4 +11,7 @@ library Constants {
     address constant WXDC = 0x951857744785E80e2De051c32EE7b25f9c458C42;
     uint8 constant XUSDT_DECIMALS = 6;
     uint8 constant WXDC_DECIMALS = 18;
+    uint24 constant MIN_LEVERAGE = 10_000; // basis points 100% = 1x
+    uint24 constant MAX_LEVERAGE = 400_000; // basis points 4000% = 40x
+    uint256 constant PRECISION = 1e18;
 }

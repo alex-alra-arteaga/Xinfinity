@@ -4,9 +4,10 @@ pragma solidity 0.8.19;
 
 import {Errors} from "../libraries/Errors.sol";
 import {Constants} from "../libraries/Constants.sol";
+import { Modifiers } from "../libraries/Modifiers.sol";
 import { OracleLibrary, IUniswapV3Pool } from "../lib/v3-core/contracts/libraries/UniswapOracleLibrary.sol";
 
-contract TWAPFacet {
+contract TWAPFacet is Modifiers{
     function estimateWXDConXUSDT(uint128 amountIn, uint32 secondsAgo)
         external
         view
@@ -27,13 +28,13 @@ contract TWAPFacet {
         amountOut = OracleLibrary.getQuoteAtTick(tick, amountIn, Constants.WXDC, Constants.XUSDT);
     }
 
-    function estimatePriceSupportedPools(address tokenA, address tokenB, uint24 poolFee, uint128 amountIn, uint32 secondsAgo)
+    function estimatePriceSupportedPools(address tokenA, address tokenB, uint24 poolFee, uint128 amountIn, uint32 secondsAgo, bool isXSwapPool)
         external
         view
         returns (uint256 amountOut)
     {
         (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
-        address pool = Constants.XSWAP_V3_FACTORY.getPool(token0, token1, poolFee);
+        address pool = isXSwapPool ? Constants.XSWAP_V3_FACTORY.getPool(token0, token1, poolFee) : s.poolRegistry[token0][token1][poolFee];
         if (pool == address(0)) revert Errors.NotExistingPool();
 
         uint32[] memory secondsAgos = new uint32[](2);

@@ -34,6 +34,8 @@ library Types {
         uint256 leverage; // equals margin in finance terms, in basis points
         uint256 strike;
         uint256 collateralAmount; // amount set in collateral
+        uint256 fundingRatePayment; // extra tokens to pay to seller/buyer depending on funding rate
+        address collateralToken; // token used as collateral
         uint256 borrowAmount; // amount borrowed from the pool
         OrderStatus status;
     }
@@ -45,6 +47,7 @@ library Types {
         uint256 leverage; // borrowAmount / collateralAmount, in basis points
         uint256 strike; // strike price of the option
         uint256 collateralAmount; // amount set in collateral
+        uint256 fundingRatePayment; // extra tokens to pay to seller/buyer depending on funding rate
         address collateralToken; // token used as collateral
         uint256 borrowAmount; // amount borrowed from the pool
         uint256 maintenanceMargin; // % of collateral that must be maintained over borrowAmount, in basis points

@@ -14,4 +14,5 @@ library Constants {
     uint24 constant MIN_LEVERAGE = 10_000; // basis points 100% = 1x
     uint24 constant MAX_LEVERAGE = 400_000; // basis points 4000% = 40x
     uint256 constant PRECISION = 1e18;
+    uint24 constant BASIS_POINTS = 10_000;
 }

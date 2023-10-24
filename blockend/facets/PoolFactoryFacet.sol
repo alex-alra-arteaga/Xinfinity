@@ -22,8 +22,11 @@ contract PoolFactoryFacet is Modifiers, Constants {
         uint24 fee = fee == LOW ? 500 : fee == MEDIUM ? 3000 : 10000; // value in basis points, 500 = 0.05%, 3000 = 0.3%, 10000 = 1%
 
         if (XSWAP_V3_FACTORY.getPool[token0][token1][fee] == address(0)) revert Error.ExistingPool(token0, token1, fee); // non existing Uniswap V3 pool
-        if (s.poolRegistry[token0][token1][fee] != address(0)) revert Error.ExistingPool(token0, token1, fee); // existing Xinfinity pool
+        if (s.poolRegistry[token0][token1][fee] != address(0)) revert Error.NotExistingPool(token0, token1, fee); // existing Xinfinity pool
         
-        s.poolRegistry[token0][token1][fee] = address(new UniswapV3Pool{salt: keccak256(abi.encode(token0, token1, fee))}());
+        address newPool = address(new UniswapV3Pool{salt: keccak256(abi.encode(token0, token1, fee))}());
+        if (newPool == address(0)) revert Error.NotExistingPool(token0, token1, fee); // failed to deploy
+        
+        s.poolRegistry[token0][token1][fee] = newPool;
     }
 }

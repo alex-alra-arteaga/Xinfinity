@@ -4,10 +4,7 @@ pragma solidity 0.8.19;
 import {LibDiamond} from "../libraries/LibDiamond.sol";
 import {IDiamondLoupe} from "../interfaces/IDiamondLoupe.sol";
 import {IDiamondCut} from "../interfaces/IDiamondCut.sol";
-import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import { IERC4626 } from "@openzeppelin/contracts/interfaces/IERC4626.sol";
+import {IERC165} from "@openzeppelin/utils/introspection/IERC165.sol";
 import {AppStorage} from "../libraries/AppStorage.sol";
 import {Errors} from "../libraries/Errors.sol";
 // import {ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
@@ -46,21 +43,6 @@ contract Diamond is ISubscriptionOwner {
         s.feeAmountTickSpacing[3000] = 60;
         s.feeAmountTickSpacing[10000] = 200;
 
-    }
-
-    function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external returns (bytes4) {
-        // ERC721 callback
-        return bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
-    }
-
-    function getSubscriptionOwner() external view returns (address) {
-        // the owner of the subscription must be an EOA
-        // Replace this with the account created in Step 1
-        return s.admin;
-    }
-
-    function supportsInterface(bytes4 interfaceId) public view  returns (bool) {
-        return interfaceId == type(ISubscriptionOwner).interfaceId;
     }
 
     // Find facet for function that is called and execute the

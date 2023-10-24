@@ -6,7 +6,7 @@ import { Types } from "./Types.sol";
 struct AppStorage {
     address admin;
 
-    mapping(address => mapping(address => mapping(uint24 => address))) poolRegistry;
+    mapping(address token0 => mapping(address token1 => mapping(uint24 poolFee => address pool))) poolRegistry;
     mapping(uint24 => int24) feeAmountTickSpacing;
 
 }

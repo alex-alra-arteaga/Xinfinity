@@ -9,4 +9,9 @@ library Types {
         MEDIUM,
         HIGH
     }
+
+    enum OptionType {
+        CALL,
+        PUT
+    }
 }

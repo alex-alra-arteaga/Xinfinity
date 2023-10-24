@@ -8,7 +8,7 @@ pragma solidity 0.8.19;
 contract XinfinLPManagerFacet is Modifiers {
 
     function depositAllLiquidity() external {
-
+        
     }
 
     function depositLiquidity() external {

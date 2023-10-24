@@ -56,6 +56,7 @@ contract PerpOptionsFacet is Modifiers {
             recordId = s.numOfRecordOptions[pool][msg.sender]++;
         }
         Types.PerpOption storage option = s.optionRecord[pool][msg.sender][recordId];
+        option.optionType = optionType;
         option.xinfinityPool = pool;
         option.initialPrice = price;
         option.leverage = leverage;
@@ -67,6 +68,6 @@ contract PerpOptionsFacet is Modifiers {
     }
 
     function closeOptionContract() external {
-        
+
     }
 }

@@ -24,6 +24,7 @@ library Types {
     }
 
     struct PerpOption {
+        Types.OptionType optionType; // call or put
         address xinfinityPool; // pool address of the protocol, on top of xSwap pool
         uint256 initialPrice; // of the pool
         uint256 leverage; // borrowAmount / collateralAmount, in basis points

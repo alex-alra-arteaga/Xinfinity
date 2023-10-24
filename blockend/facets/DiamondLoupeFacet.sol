@@ -3,8 +3,8 @@ pragma solidity 0.8.19;
 
 //https://github.com/mudgen/diamond-2/blob/master/contracts/facets/DiamondLoupeFacet.sol
 
-import {LibDiamond} from "contracts/libraries/LibDiamond.sol";
-import {IDiamondLoupe} from "contracts/interfaces/IDiamondLoupe.sol";
+import {LibDiamond} from "../libraries/LibDiamond.sol";
+import {IDiamondLoupe} from "../interfaces/IDiamondLoupe.sol";
 
 /* solhint-disable no-inline-assembly */
 contract DiamondLoupeFacet is IDiamondLoupe {

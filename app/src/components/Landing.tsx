@@ -15,15 +15,15 @@ export default async function Landing() {
         {/* Main Content */}
         <div className="mt-20 flex w-full max-w-5xl items-center justify-between">
           <div className="px-4">
-            <h1 className="text-shadow mb-4 text-5xl font-extrabold leading-tight">
+            <h1 className="text-shadow-xl mb-4 text-5xl font-extrabold leading-tight">
               Top <br /> Decentralized <br /> Crypto Exchange
             </h1>
             <p className="text-shadow mb-4 mt-2 text-lg">
-              Trade diverse crypto assets and perpetual markets with unmatched
-              rebates in our cutting-edge decentralized platform
+            Trade diverse crypto assets and perpetual markets with unmatched
+            rebates in our cutting-edge decentralized platform
             </p>
             <button className="rounded-lg bg-indigo-500 px-6 py-2 text-white shadow-lg hover:bg-indigo-600">
-              Start Trading now
+              Launch App
             </button>
           </div>
   
@@ -37,7 +37,7 @@ export default async function Landing() {
                 </div>
                 <input
                   className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white focus:outline-none"
-                  value={`${xdcPrice}`}
+                  value={`${xdcPrice || "0,5"}`}
                 />
               </div>
               <div className="mx-2 mt-4 text-3xl">⇌</div>
@@ -59,7 +59,7 @@ export default async function Landing() {
   
         {/* Features */}
         <div className="mt-20 flex w-full max-w-5xl justify-center space-x-8">
-          {["🔗 Interoperable", "🔒 Secure", "⛽ Gas Free", "⚡ Fast"].map(
+          {["🔗 On XDC",  "⛽ Options", "⚡ Futures"].map(
             (feature, index) => (
               <div
                 key={index}

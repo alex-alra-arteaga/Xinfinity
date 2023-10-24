@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
 import { getAuthSession } from "@/lib/auth/auth";
 import { Icons } from "./Icons";
-
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -13,19 +11,18 @@ const Navbar = async () => {
         {/* logo */}
         <Link href="/" className="flex items-center gap-2">
           <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6" />
-          <p className="hidden text-sm font-medium text-white md:block">
+          <h2 className="font-large hidden text-sm text-white md:block">
             Xinfinity
-          </p>
+          </h2>
         </Link>
 
         {/* actions */}
-        {session?.user ? (
-          <p>logged In as {session.user.email}</p>
+        {/* {session?.user ? (
+          <p className="text-white">logged In as {session.user.address}</p>
         ) : (
-          <Link href="/sign-in" className={buttonVariants()}>
-            Sign In
-          </Link>
-        )}
+          <ConnectButton/>
+        )} */}
+        <ConnectButton/>
       </div>
     </div>
   );

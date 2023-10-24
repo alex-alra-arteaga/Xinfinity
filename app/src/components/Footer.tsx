@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
             <Image
               width={100}
               height={100}
-              src="/favicon.ico"
+              src="/newLogo.png"
               className="mr-3 "
               alt="Logo"
             />
@@ -79,7 +79,7 @@ export const Footer: React.FC = () => {
           <span className="text-sm  sm:text-center">
             © 2023{" "}
             <a
-              href=""
+              href="#"
               rel="noopener noreferrer"
               target="_blank"
               className="hover:underline"
@@ -89,7 +89,7 @@ export const Footer: React.FC = () => {
           </span>
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <a
-              href=""
+              href="#"
               rel="noopener noreferrer"
               target="_blank"
               className=""
@@ -105,7 +105,7 @@ export const Footer: React.FC = () => {
               <span className="sr-only">Website page</span>
             </a>
             <a
-              href=""
+              href="#"
               rel="noopener noreferrer"
               target="_blank"
               className=""
@@ -125,7 +125,7 @@ export const Footer: React.FC = () => {
               <span className="sr-only">Instagram page</span>
             </a>
             <a
-              href="a"
+              href="#"
               rel="noopener noreferrer"
               target="_blank"
               className=""
@@ -141,7 +141,7 @@ export const Footer: React.FC = () => {
               <span className="sr-only">OpenSea page</span>
             </a>
             <a
-              href=""
+              href="#"
               rel="noopener noreferrer"
               target="_blank"
               className=""
@@ -157,7 +157,7 @@ export const Footer: React.FC = () => {
               <span className="sr-only">Twitter page</span>
             </a>
             <a
-              href=""
+              href="#"
               rel="noopener noreferrer"
               target="_blank"
               className=""

@@ -35,7 +35,7 @@ contract PerpFuturesFacet is Modifiers {
         uint256 amountCost = TWAPOracle.getPoolTWAP(token0, token1, poolFee, amount, true);
         uint256 price = amountCost / amount;
 
-        if (leverage > Constants.MAX_LEVERAGE || leverage < Constants.MIN_LEVERAGE) revert Errors.IncorrectLeverage(leverage);
+        if (leverage > Constants.MAX_LEVERAGE || leverage < Constants.MIN_LEVERAGE) revert Errors.IncorrectLeverage();
 
         if (token != token0 || token != token1) revert Errors.NotIncludedInPool(token, token0, token1);
 

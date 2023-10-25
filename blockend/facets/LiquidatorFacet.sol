@@ -3,14 +3,26 @@
 pragma solidity 0.8.19;
 
 import { Modifiers } from "../libraries/Modifiers.sol";
+import {IDiamond} from "../interfaces/IDiamond.sol";
+import {Errors} from "../libraries/Errors.sol";
+import {Types} from "../libraries/Types.sol";
+import { IERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import { IUniswapV3Pool } from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
 contract LiquidatorFacet is Modifiers {
 
-    function liquidate() external {
-        
-    }
+    function liquidateFuture(IUniswapV3Pool pool, address owner, uint24 contractId) external {
 
-    function liquidateByChuncks() external {
+        (bool isLiquidable, int256 actualMarginPercentage, int256 actualMarginAmount) = IDiamond(address(this)).positionHealthFactorFutures(pool, owner, contractId);
+        if (!isLiquidable) revert Errors.NotLiquidable();
 
+        Types.PerpFuture memory future = s.futureRecord[address(pool)][owner][contractId];
+        // if isLiquidable, actualMarginAmount is negative
+        uint amountToPayToLiquidator = uint256(-actualMarginAmount) * pool.fee() / Constants.BASIS_POINTS;
+
+        IERC20(future.collateralToken).transfer(msg.sender, amountToPayToLiquidator);
+        IERC20(future.collateralToken).transfer(owner, future.collateralAmount - amountToPayToLiquidator);
+
+        delete s.futureRecord[address(pool)][owner][contractId];
     }
 }

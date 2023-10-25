@@ -20,5 +20,3 @@ library Constants {
     address constant  NON_FUNGIBLE_POSITION_MANAGER = INonfungiblePositionManager(0xC36442b4a4522E871399CD717aBDD847Ab11FE88);
     uint256 constant LIQUIDITY_WIDTH = 10;
 }
-    
-}

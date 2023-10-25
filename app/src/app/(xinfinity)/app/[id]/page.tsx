@@ -1,7 +1,22 @@
 "use client";
-import { useEffect, useRef } from "react";
 import { Pool } from "../../_components/pools";
-import Chart from "chart.js/auto";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  PointElement,
+  LineElement,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip
+);
 
 export default async function TemplateIdPage({
   params,
@@ -107,9 +122,32 @@ export default async function TemplateIdPage({
     625, // Volume at 24h ago
   ];
 
+  // NEED TO DO: 4 GRAPHS (LOOK AT PANOPTIC)
+  // FUTURES => SHORT / LONG
+  // OPTIONS => PUT / CALL
   return (
-    <div>
-      <h2>Volume in the last 24h for {params.id}</h2>
+    <div className="flex h-screen items-center justify-center bg-gradient-to-b from-black via-indigo-900 to-black p-4 text-white ">
+      <div className="h-3/4 w-full max-w-6xl overflow-auto rounded border border-gray-300 p-10 shadow">
+        <Line
+          data={{
+            labels: [
+              "2023-01",
+              "2023-02",
+              "2023-03",
+              "2023-04",
+              "2023-05",
+              "2023-06",
+              "2023-07",
+            ],
+            datasets: [
+              {
+                data: [100, 120, 115, 134, 168, 132, 200],
+                backgroundColor: "purple",
+              },
+            ],
+          }}
+        />
+      </div>
     </div>
   );
 }

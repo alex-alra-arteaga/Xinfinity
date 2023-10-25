@@ -1,3 +1,5 @@
+import Navbar from "./Navbar";
+
 export default async function Landing() {
   let xdcPrice;
   try {
@@ -11,6 +13,8 @@ export default async function Landing() {
   }
 
   return (
+    <div>
+    <Navbar />
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-black via-indigo-900 to-black p-4 text-white">
       {/* Main Content */}
       <div className="mt-20 flex w-full max-w-5xl items-center justify-between">
@@ -72,6 +76,7 @@ export default async function Landing() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

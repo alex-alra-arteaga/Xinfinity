@@ -3,7 +3,7 @@ import { LucideProps, MessageSquare, User } from "lucide-react";
 export const Icons = {
   user: User,
   logo: (props: LucideProps) => (
-    <img src="/newLogo.png" className="w-[80px]" alt="app logo" />
+    <img src="/newLogo.png" className="w-[60px] rounded-lg" alt="app logo" />
   ),
 
   

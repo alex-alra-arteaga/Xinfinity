@@ -23,7 +23,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <RainbowKitProvider>
-            <Navbar />
             {children}
             <Footer />
             <Toaster />

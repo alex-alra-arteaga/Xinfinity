@@ -6,8 +6,8 @@ import { Modifiers } from "../libraries/Modifiers.sol";
 import {IDiamond} from "../interfaces/IDiamond.sol";
 import {Errors} from "../libraries/Errors.sol";
 import {Types} from "../libraries/Types.sol";
-import { IERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-import { IUniswapV3Pool } from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+import { IERC20 } from "../interfaces/IERC20.sol";
+import { IUniswapV3Pool } from "../interfaces/IUniswapV3Pool.sol";
 
 contract LiquidatorFacet is Modifiers {
 

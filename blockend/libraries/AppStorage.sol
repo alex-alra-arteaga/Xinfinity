@@ -5,13 +5,13 @@ import { Types } from "./Types.sol";
 
 struct AppStorage {
     address admin;
-    address xinifinityFactory;
-    address xinifinityManager;
-    address xinifinityNFTDescriptor;
+    address xinfinityFactory;
+    address xinfinityManager;
+    address xinfinityNFTDescriptor;
     address nonfungiblePositionManager;
     /// @dev deposits[tokenId] => Deposit
-    mapping(uint256 => Types.Deposit)  depositsXinfinity;
-    mapping(uint256 => Types.Deposit)  depositXswap
+    mapping(uint256 => Types.Deposit) depositsXinfinity;
+    mapping(uint256 => Types.Deposit) depositXswap
 ;
 
     mapping(uint24 => int24) feeAmountTickSpacing;

@@ -1,18 +1,15 @@
 // SPDX-License-Identifier: MIT
 
-import {Modifiers} from "../libraries/Modifiers.sol";
-import {Constants} from "../libraries/Constants.sol";
-
 pragma solidity 0.8.19;
 
-
-import {IUniswapV3Pool} from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
-import {TickMath} from "../lib/v3-core/contracts/libraries/TickMath.sol";
-import {IERC721Receiver} from "../lib/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol";
-import {ISwapRouter} from "../lib/v3-periphery/contracts/interfaces/ISwapRouter.sol";
-import {INonfungiblePositionManager} from "../lib/v3-periphery/contracts/interfaces/INonfungiblePositionManager.sol";
-import {TransferHelper} from "../lib/v3-periphery/contracts/libraries/TransferHelper.sol";
-import {LiquidityManagement} from "../lib/v3-periphery/contracts/base/LiquidityManagement.sol";
+import {Modifiers} from "../libraries/Modifiers.sol";
+import {Constants} from "../libraries/Constants.sol";
+import {IUniswapV3Pool } from "../interfaces/IUniswapV3Pool.sol";
+import {TickMath} from "../libraries/TickMath.sol";
+import {IERC721Receiver} from "../interfaces/IERC721Receiver.sol";
+import {ISwapRouter} from "../interfaces/ISwapRouter.sol";
+import {INonfungiblePositionManager} from "../interfaces/INonfungiblePositionManager.sol";
+import {TransferHelper} from "../libraries/TransferHelper.sol";
 import {Constants} from "../libraries/Constants.sol";
 
 // use this contract to manage our own pool
@@ -29,7 +26,7 @@ contract PoolController is Modifiers, IERC721Receiver {
     }
 
     function _createDeposit(address owner, uint256 tokenId) internal {
-        (,, address token0, address token1,,,, uint128 liquidity,,,,) = s.xinifinityManager.positions(tokenId);
+        (,, address token0, address token1,,,, uint128 liquidity,,,,) = s.xinfinityManager.positions(tokenId);
 
         // set the owner and data for position
         // operator is msg.sender
@@ -37,7 +34,7 @@ contract PoolController is Modifiers, IERC721Receiver {
         s.depositsXinfinity[tokenId] = Deposit({owner: owner, liquidity: liquidity, token0: token0, token1: token1 });
     }
 
-    function mintNewPos(uint256 amountOToMint, uint256 amount1ToMint, uint256 tickDesired, uint256 premium, uint256 poolFee)
+    function mintNewPos(uint256 amountOToMint, uint256 amount1ToMint, uint256 tickDesired, uint256 poolFee)
         external
         returns (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)
     {
@@ -60,8 +57,8 @@ contract PoolController is Modifiers, IERC721Receiver {
         // 4. Pool Controller gets ownership of LP NFT of xSwap for when the OptionBuyer buys the option
 
 
-        TransferHelper.safeApprove(token0, address(s.xinifinityManager), amount0ToMint + premium);
-        TransferHelper.safeApprove(token1, address(s.xinifinityManager), amount1ToMint + premium);
+        TransferHelper.safeApprove(token0, address(s.xinfinityManager), amount0ToMint);
+        TransferHelper.safeApprove(token1, address(s.xinfinityManager), amount1ToMint);
 
 
         INonfungiblePositionManager.MintParams memory params =
@@ -69,8 +66,8 @@ contract PoolController is Modifiers, IERC721Receiver {
                 token0: token0,
                 token1: token1,
                 fee: poolFee,
-                tickLower: tickDesired + (Constants.LIQUIDITY_WIDTH * tickDesired / 1000) // 10 % of the tickDesired
-                tickUpper: tickDesired - (Constants.LIQUIDITY_WIDTH * tickDesired / 1000) // 10 % of the tickDesired
+                tickLower: tickDesired - (Constants.LIQUIDITY_WIDTH * tickDesired / 1000), // 10 % of the tickDesired
+                tickUpper: tickDesired + (Constants.LIQUIDITY_WIDTH * tickDesired / 1000), // 10 % of the tickDesired
                 amount0Desired: amount0ToMint,
                 amount1Desired: amount1ToMint,
                 amount0Min: 0, // see this
@@ -80,19 +77,19 @@ contract PoolController is Modifiers, IERC721Receiver {
             });
 
         // Note that the pool defined by DAI/USDC and fee tier 0.3% must already be created and initialized in order to mint
-        (tokenId, liquidity, amount0, amount1) = s.xinifinityManager.mint(params);
+        (tokenId, liquidity, amount0, amount1) = s.xinfinityManager.mint(params);
           // Create a deposit for the user
         _createDeposit(msg.sender, tokenId);
 
         // Remove allowance and refund in both assets.
         if (amount0 < amount0ToMint) {
-            TransferHelper.safeApprove(DAI, address(s.xinifinityManager), 0);
+            TransferHelper.safeApprove(DAI, address(s.xinfinityManager), 0);
             uint256 refund0 = amount0ToMint - amount0;
             TransferHelper.safeTransfer(DAI, msg.sender, refund0);
         }
 
         if (amount1 < amount1ToMint) {
-            TransferHelper.safeApprove(USDC, address(s.xinifinityManager), 0);
+            TransferHelper.safeApprove(USDC, address(s.xinfinityManager), 0);
             uint256 refund1 = amount1ToMint - amount1;
             TransferHelper.safeTransfer(USDC, msg.sender, refund1);
         }
@@ -101,7 +98,7 @@ contract PoolController is Modifiers, IERC721Receiver {
         function collectAllFees(uint256 tokenId) external returns (uint256 amount0, uint256 amount1) {
         // Caller must own the ERC721 position
         // Call to safeTransfer will trigger `onERC721Received` which must return the selector else transfer will fail
-        s.xinifinityManager.safeTransferFrom(msg.sender, address(this), tokenId);
+        s.xinfinityManager.safeTransferFrom(msg.sender, address(this), tokenId);
 
         // set amount0Max and amount1Max to uint256.max to collect all fees
         // alternatively can set recipient to msg.sender and avoid another transaction in `sendToOwner`
@@ -113,7 +110,7 @@ contract PoolController is Modifiers, IERC721Receiver {
                 amount1Max: type(uint128).max
             });
 
-        (amount0, amount1) = s.xinifinityManager.collect(params);
+        (amount0, amount1) = s.xinfinityManager.collect(params);
        _sendToOwner(tokenId, amount0, amount1);
 
     }
@@ -123,7 +120,7 @@ contract PoolController is Modifiers, IERC721Receiver {
         // must be the owner of the NFT
         require(msg.sender == s.depositsXinfinity[tokenId].owner, 'Not the owner');
         // transfer ownership to original owner
-        s.xinifinityManager.safeTransferFrom(address(this), msg.sender, tokenId);
+        s.xinfinityManager.safeTransferFrom(address(this), msg.sender, tokenId);
         //remove information related to tokenId
         delete s.depositsXinfinity[tokenId];
     }
@@ -143,11 +140,11 @@ contract PoolController is Modifiers, IERC721Receiver {
 
         // swap the token to add the balance ot user operation
         if (outToken == token0) {
-            (int256 amount0,) = pool.swap(msg.sender, false, amount1, 0, "");
-            TransferHelper.safeTransfer(token0, address(this), amount0);
+            (int256 _amount0,) = pool.swap(msg.sender, false, amount1, 0, "");
+            TransferHelper.safeTransfer(token0, address(this), _amount0);
         } else {
-            (, int256 amount1) = pool.swap(msg.sender, true, amount0, 0, "");
-            TransferHelper.safeTransfer(token1, address(this), amount1);
+            (, int256 _amount1) = pool.swap(msg.sender, true, amount0, 0, "");
+            TransferHelper.safeTransfer(token1, address(this), _amount1);
         }
     }
 
@@ -174,7 +171,7 @@ contract PoolController is Modifiers, IERC721Receiver {
             });
         
 
-        (uint256 amount0, uint256 amount1) = s.xinifinityManager.decreaseLiquidity(params);
+        (uint256 amount0, uint256 amount1) = s.xinfinityManager.decreaseLiquidity(params);
 
         totalAmount0 += amount0;
         totalAmount1 += amount1;
@@ -185,10 +182,10 @@ contract PoolController is Modifiers, IERC721Receiver {
             increaseLiquidityCurrentRange(tokenId, 0, totalAmount1);
             break;
         }
-        if (!isZeroToken && totalAmount1 => amount) {
+        if (!isZeroToken && totalAmount1 >= amount) {
             // money back to pool
-            increaseLiquidityCurrentRange(tokenId, totalAmount0,0 );
-            break
+            increaseLiquidityCurrentRange(tokenId, totalAmount0, 0);
+            break;
         }
     }
    
@@ -213,7 +210,7 @@ contract PoolController is Modifiers, IERC721Receiver {
                 deadline: block.timestamp
             });
 
-        (amount0, amount1) = s.xinifinityManager.decreaseLiquidity(params);
+        (amount0, amount1) = s.xinfinityManager.decreaseLiquidity(params);
 
         //send liquidity back to owner
         _sendToOwner(tokenId, amount0, amount1);
@@ -254,8 +251,8 @@ contract PoolController is Modifiers, IERC721Receiver {
         TransferHelper.safeTransferFrom(s.depositsXinfinity[tokenId].token0, msg.sender, address(this), amountAdd0);
         TransferHelper.safeTransferFrom(s.depositsXinfinity[tokenId].token1, msg.sender, address(this), amountAdd1);
 
-        TransferHelper.safeApprove(s.depositsXinfinity[tokenId].token0, address(s.xinifinityManager), amountAdd0);
-        TransferHelper.safeApprove(s.depositsXinfinity[tokenId].token1, address(s.xinifinityManager), amountAdd1);
+        TransferHelper.safeApprove(s.depositsXinfinity[tokenId].token0, address(s.xinfinityManager), amountAdd0);
+        TransferHelper.safeApprove(s.depositsXinfinity[tokenId].token1, address(s.xinfinityManager), amountAdd1);
 
         INonfungiblePositionManager.IncreaseLiquidityParams memory params = INonfungiblePositionManager.IncreaseLiquidityParams({
             tokenId: tokenId,
@@ -266,7 +263,7 @@ contract PoolController is Modifiers, IERC721Receiver {
             deadline: block.timestamp
         });
 
-        (liquidity, amount0, amount1) = s.xinifinityManager.increaseLiquidity(params);
+        (liquidity, amount0, amount1) = s.xinfinityManager.increaseLiquidity(params);
 
     }
 }

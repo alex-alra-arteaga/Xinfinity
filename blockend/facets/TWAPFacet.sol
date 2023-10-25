@@ -35,7 +35,7 @@ contract TWAPFacet is Modifiers{
     {
         (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
         address pool = isXSwapPool ? Constants.XSWAP_V3_FACTORY.getPool(token0, token1, poolFee) : s.poolRegistry[token0][token1][poolFee];
-        if (pool == address(0)) revert Errors.NotExistingPool();
+        if (pool == address(0)) revert Errors.NotExistingPool(token0, token1, poolFee);
 
         uint32[] memory secondsAgos = new uint32[](2);
         secondsAgos[0] = secondsAgo;

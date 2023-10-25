@@ -6,12 +6,12 @@ import {LibDiamond} from "./libraries/LibDiamond.sol";
 import {Constants} from "./libraries/Constants.sol";
 import {IDiamondLoupe} from "./interfaces/IDiamondLoupe.sol";
 import {IDiamondCut} from "./interfaces/IDiamondCut.sol";
-import {IERC165} from "./lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol";
+import {IERC165} from "./interfaces/IERC165.sol";
 import {AppStorage} from "./libraries/AppStorage.sol";
 import {Errors} from "./libraries/Errors.sol";
-import {UniswapV3Pool} from "./lib/v3-core/contracts/UniswapV3Pool.sol";
-import {NonfungiblePositionManager} from "./lib/v3-periphery/contracts/NonfungiblePositionManager"
-import {NonfungibleTokenPositionDescriptor} from"./lib/v3-periphery/contracts/NonfungibleTokenPositionDescriptor"
+// import {UniswapV3Pool} from "./lib/v3-core/contracts/UniswapV3Pool.sol";
+// import {NonfungiblePositionManager} from "./lib/v3-periphery/contracts/NonfungiblePositionManager"
+// import {NonfungibleTokenPositionDescriptor} from"./lib/v3-periphery/contracts/NonfungibleTokenPositionDescriptor"
 
 // import {ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
@@ -21,8 +21,7 @@ import {NonfungibleTokenPositionDescriptor} from"./lib/v3-periphery/contracts/No
 contract Diamond {
     AppStorage internal s;
 
-    constructor(address _protocolOwner, address _diamondCutFacet)
-        payable
+    constructor(address _protocolOwner, address _diamondCutFacet, address _xinfinityFactory, address _xinfinityNFTDescriptor, address _xinfinityManager)
     {
         LibDiamond.setProtocolOwner(_protocolOwner);
         s.admin = _protocolOwner;
@@ -50,10 +49,12 @@ contract Diamond {
         s.feeAmountTickSpacing[10000] = 200;
 
         // here deploy factory -> Manager -> deascritpion
-        s.xinifinityFactory = new UniswapV3Pool();
-        s.xinifinityNFTDescriptor = new NonfungibleTokenPositionDescriptor(Constants.WXDC, "");
-        s.xinifinityManager = new NonfungiblePositionManager(s.xinifinityFactory, Constants.WXDC,  s.xinifinityNFTDescriptor);
-
+        // s.xinfinityFactory = new UniswapV3Pool();
+        // s.xinfinityNFTDescriptor = new NonfungibleTokenPositionDescriptor(Constants.WXDC, "");
+        // s.xinfinityManager = new NonfungiblePositionManager(s.xinfinityFactory, Constants.WXDC,  s.xinfinityNFTDescriptor);
+        s.xinfinityFactory = _xinfinityFactory;
+        s.xinfinityNFTDescriptor = _xinfinityNFTDescriptor;
+        s.xinfinityManager = _xinfinityManager;
     }
 
     // Find facet for function that is called and execute the

@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import { Pools } from "../_components/pools";
 
 export default function Home() {

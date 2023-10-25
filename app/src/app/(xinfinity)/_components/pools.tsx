@@ -37,6 +37,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Icons } from "@/components/Icons";
+import { toast } from "@/hooks/use-toast";
 
 const data: Payment[] = [
   {
@@ -120,7 +121,7 @@ const poolData: Pool[] = [
     volume7D: 0,
   },
   {
-    id: "7",
+    id: "7", // id to be address
     pool: "WXDC/xUSDT",
     TVL: 62371,
     volume24h: 34.23,
@@ -265,12 +266,15 @@ export const columns: ColumnDef<Pool>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => {navigator.clipboard.writeText(payment.id), toast({
+                title: "success",
+                description: "Adress copied to clipboard",
+              });}}
             >
               Copy pool Address
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Trade This Pool</DropdownMenuItem>
+            <DropdownMenuItem >Trade This Pool</DropdownMenuItem>
             {/* <DropdownMenuItem>View payment details</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -349,7 +353,7 @@ export function Pools() {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow onClick={() => console.log("clicked in ")} key={headerGroup.id}>
+              <TableRow  key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead className="text-white" key={header.id}>
@@ -369,6 +373,7 @@ export function Pools() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                onClick={() => console.log(`clicked in ${row.id}` )}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >

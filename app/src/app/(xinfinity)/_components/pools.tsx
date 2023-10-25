@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import {
   ColumnDef,
@@ -224,7 +225,6 @@ export const columns: ColumnDef<Pool>[] = [
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("volume24h"));
 
-      // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -266,15 +266,18 @@ export const columns: ColumnDef<Pool>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => {navigator.clipboard.writeText(payment.id), toast({
-                title: "success",
-                description: "Adress copied to clipboard",
-              });}}
+              onClick={() => {
+                navigator.clipboard.writeText(payment.id),
+                  toast({
+                    title: "success",
+                    description: "Adress copied to clipboard",
+                  });
+              }}
             >
               Copy pool Address
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem >Trade This Pool</DropdownMenuItem>
+            <DropdownMenuItem>Trade This Pool</DropdownMenuItem>
             {/* <DropdownMenuItem>View payment details</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -291,6 +294,8 @@ export function Pools() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+
 
   const table = useReactTable({
     data: poolData,
@@ -353,7 +358,7 @@ export function Pools() {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow  key={headerGroup.id}>
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead className="text-white" key={header.id}>
@@ -373,7 +378,9 @@ export function Pools() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                onClick={() => console.log(`clicked in ${row.id}` )}
+                  onClick={() => {
+                    window.location.href = `/app/${row.id}`;
+                  }}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >

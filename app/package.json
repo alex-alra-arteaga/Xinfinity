@@ -11,6 +11,11 @@
     "verify-build": "echo 'Build verification successful'"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@next-auth/prisma-adapter": "^1.0.6",
     "@prisma/client": "^5.1.1",
     "@radix-ui/react-alert-dialog": "^1.0.4",
@@ -32,6 +37,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "ethers": "^5.7.2",
+    "fontawesome": "^5.6.3",
     "install": "^0.13.0",
     "lucide-react": "^0.268.0",
     "next": "13.4.19",

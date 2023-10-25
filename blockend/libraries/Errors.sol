@@ -10,8 +10,12 @@ library Errors {
     error IncorrectStrike(uint256 spotPrice, uint256 strike);
     error InsufficientBalance(uint256 amount, uint256 balance);
     error NotSupportedPool();
-    error IncorrectLeverage(uint256 leverage);
+    error IncorrectLeverage(uint24 leverage);
     error NotIncludedInPool(address token, address token0, address token1);
     error OnlyDelegateCalls(address caller, address delegate);
+    error NotAvaibleFuture(address pool, address owner, uint256 contractId);
     error NotAvailableOption(address pool, address owner, uint256 contractId);
+    error CollateralBelowMaintenanceMargin(uint256 collateral, uint256 maintenanceMargin);
+    error NoProfit();
+    error CannotBuyFromYourself(address owner);
 }

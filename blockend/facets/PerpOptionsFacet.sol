@@ -6,7 +6,8 @@ import { Modifiers } from "../libraries/Modifiers.sol";
 import { Errors } from "../libraries/Errors.sol";
 import { Types } from "../libraries/Types.sol";
 import { TWAPOracle } from "../libraries/TWAPOracle.sol";
-import { IERC20 } from "../@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import { IUniswapV3Pool } from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
 contract PerpOptionsFacet is Modifiers {
     using TWAPOracle for address;
@@ -19,11 +20,9 @@ contract PerpOptionsFacet is Modifiers {
      * @param token Token you are using to buy the option
      */
     function buyOptionContract(address pool, address owner, uint256 contractId) external {
-        Types.PerpFuture memory optionToBuy = s.optionRecord[pool][owner][contractId];
+        if (msg.sender == owner) revert Errors.CannotBuyFromYourself(owner);
+        Types.PerpOption memory optionToBuy = s.optionRecord[pool][owner][contractId];
         if (optionToBuy.status != Types.OrderStatus.MINTED) revert Errors.NotAvailableOption(pool, owner, contractId);
-
-        uint256 userBalance = IERC20(token).balanceOf(msg.sender); // no reentrancy possible since code is at the top
-        if (optionToBuy.collateralAmount > userBalance) revert Errors.InsufficientBalance(optionToBuy.collateralAmount, userBalance);
 
         IERC20(optionToBuy.collateralToken).transferFrom(msg.sender, address(this), optionToBuy.premium);
         IERC20(optionToBuy.collateralToken).transferFrom(msg.sender, owner, optionToBuy.collateralAmount + optionToBuy.fundingRatePayment);
@@ -42,14 +41,11 @@ contract PerpOptionsFacet is Modifiers {
      * @param pool Pool you are minting the option from
      * @param leverage Amount of leverage you want to use in basis points (10000 = 100%)
      */
-    function sellOptionContract(uint256 amount, uint256 strike, address token, address pool, uint24 poolFee, uint8 leverage, Types.OptionType optionType) external onlyDiamond returns (uint256 recordId) {
+    function sellOptionContract(uint256 amount, uint256 strike, address token, address pool, uint24 poolFee, uint24 leverage, Types.OptionType optionType) external onlyDiamond returns (uint256 recordId) {
         // CHECKS
-        address token0 = pool.token0();
-        address token1 = pool.token1();
+        address token0 = IUniswapV3Pool(pool).token0();
+        address token1 = IUniswapV3Pool(pool).token1();
         if (s.poolRegistry[token0][token1][poolFee] != pool) revert Errors.NotSupportedPool();
-
-        uint256 userBalance = IERC20(token).balanceOf(msg.sender); // no reentrancy possible since code is at the top
-        if (amount > userBalance) revert Errors.InsufficientBalance(amount, userBalance);
 
         uint256 amountCost = getPoolTWAP(token0, token1, poolFee, amount, true);
         uint256 price = amountCost / amount;
@@ -71,7 +67,7 @@ contract PerpOptionsFacet is Modifiers {
         int256 fundingRate = ((priceRatio * amount) / Constants.BASIS_POINTS) - amount;
         int256 fundingRatePayment = optionType == Types.OptionType.CALL ? fundingRate : -fundingRate;
         /// @dev due to onlyDiamond modifier, address(this) is the Diamond contract, so PoolController will be able to move the tokens
-        IERC20(token).transferFrom(msg.sender, address(this), amount + premium + fundingRatePayment);
+        IERC20(token).transferFrom(msg.sender, address(this), uint256(int256(amount) + int256(premium) + fundingRatePayment));
 
         // call PoolController to move liquidity
         IDiamond(address(this)).mintNewPos(token,);
@@ -82,6 +78,7 @@ contract PerpOptionsFacet is Modifiers {
             recordId = s.numOfRecordOptions[pool][msg.sender]++;
         }
         Types.PerpOption storage option = s.optionRecord[pool][msg.sender][recordId];
+        if (option.status != Types.OrderStatus.UNINITIALIZED) revert Errors.NotAvailableOption(pool, msg.sender, recordId);
         option.optionType = optionType;
         option.xinfinityPool = pool;
         option.initialPrice = price;
@@ -90,7 +87,6 @@ contract PerpOptionsFacet is Modifiers {
         option.collateralAmount = amount;
         option.fundingRatePayment = fundingRatePayment;
         option.borrowAmount = (amount * leverage) / Constants.BASIS_POINTS;
-        option.maintenanceMargin = 100 * Constants.PRECISION / (leverage / (Constants.BASIS_POINTS * Constants.PRECISION));
         option.premium = premium;
         option.status = Types.OrderStatus.MINTED;
     }
@@ -105,20 +101,23 @@ contract PerpOptionsFacet is Modifiers {
         Types.PerpOption memory optionToExercise = s.optionRecord[pool][owner][contractId];
         if (optionToExercise.status != Types.OrderStatus.MINTED && optionToExercise.status != Types.OrderStatus.BOUGHT) revert Errors.NotAvailableOption(pool, owner, contractId);
 
-        // @follow-up Prohibit exercising if is below maintenance margin
-
-        // in basis points
+        // (actual price * initialPrice) / initialPrice, result in basis points
         int256 priceDiffInPercentage = ((getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), optionToExercise.collateralAmount, true) / optionToExercise.collateralAmount) * optionToExercise.initialPrice) / optionToExercise.initialPrice;
-        
-        int256 profitInPercentage = optionToExercise.optionType == Types.OptionType.CALL ? priceDiff : -priceDiff;
+        int256 profitInPercentage = optionToExercise.optionType == Types.OptionType.CALL ? priceDiffInPercentage : -priceDiffInPercentage;
+
         // (5% * 10_000) * (100 * 10_000) / 10_000 = 500% in basis points
         int256 realProfitPercentage = profitInPercentage * optionToExercise.leverage / Constants.BASIS_POINTS;
         // 100 * (500 * 10_000 / 100) / 10_000 = 500 in tokens
         int256 netProfit = (optionToExercise.collateralAmount * (realProfitPercentage / 100)) / Constants.BASIS_POINTS;
 
-        // @follow-up Take tokens from the pool to pay the profit
-
-        IERC20(optionToExercise.collateralToken).transfer(msg.sender, netProfit);
+        bool inTheMoney = netProfit > 0;
+        if (inTheMoney) {
+            // @follow-up Take tokens from the pool to pay the profit
+            IERC20(optionToExercise.collateralToken).transfer(msg.sender, uint256(netProfit));
+        } else { // OTM (out of the money)
+            // because the option is OTM, the collateral is returned to the owner
+            IERC20(optionToExercise.collateralToken).transfer(msg.sender, uint256(optionToExercise.collateralAmount));
+        }
 
         delete s.optionRecord[pool][owner][contractId];
     }

@@ -7,7 +7,7 @@ import { Modifiers } from "../libraries/Modifiers.sol";
 contract LeverageFacet is Modifiers {
     
     function increaseCollateral() external {
-
+        
     }
 
     function decreaseCollateral() external {

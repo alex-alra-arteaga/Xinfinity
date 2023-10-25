@@ -1,0 +1,848 @@
+{
+  "abi": [],
+  "bytecode": {
+    "object": "0x",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "linkReferences": {}
+  },
+  "ast": {
+    "absolutePath": "libraries/AppStorage.sol",
+    "id": 74212,
+    "exportedSymbols": {
+      "AppStorage": [
+        74211
+      ],
+      "Types": [
+        76253
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "40:992:93",
+    "nodes": [
+      {
+        "id": 74145,
+        "nodeType": "PragmaDirective",
+        "src": "40:23:93",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "0.8",
+          ".19"
+        ]
+      },
+      {
+        "id": 74147,
+        "nodeType": "ImportDirective",
+        "src": "67:36:93",
+        "nodes": [],
+        "absolutePath": "libraries/Types.sol",
+        "file": "./Types.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 74212,
+        "sourceUnit": 76254,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 74146,
+              "name": "Types",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 76253,
+              "src": "76:5:93",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 74211,
+        "nodeType": "StructDefinition",
+        "src": "107:923:93",
+        "nodes": [],
+        "canonicalName": "AppStorage",
+        "members": [
+          {
+            "constant": false,
+            "id": 74149,
+            "mutability": "mutable",
+            "name": "admin",
+            "nameLocation": "140:5:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "132:13:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 74148,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "132:7:93",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74151,
+            "mutability": "mutable",
+            "name": "xinfinityFactory",
+            "nameLocation": "160:16:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "152:24:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 74150,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "152:7:93",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74153,
+            "mutability": "mutable",
+            "name": "xinfinityManager",
+            "nameLocation": "191:16:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "183:24:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 74152,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "183:7:93",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74155,
+            "mutability": "mutable",
+            "name": "xinfinityNFTDescriptor",
+            "nameLocation": "222:22:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "214:30:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 74154,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "214:7:93",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74157,
+            "mutability": "mutable",
+            "name": "nonfungiblePositionManager",
+            "nameLocation": "259:26:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "251:34:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 74156,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "251:7:93",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74163,
+            "mutability": "mutable",
+            "name": "depositsXinfinity",
+            "nameLocation": "369:17:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "335:51:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Deposit_$76204_storage_$",
+              "typeString": "mapping(uint256 => struct Types.Deposit)"
+            },
+            "typeName": {
+              "id": 74162,
+              "keyName": "",
+              "keyNameLocation": "-1:-1:-1",
+              "keyType": {
+                "id": 74159,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "343:7:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "335:33:93",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Deposit_$76204_storage_$",
+                "typeString": "mapping(uint256 => struct Types.Deposit)"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 74161,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 74160,
+                  "name": "Types.Deposit",
+                  "nameLocations": [
+                    "354:5:93",
+                    "360:7:93"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 76204,
+                  "src": "354:13:93"
+                },
+                "referencedDeclaration": 76204,
+                "src": "354:13:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Deposit_$76204_storage_ptr",
+                  "typeString": "struct Types.Deposit"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74168,
+            "mutability": "mutable",
+            "name": "depositXswap",
+            "nameLocation": "427:12:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "393:46:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Deposit_$76204_storage_$",
+              "typeString": "mapping(uint256 => struct Types.Deposit)"
+            },
+            "typeName": {
+              "id": 74167,
+              "keyName": "",
+              "keyNameLocation": "-1:-1:-1",
+              "keyType": {
+                "id": 74164,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "401:7:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "393:33:93",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Deposit_$76204_storage_$",
+                "typeString": "mapping(uint256 => struct Types.Deposit)"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 74166,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 74165,
+                  "name": "Types.Deposit",
+                  "nameLocations": [
+                    "412:5:93",
+                    "418:7:93"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 76204,
+                  "src": "412:13:93"
+                },
+                "referencedDeclaration": 76204,
+                "src": "412:13:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Deposit_$76204_storage_ptr",
+                  "typeString": "struct Types.Deposit"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74172,
+            "mutability": "mutable",
+            "name": "feeAmountTickSpacing",
+            "nameLocation": "475:20:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "450:45:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint24_$_t_int24_$",
+              "typeString": "mapping(uint24 => int24)"
+            },
+            "typeName": {
+              "id": 74171,
+              "keyName": "",
+              "keyNameLocation": "-1:-1:-1",
+              "keyType": {
+                "id": 74169,
+                "name": "uint24",
+                "nodeType": "ElementaryTypeName",
+                "src": "458:6:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint24",
+                  "typeString": "uint24"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "450:24:93",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint24_$_t_int24_$",
+                "typeString": "mapping(uint24 => int24)"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 74170,
+                "name": "int24",
+                "nodeType": "ElementaryTypeName",
+                "src": "468:5:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_int24",
+                  "typeString": "int24"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74180,
+            "mutability": "mutable",
+            "name": "poolRegistry",
+            "nameLocation": "596:12:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "502:106:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_address_$_$_$",
+              "typeString": "mapping(address => mapping(address => mapping(uint24 => address)))"
+            },
+            "typeName": {
+              "id": 74179,
+              "keyName": "token0",
+              "keyNameLocation": "518:6:93",
+              "keyType": {
+                "id": 74173,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "510:7:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "502:93:93",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_address_$_$_$",
+                "typeString": "mapping(address => mapping(address => mapping(uint24 => address)))"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 74178,
+                "keyName": "token1",
+                "keyNameLocation": "544:6:93",
+                "keyType": {
+                  "id": 74174,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "536:7:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "nodeType": "Mapping",
+                "src": "528:66:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_address_$_$",
+                  "typeString": "mapping(address => mapping(uint24 => address))"
+                },
+                "valueName": "",
+                "valueNameLocation": "-1:-1:-1",
+                "valueType": {
+                  "id": 74177,
+                  "keyName": "poolFee",
+                  "keyNameLocation": "569:7:93",
+                  "keyType": {
+                    "id": 74175,
+                    "name": "uint24",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "562:6:93",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint24",
+                      "typeString": "uint24"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "554:39:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint24_$_t_address_$",
+                    "typeString": "mapping(uint24 => address)"
+                  },
+                  "valueName": "pool",
+                  "valueNameLocation": "588:4:93",
+                  "valueType": {
+                    "id": 74176,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "580:7:93",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  }
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74186,
+            "mutability": "mutable",
+            "name": "numOfRecordFutures",
+            "nameLocation": "685:18:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "615:88:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_uint24_$_$",
+              "typeString": "mapping(address => mapping(address => uint24))"
+            },
+            "typeName": {
+              "id": 74185,
+              "keyName": "pool",
+              "keyNameLocation": "631:4:93",
+              "keyType": {
+                "id": 74181,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "623:7:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "615:69:93",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_uint24_$_$",
+                "typeString": "mapping(address => mapping(address => uint24))"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 74184,
+                "keyName": "user",
+                "keyNameLocation": "655:4:93",
+                "keyType": {
+                  "id": 74182,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "647:7:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "nodeType": "Mapping",
+                "src": "639:44:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_uint24_$",
+                  "typeString": "mapping(address => uint24)"
+                },
+                "valueName": "numOfRecords",
+                "valueNameLocation": "670:12:93",
+                "valueType": {
+                  "id": 74183,
+                  "name": "uint24",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "663:6:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint24",
+                    "typeString": "uint24"
+                  }
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74192,
+            "mutability": "mutable",
+            "name": "numOfRecordOptions",
+            "nameLocation": "780:18:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "710:88:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_uint24_$_$",
+              "typeString": "mapping(address => mapping(address => uint24))"
+            },
+            "typeName": {
+              "id": 74191,
+              "keyName": "pool",
+              "keyNameLocation": "726:4:93",
+              "keyType": {
+                "id": 74187,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "718:7:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "710:69:93",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_uint24_$_$",
+                "typeString": "mapping(address => mapping(address => uint24))"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 74190,
+                "keyName": "user",
+                "keyNameLocation": "750:4:93",
+                "keyType": {
+                  "id": 74188,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "742:7:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "nodeType": "Mapping",
+                "src": "734:44:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_uint24_$",
+                  "typeString": "mapping(address => uint24)"
+                },
+                "valueName": "numOfRecords",
+                "valueNameLocation": "765:12:93",
+                "valueType": {
+                  "id": 74189,
+                  "name": "uint24",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "758:6:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint24",
+                    "typeString": "uint24"
+                  }
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74201,
+            "mutability": "mutable",
+            "name": "optionRecord",
+            "nameLocation": "900:12:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "805:107:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_struct$_PerpOption_$76252_storage_$_$_$",
+              "typeString": "mapping(address => mapping(address => mapping(uint24 => struct Types.PerpOption)))"
+            },
+            "typeName": {
+              "id": 74200,
+              "keyName": "pool",
+              "keyNameLocation": "821:4:93",
+              "keyType": {
+                "id": 74193,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "813:7:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "805:94:93",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_struct$_PerpOption_$76252_storage_$_$_$",
+                "typeString": "mapping(address => mapping(address => mapping(uint24 => struct Types.PerpOption)))"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 74199,
+                "keyName": "user",
+                "keyNameLocation": "845:4:93",
+                "keyType": {
+                  "id": 74194,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "837:7:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "nodeType": "Mapping",
+                "src": "829:69:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_struct$_PerpOption_$76252_storage_$_$",
+                  "typeString": "mapping(address => mapping(uint24 => struct Types.PerpOption))"
+                },
+                "valueName": "",
+                "valueNameLocation": "-1:-1:-1",
+                "valueType": {
+                  "id": 74198,
+                  "keyName": "recordId",
+                  "keyNameLocation": "868:8:93",
+                  "keyType": {
+                    "id": 74195,
+                    "name": "uint24",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "861:6:93",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint24",
+                      "typeString": "uint24"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "853:44:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint24_$_t_struct$_PerpOption_$76252_storage_$",
+                    "typeString": "mapping(uint24 => struct Types.PerpOption)"
+                  },
+                  "valueName": "",
+                  "valueNameLocation": "-1:-1:-1",
+                  "valueType": {
+                    "id": 74197,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 74196,
+                      "name": "Types.PerpOption",
+                      "nameLocations": [
+                        "880:5:93",
+                        "886:10:93"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 76252,
+                      "src": "880:16:93"
+                    },
+                    "referencedDeclaration": 76252,
+                    "src": "880:16:93",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_PerpOption_$76252_storage_ptr",
+                      "typeString": "struct Types.PerpOption"
+                    }
+                  }
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 74210,
+            "mutability": "mutable",
+            "name": "futureRecord",
+            "nameLocation": "1014:12:93",
+            "nodeType": "VariableDeclaration",
+            "scope": 74211,
+            "src": "919:107:93",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_struct$_PerpFuture_$76227_storage_$_$_$",
+              "typeString": "mapping(address => mapping(address => mapping(uint24 => struct Types.PerpFuture)))"
+            },
+            "typeName": {
+              "id": 74209,
+              "keyName": "pool",
+              "keyNameLocation": "935:4:93",
+              "keyType": {
+                "id": 74202,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "927:7:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "919:94:93",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_struct$_PerpFuture_$76227_storage_$_$_$",
+                "typeString": "mapping(address => mapping(address => mapping(uint24 => struct Types.PerpFuture)))"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 74208,
+                "keyName": "user",
+                "keyNameLocation": "959:4:93",
+                "keyType": {
+                  "id": 74203,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "951:7:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "nodeType": "Mapping",
+                "src": "943:69:93",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint24_$_t_struct$_PerpFuture_$76227_storage_$_$",
+                  "typeString": "mapping(address => mapping(uint24 => struct Types.PerpFuture))"
+                },
+                "valueName": "",
+                "valueNameLocation": "-1:-1:-1",
+                "valueType": {
+                  "id": 74207,
+                  "keyName": "recordId",
+                  "keyNameLocation": "982:8:93",
+                  "keyType": {
+                    "id": 74204,
+                    "name": "uint24",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "975:6:93",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint24",
+                      "typeString": "uint24"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "967:44:93",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint24_$_t_struct$_PerpFuture_$76227_storage_$",
+                    "typeString": "mapping(uint24 => struct Types.PerpFuture)"
+                  },
+                  "valueName": "",
+                  "valueNameLocation": "-1:-1:-1",
+                  "valueType": {
+                    "id": 74206,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 74205,
+                      "name": "Types.PerpFuture",
+                      "nameLocations": [
+                        "994:5:93",
+                        "1000:10:93"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 76227,
+                      "src": "994:16:93"
+                    },
+                    "referencedDeclaration": 76227,
+                    "src": "994:16:93",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_PerpFuture_$76227_storage_ptr",
+                      "typeString": "struct Types.PerpFuture"
+                    }
+                  }
+                }
+              }
+            },
+            "visibility": "internal"
+          }
+        ],
+        "name": "AppStorage",
+        "nameLocation": "114:10:93",
+        "scope": 74212,
+        "visibility": "public"
+      }
+    ],
+    "license": "UNLICENSED"
+  },
+  "id": 93
+}

@@ -9,6 +9,8 @@ import {ISwapRouter} from "../interfaces/ISwapRouter.sol";
 import {INonfungiblePositionManager} from "../interfaces/INonfungiblePositionManager.sol";
 import {TransferHelper} from "../libraries/TransferHelper.sol";
 import {Constants} from "../libraries/Constants.sol";
+import { Modifiers } from "../libraries/Modifiers.sol";
+import {Types} from "../libraries/Types.sol";
 
 // POOL CONTROLLOR OF UNISWAP interacting with xSwap 
 contract PoolControllerFacet is Modifiers, IERC721Receiver {
@@ -24,16 +26,16 @@ contract PoolControllerFacet is Modifiers, IERC721Receiver {
     }
 
     function _createDeposit(address owner, uint256 tokenId) internal {
-        (,, address token0, address token1,,,, uint128 liquidity,,,,) = ConnonfungiblePositionManager.positions(tokenId);
+        (,, address token0, address token1,,,, uint128 liquidity,,,,) = Constants.NON_FUNGIBLE_POSITION_MANAGER.positions(tokenId);
 
         // set the owner and data for position
         // operator is msg.sender
 
         // get info from the tokenId
-        s.depositXswap[tokenId] = Deposit({owner: owner, liquidity: liquidity, token0: token0, token1: token1 });
+        s.depositXswap[tokenId] = Types.Deposit({owner: owner, liquidity: liquidity, token0: token0, token1: token1 });
     }
 
-    function mintNewPosXinfin(uint256 amountOToMint, uint256 amount1ToMint, uint256 tickDesired, uint256 poolFee)
+    function mintNewPosXinfin(uint256 amount0ToMint, uint256 amount1ToMint, int24 tickDesired, uint24 poolFee, address token0, address token1)
         external
         returns (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)
     {
@@ -60,8 +62,8 @@ contract PoolControllerFacet is Modifiers, IERC721Receiver {
                 token0: token0,
                 token1: token1,
                 fee: poolFee,
-                tickLower: tickDesired - (Constants.LIQUIDITY_WIDTH * tickDesired / 1000), // 10 % of the tickDesired
-                tickUpper: tickDesired + (Constants.LIQUIDITY_WIDTH * tickDesired / 1000), // 10 % of the tickDesired
+                tickLower: tickDesired - (Constants.LIQUIDITY_WIDTH) * tickDesired / 1000, // 10 % of the tickDesired
+                tickUpper: tickDesired + (Constants.LIQUIDITY_WIDTH) * tickDesired / 1000, // 10 % of the tickDesired
                 amount0Desired: amount0ToMint,
                 amount1Desired: amount1ToMint,
                 amount0Min: 0, // always should be defined by user, but for hackathon simplicity we will set it to 0
@@ -77,15 +79,15 @@ contract PoolControllerFacet is Modifiers, IERC721Receiver {
 
         // Remove allowance and refund in both assets.
         if (amount0 < amount0ToMint) {
-            TransferHelper.safeApprove(DAI, address(Constants.NON_FUNGIBLE_POSITION_MANAGER), 0);
+            TransferHelper.safeApprove(token0, address(Constants.NON_FUNGIBLE_POSITION_MANAGER), 0);
             uint256 refund0 = amount0ToMint - amount0;
-            TransferHelper.safeTransfer(DAI, msg.sender, refund0);
+            TransferHelper.safeTransfer(token1, msg.sender, refund0);
         }
 
         if (amount1 < amount1ToMint) {
-            TransferHelper.safeApprove(USDC, address(Constants.NON_FUNGIBLE_POSITION_MANAGER), 0);
+            TransferHelper.safeApprove(token0, address(Constants.NON_FUNGIBLE_POSITION_MANAGER), 0);
             uint256 refund1 = amount1ToMint - amount1;
-            TransferHelper.safeTransfer(USDC, msg.sender, refund1);
+            TransferHelper.safeTransfer(token1, msg.sender, refund1);
         }
 
     }
@@ -128,7 +130,7 @@ contract PoolControllerFacet is Modifiers, IERC721Receiver {
 
      function decreaseAllLiquidity(uint256 tokenId) external returns (uint256 amount0, uint256 amount1) {
         // caller must be the owner of the NFT
-        require(msg.sender == s.depositXswap[tokenId].owner || msg.sender == s.owner, 'Not the owner');
+        require(msg.sender == s.depositXswap[tokenId].owner || msg.sender == s.admin, 'Not the owner');
         // get liquidity data for tokenId
         uint128 liquidity = s.depositXswap[tokenId].liquidity;
         uint128 halfLiquidity = liquidity;
@@ -185,7 +187,7 @@ contract PoolControllerFacet is Modifiers, IERC721Receiver {
         // must be the owner of the NFT
         require(msg.sender == s.depositXswap[tokenId].owner, 'Not the owner');
         // transfer ownership to original owner
-        nonfungiblePositionManager.safeTransferFrom(address(this), msg.sender, tokenId);
+        INonfungiblePositionManager(s.nonfungiblePositionManager).safeTransferFrom(address(this), msg.sender, tokenId);
         //remove information related to tokenId
         delete s.depositXswap[tokenId];
     }

@@ -98,6 +98,8 @@ interface INonfungiblePositionManager {
         uint256 deadline;
     }
 
+    function safeTransferFrom(address from, address to, uint256 tokenId) external payable;
+
     /// @notice Increases the amount of liquidity in a position, with tokens paid by the `msg.sender`
     /// @param params tokenId The ID of the token for which liquidity is being increased,
     /// amount0Desired The desired amount of token0 to be spent,

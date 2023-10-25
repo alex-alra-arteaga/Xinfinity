@@ -8,6 +8,7 @@ import {Errors} from "../libraries/Errors.sol";
 import {Types} from "../libraries/Types.sol";
 import { IERC20 } from "../interfaces/IERC20.sol";
 import { IUniswapV3Pool } from "../interfaces/IUniswapV3Pool.sol";
+import { Constants } from "../libraries/Constants.sol";
 
 contract LiquidatorFacet is Modifiers {
 

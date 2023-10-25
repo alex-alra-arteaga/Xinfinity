@@ -20,4 +20,6 @@ library Errors {
     error NotLiquidable();
     error PositionsIsLiquidable();
     error IncorrectLeverage();
+    error TransferFailed();
+    error FunctionNotFound(bytes4 selector);
 }

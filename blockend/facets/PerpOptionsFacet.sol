@@ -10,6 +10,7 @@ import { IERC20 } from "../interfaces/IERC20.sol";
 import { IUniswapV3Pool } from "../interfaces/IUniswapV3Pool.sol";
 import {Constants} from "../libraries/Constants.sol";
 import {IDiamond} from "../interfaces/IDiamond.sol";
+import {IUniswapV3Pool} from "../interfaces/IUniswapV3Pool.sol";
 
 contract PerpOptionsFacet is Modifiers {
     using TWAPOracle for address;
@@ -20,13 +21,13 @@ contract PerpOptionsFacet is Modifiers {
      * @param owner Owner of the option
      * @param contractId Id of the option
      */
-    function buyOptionContract(address pool, address owner, uint256 contractId) external {
+    function buyOptionContract(address pool, address owner, uint24 contractId) external {
         if (msg.sender == owner) revert Errors.CannotBuyFromYourself(owner);
         Types.PerpOption memory optionToBuy = s.optionRecord[pool][owner][contractId];
         if (optionToBuy.status != Types.OrderStatus.MINTED) revert Errors.NotAvailableOption(pool, owner, contractId);
 
         IERC20(optionToBuy.collateralToken).transferFrom(msg.sender, address(this), optionToBuy.premium);
-        IERC20(optionToBuy.collateralToken).transferFrom(msg.sender, owner, optionToBuy.collateralAmount + optionToBuy.fundingRatePayment);
+        IERC20(optionToBuy.collateralToken).transferFrom(msg.sender, owner, uint256(int256(optionToBuy.collateralAmount) + optionToBuy.fundingRatePayment));
 
         optionToBuy.status = Types.OrderStatus.BOUGHT;
         s.optionRecord[pool][msg.sender][contractId] = optionToBuy;
@@ -42,7 +43,7 @@ contract PerpOptionsFacet is Modifiers {
      * @param pool Pool you are minting the option from
      * @param leverage Amount of leverage you want to use in basis points (10000 = 100%)
      */
-    function sellOptionContract(uint256 amount, uint256 strike, address token, address pool, uint24 poolFee, uint24 leverage, Types.OptionType optionType) external onlyDiamond returns (uint256 recordId) {
+    function sellOptionContract(uint256 amount, uint256 strike, address token, address pool, uint24 poolFee, uint24 leverage, Types.OptionType optionType) external onlyDiamond returns (uint24 recordId) {
         // CHECKS
         address token0 = IUniswapV3Pool(pool).token0();
         address token1 = IUniswapV3Pool(pool).token1();
@@ -75,7 +76,7 @@ contract PerpOptionsFacet is Modifiers {
         (,int24 currentTick,,,,,) = IUniswapV3Pool(pool).slot0();
         
         // call PoolController to move liquidity
-        IDiamond(address(this)).mintNewPosXinfin(token == token0 ? borrowAmount : 0, token == token1 ? borrowAmount : 0, currentTick, poolFee); 
+        IDiamond(address(this)).mintNewPosXinfin(token == token0 ? borrowAmount : 0, token == token1 ? borrowAmount : 0, currentTick, poolFee, token0, token1); 
 
         // INTERACTIONS
         // update AppStorage position
@@ -102,18 +103,18 @@ contract PerpOptionsFacet is Modifiers {
      * @param owner Owner of the option
      * @param contractId Id of the option
      */
-    function exerciseOptionContract(address pool, address owner, uint256 contractId) external {
-        Types.PerpOption memory optionToExercise = s.optionRecord[pool][owner][contractId];
-        if (optionToExercise.status != Types.OrderStatus.MINTED && optionToExercise.status != Types.OrderStatus.BOUGHT) revert Errors.NotAvailableOption(pool, owner, contractId);
+    function exerciseOptionContract(IUniswapV3Pool pool, address owner, uint24 contractId) external {
+        Types.PerpOption memory optionToExercise = s.optionRecord[address(pool)][owner][contractId];
+        if (optionToExercise.status != Types.OrderStatus.MINTED && optionToExercise.status != Types.OrderStatus.BOUGHT) revert Errors.NotAvailableOption(address(pool), owner, contractId);
 
         // (actual price * initialPrice) / initialPrice, result in basis points
         int256 priceDiffInPercentage = int256(((TWAPOracle.getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), uint128(optionToExercise.collateralAmount), true) / optionToExercise.collateralAmount) * optionToExercise.initialPrice) / optionToExercise.initialPrice);
         int256 profitInPercentage = optionToExercise.optionType == Types.OptionType.CALL ? priceDiffInPercentage : -priceDiffInPercentage;
 
         // (5% * 10_000) * (100 * 10_000) / 10_000 = 500% in basis points
-        int256 realProfitPercentage = profitInPercentage * optionToExercise.leverage / Constants.BASIS_POINTS;
+        int256 realProfitPercentage = profitInPercentage * int256(optionToExercise.leverage) / int24(Constants.BASIS_POINTS);
         // 100 * (500 * 10_000 / 100) / 10_000 = 500 in tokens
-        int256 netProfit = (optionToExercise.collateralAmount * (realProfitPercentage / 100)) / Constants.BASIS_POINTS;
+        int256 netProfit = (int256(optionToExercise.collateralAmount) * (realProfitPercentage / 100)) / int24(Constants.BASIS_POINTS);
 
         bool inTheMoney = netProfit > 0;
         if (inTheMoney) {
@@ -124,6 +125,6 @@ contract PerpOptionsFacet is Modifiers {
             IERC20(optionToExercise.collateralToken).transfer(msg.sender, uint256(optionToExercise.collateralAmount));
         }
 
-        delete s.optionRecord[pool][owner][contractId];
+        delete s.optionRecord[address(pool)][owner][contractId];
     }
 }

@@ -11,6 +11,7 @@ import {ISwapRouter} from "../interfaces/ISwapRouter.sol";
 import {INonfungiblePositionManager} from "../interfaces/INonfungiblePositionManager.sol";
 import {TransferHelper} from "../libraries/TransferHelper.sol";
 import {Constants} from "../libraries/Constants.sol";
+import {Types} from "../libraries/Types.sol";
 
 // use this contract to manage our own pool
 contract PoolController is Modifiers, IERC721Receiver {
@@ -26,15 +27,15 @@ contract PoolController is Modifiers, IERC721Receiver {
     }
 
     function _createDeposit(address owner, uint256 tokenId) internal {
-        (,, address token0, address token1,,,, uint128 liquidity,,,,) = s.xinfinityManager.positions(tokenId);
+        (,, address token0, address token1,,,, uint128 liquidity,,,,) = INonfungiblePositionManager(s.xinfinityManager).positions(tokenId);
 
         // set the owner and data for position
         // operator is msg.sender
         // get info from the tokenId
-        s.depositsXinfinity[tokenId] = Deposit({owner: owner, liquidity: liquidity, token0: token0, token1: token1 });
+        s.depositsXinfinity[tokenId] = Types.Deposit({owner: owner, liquidity: liquidity, token0: token0, token1: token1 });
     }
 
-    function mintNewPos(uint256 amountOToMint, uint256 amount1ToMint, uint256 tickDesired, uint256 poolFee)
+    function mintNewPos(uint256 amount0ToMint, uint256 amount1ToMint, int24 tickDesired, uint24 poolFee, address token0, address token1)
         external
         returns (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)
     {
@@ -77,28 +78,28 @@ contract PoolController is Modifiers, IERC721Receiver {
             });
 
         // Note that the pool defined by DAI/USDC and fee tier 0.3% must already be created and initialized in order to mint
-        (tokenId, liquidity, amount0, amount1) = s.xinfinityManager.mint(params);
+        (tokenId, liquidity, amount0, amount1) = INonfungiblePositionManager(s.xinfinityManager).mint(params);
           // Create a deposit for the user
         _createDeposit(msg.sender, tokenId);
 
         // Remove allowance and refund in both assets.
         if (amount0 < amount0ToMint) {
-            TransferHelper.safeApprove(DAI, address(s.xinfinityManager), 0);
+            TransferHelper.safeApprove(token0, address(s.xinfinityManager), 0);
             uint256 refund0 = amount0ToMint - amount0;
-            TransferHelper.safeTransfer(DAI, msg.sender, refund0);
+            TransferHelper.safeTransfer(token1, msg.sender, refund0);
         }
 
         if (amount1 < amount1ToMint) {
-            TransferHelper.safeApprove(USDC, address(s.xinfinityManager), 0);
+            TransferHelper.safeApprove(token0, address(s.xinfinityManager), 0);
             uint256 refund1 = amount1ToMint - amount1;
-            TransferHelper.safeTransfer(USDC, msg.sender, refund1);
+            TransferHelper.safeTransfer(token1, msg.sender, refund1);
         }
     }
 
         function collectAllFees(uint256 tokenId) external returns (uint256 amount0, uint256 amount1) {
         // Caller must own the ERC721 position
         // Call to safeTransfer will trigger `onERC721Received` which must return the selector else transfer will fail
-        s.xinfinityManager.safeTransferFrom(msg.sender, address(this), tokenId);
+        INonfungiblePositionManager(s.xinfinityManager).safeTransferFrom(msg.sender, address(this), tokenId);
 
         // set amount0Max and amount1Max to uint256.max to collect all fees
         // alternatively can set recipient to msg.sender and avoid another transaction in `sendToOwner`
@@ -110,42 +111,18 @@ contract PoolController is Modifiers, IERC721Receiver {
                 amount1Max: type(uint128).max
             });
 
-        (amount0, amount1) = s.xinfinityManager.collect(params);
-       _sendToOwner(tokenId, amount0, amount1);
-
+        (amount0, amount1) = INonfungiblePositionManager(s.xinfinityManager).collect(params);
+        _sendToOwner(tokenId, amount0, amount1);
     }
 
 
-      function retrieveNFT(uint256 tokenId) external {
+    function retrieveNFT(uint256 tokenId) external {
         // must be the owner of the NFT
         require(msg.sender == s.depositsXinfinity[tokenId].owner, 'Not the owner');
         // transfer ownership to original owner
-        s.xinfinityManager.safeTransferFrom(address(this), msg.sender, tokenId);
+        INonfungiblePositionManager(s.xinfinityManager).safeTransferFrom(address(this), msg.sender, tokenId);
         //remove information related to tokenId
         delete s.depositsXinfinity[tokenId];
-    }
-
-
-    function borrowLiquidity(uint256 amountToBorrow, address outToken, address token0, address token1, uint256 poolFee)
-        external
-    {
-        // check for the outToken to be valid
-        require(outToken == token0 || outToken == token1, "XinfinLPManagerFacet: Invalid out token");
-        // get pool from registry
-        IUniswapV3Pool pool = s.poolRegistry[token0][token1][poolFee];
-
-        // collect fess to be able to borrow to user
-        (uint128 amount0, uint128 amount1) =
-            pool.collect(address(this), TickMath.MIN_TICK, TickMath.MAX_TICK, amount0ToMint, amount1ToMint);
-
-        // swap the token to add the balance ot user operation
-        if (outToken == token0) {
-            (int256 _amount0,) = pool.swap(msg.sender, false, amount1, 0, "");
-            TransferHelper.safeTransfer(token0, address(this), _amount0);
-        } else {
-            (, int256 _amount1) = pool.swap(msg.sender, true, amount0, 0, "");
-            TransferHelper.safeTransfer(token1, address(this), _amount1);
-        }
     }
 
     // increse / decrease liquidity
@@ -158,12 +135,13 @@ contract PoolController is Modifiers, IERC721Receiver {
 
     // Iterate through the array of tokenIds and decrease liquidity
     for (uint256 i = 0; i < tokenIds.length; i++) {
-        uint128 liquidity = s.depositsXinfinity[tokenIds[i]].liquidity;
+        uint256 tokenId = tokenIds[i];
+        uint128 liquidity = s.depositsXinfinity[tokenId].liquidity;
         uint128 halfLiquidity = liquidity / 2;
 
         INonfungiblePositionManager.DecreaseLiquidityParams memory params =
             INonfungiblePositionManager.DecreaseLiquidityParams({
-                tokenId: tokenIds[i],
+                tokenId: tokenId,
                 liquidity: halfLiquidity,
                 amount0Min: 0,
                 amount1Min: 0,
@@ -171,7 +149,7 @@ contract PoolController is Modifiers, IERC721Receiver {
             });
         
 
-        (uint256 amount0, uint256 amount1) = s.xinfinityManager.decreaseLiquidity(params);
+        (uint256 amount0, uint256 amount1) = INonfungiblePositionManager(s.xinfinityManager).decreaseLiquidity(params);
 
         totalAmount0 += amount0;
         totalAmount1 += amount1;
@@ -193,35 +171,43 @@ contract PoolController is Modifiers, IERC721Receiver {
 
 
 
-    function decreaseLiquidityInHalf(uint256[] tokenIds) external returns (uint256 amount0, uint256 amount1) {
-        // caller must be the owner of the NFT
-        require(msg.sender == s.depositsXinfinity[tokenId].owner, 'Not the owner');
-        // get liquidity data for tokenId
-        uint128 liquidity = s.depositsXinfinity[tokenId].liquidity;
-        uint128 halfLiquidity = liquidity / 2;
-        // amount0Min and amount1Min are price slippage checks
-        // if the amount received after burning is not greater than these minimums, transaction will fail
-        INonfungiblePositionManager.DecreaseLiquidityParams memory params =
-            INonfungiblePositionManager.DecreaseLiquidityParams({
-                tokenId: tokenId,
-                liquidity: halfLiquidity,
-                amount0Min: 0,
-                amount1Min: 0,
-                deadline: block.timestamp
-            });
+    function decreaseLiquidityInHalf(uint256[] memory tokenIds) external returns (uint256 amount0, uint256 amount1) {
+        uint256 length = tokenIds.length;
 
-        (amount0, amount1) = s.xinfinityManager.decreaseLiquidity(params);
+        for (uint256 i; i < length;) {
+            uint256 tokenId = tokenIds[i];
+            // caller must be the owner of the NFT
+            require(msg.sender == s.depositsXinfinity[tokenId].owner, 'Not the owner');
+            // get liquidity data for tokenId
+            uint128 liquidity = s.depositsXinfinity[tokenId].liquidity;
+            uint128 halfLiquidity = liquidity / 2;
+            // amount0Min and amount1Min are price slippage checks
+            // if the amount received after burning is not greater than these minimums, transaction will fail
+            INonfungiblePositionManager.DecreaseLiquidityParams memory params =
+                INonfungiblePositionManager.DecreaseLiquidityParams({
+                    tokenId: tokenId,
+                    liquidity: halfLiquidity,
+                    amount0Min: 0,
+                    amount1Min: 0,
+                    deadline: block.timestamp
+                });
 
-        //send liquidity back to owner
-        _sendToOwner(tokenId, amount0, amount1);
+            (amount0, amount1) = INonfungiblePositionManager(s.xinfinityManager).decreaseLiquidity(params);
+
+            //send liquidity back to owner
+            _sendToOwner(tokenId, amount0, amount1);
+            unchecked {
+                ++i;
+            }
+        }
     }
 
 
-        function _sendToOwner(
+    function _sendToOwner(
         uint256 tokenId,
         uint256 amount0,
         uint256 amount1
-            ) internal {
+    ) internal {
             // get owner of contract
             address owner = s.depositsXinfinity[tokenId].owner;
 
@@ -231,10 +217,6 @@ contract PoolController is Modifiers, IERC721Receiver {
             TransferHelper.safeTransfer(token0, owner, amount0);
             TransferHelper.safeTransfer(token1, owner, amount1);
     }
-
-
-    
-    
 
       function increaseLiquidityCurrentRange(
         uint256 tokenId,
@@ -263,7 +245,7 @@ contract PoolController is Modifiers, IERC721Receiver {
             deadline: block.timestamp
         });
 
-        (liquidity, amount0, amount1) = s.xinfinityManager.increaseLiquidity(params);
+        (liquidity, amount0, amount1) = INonfungiblePositionManager(s.xinfinityManager).increaseLiquidity(params);
 
     }
 }

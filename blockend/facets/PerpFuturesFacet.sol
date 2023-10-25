@@ -8,6 +8,7 @@ import { Types } from "../libraries/Types.sol";
 import { TWAPOracle } from "../libraries/TWAPOracle.sol";
 import { IERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import { IUniswapV3Pool } from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+import { TWAPOracle } from "../libraries/TWAPOracle.sol";
 
 contract PerpFuturesFacet is Modifiers {
     
@@ -16,7 +17,7 @@ contract PerpFuturesFacet is Modifiers {
         Types.PerpFuture memory futureToBuy = s.futureRecord[pool][owner][contractId];
         if (futureToBuy.status != Types.OrderStatus.MINTED) revert Errors.NotAvaibleFuture(pool, owner, contractId);
 
-        int256 priceDiffInPercentage = ((getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), futureToBuy.collateralAmount, true) / futureToBuy.collateralAmount) * futureToBuy.initialPrice) / futureToBuy.initialPrice;
+        int256 priceDiffInPercentage = ((TWAPOracle.getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), futureToBuy.collateralAmount, true) / futureToBuy.collateralAmount) * futureToBuy.initialPrice) / futureToBuy.initialPrice;
         int256 profitInPercentage = futureToBuy.futureType == Types.FutureType.CALL ? priceDiffInPercentage : -priceDiffInPercentage;
         if (profitInPercentage < int256(futureToBuy.maintenanceMargin)) revert Errors.CollateralBelowMaintenanceMargin(priceDiffInPercentage, futureToBuy.maintenanceMargin);
 
@@ -31,7 +32,7 @@ contract PerpFuturesFacet is Modifiers {
         address token0 = IUniswapV3Pool(pool).token0();
         address token1 = IUniswapV3Pool(pool).token1();
         if (s.poolRegistry[token0][token1][poolFee] != pool) revert Errors.NotSupportedPool();
-        uint256 amountCost = getPoolTWAP(token0, token1, poolFee, amount, true);
+        uint256 amountCost = TWAPOracle.getPoolTWAP(token0, token1, poolFee, amount, true);
         uint256 price = amountCost / amount;
 
         if (leverage > Constants.MAX_LEVERAGE || leverage < Constants.MIN_LEVERAGE) revert Errors.IncorrectLeverage(leverage);
@@ -70,7 +71,7 @@ contract PerpFuturesFacet is Modifiers {
         Types.PerpFuture memory futureToSettle = s.futureRecord[pool][owner][contractId];
         if (futureToSettle.status != Types.OrderStatus.MINTED && futureToSettle.status != Types.OrderStatus.BOUGHT) revert Errors.NotAvailableOption(pool, owner, contractId);
 
-        int256 priceDiffInPercentage = ((getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), futureToSettle.collateralAmount, true) / futureToSettle.collateralAmount) * futureToSettle.initialPrice) / futureToSettle.initialPrice;
+        int256 priceDiffInPercentage = ((TWAPOracle.getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), futureToSettle.collateralAmount, true) / futureToSettle.collateralAmount) * futureToSettle.initialPrice) / futureToSettle.initialPrice;
         int256 profitInPercentage = futureToSettle.futureType == Types.FutureType.CALL ? priceDiffInPercentage : -priceDiffInPercentage;
         if (profitInPercentage < int256(futureToSettle.maintenanceMargin)) revert Errors.CollateralBelowMaintenanceMargin(priceDiffInPercentage, futureToSettle.maintenanceMargin);
 

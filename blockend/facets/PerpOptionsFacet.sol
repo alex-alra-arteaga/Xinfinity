@@ -8,6 +8,7 @@ import { Types } from "../libraries/Types.sol";
 import { TWAPOracle } from "../libraries/TWAPOracle.sol";
 import { IERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import { IUniswapV3Pool } from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+import { TWAPOracle } from "../libraries/TWAPOracle.sol";
 
 contract PerpOptionsFacet is Modifiers {
     using TWAPOracle for address;
@@ -47,7 +48,7 @@ contract PerpOptionsFacet is Modifiers {
         address token1 = IUniswapV3Pool(pool).token1();
         if (s.poolRegistry[token0][token1][poolFee] != pool) revert Errors.NotSupportedPool();
 
-        uint256 amountCost = getPoolTWAP(token0, token1, poolFee, amount, true);
+        uint256 amountCost = TWAPOracle.getPoolTWAP(token0, token1, poolFee, amount, true);
         uint256 price = amountCost / amount;
         if (optionType == Types.OptionType.PUT) {
             if (strike > price) revert Errors.IncorrectStrike(price, strike);
@@ -102,7 +103,7 @@ contract PerpOptionsFacet is Modifiers {
         if (optionToExercise.status != Types.OrderStatus.MINTED && optionToExercise.status != Types.OrderStatus.BOUGHT) revert Errors.NotAvailableOption(pool, owner, contractId);
 
         // (actual price * initialPrice) / initialPrice, result in basis points
-        int256 priceDiffInPercentage = ((getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), optionToExercise.collateralAmount, true) / optionToExercise.collateralAmount) * optionToExercise.initialPrice) / optionToExercise.initialPrice;
+        int256 priceDiffInPercentage = int256(((TWAPOracle.getPoolTWAP(pool.token0(), pool.token1(), pool.fee(), uint128(optionToExercise.collateralAmount), true) / optionToExercise.collateralAmount) * optionToExercise.initialPrice) / optionToExercise.initialPrice);
         int256 profitInPercentage = optionToExercise.optionType == Types.OptionType.CALL ? priceDiffInPercentage : -priceDiffInPercentage;
 
         // (5% * 10_000) * (100 * 10_000) / 10_000 = 500% in basis points

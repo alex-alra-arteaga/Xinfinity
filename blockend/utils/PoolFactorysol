@@ -9,7 +9,7 @@ import { UniswapV3Pool } from "../lib/v3-core/contracts/UniswapV3Pool.sol";
 import { Constants } from "../libraries/Constants.sol";
 
 
-contract PoolFactoryFacet is Modifiers, Constants {
+contract PoolFactory is Modifiers, Constants {
 
     function createPool(address tokenA, address tokenB, Types.FeeType fee) external {
         if (tokenA != tokenB) revert Error.SameToken(tokenA, tokenB);
@@ -26,7 +26,7 @@ contract PoolFactoryFacet is Modifiers, Constants {
         
         address newPool = address(new UniswapV3Pool{salt: keccak256(abi.encode(token0, token1, fee))}());
         if (newPool == address(0)) revert Error.NotExistingPool(token0, token1, fee); // failed to deploy
-        
+
         s.poolRegistry[token0][token1][fee] = newPool;
     }
 }

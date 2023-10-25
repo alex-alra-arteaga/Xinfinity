@@ -6,8 +6,8 @@ import { Modifiers } from "../libraries/Modifiers.sol";
 import { Errors } from "../libraries/Errors.sol";
 import { Types } from "../libraries/Types.sol";
 import { TWAPOracle } from "../libraries/TWAPOracle.sol";
-import { IERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-import { IUniswapV3Pool } from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+import { IERC20 } from "../interfaces/IERC20.sol";
+import { IUniswapV3Pool } from "../interfaces/IUniswapV3Pool.sol"; ;
 import { TWAPOracle } from "../libraries/TWAPOracle.sol";
 
 contract PerpFuturesFacet is Modifiers {
@@ -28,7 +28,7 @@ contract PerpFuturesFacet is Modifiers {
         delete s.futureRecord[pool][owner][contractId];
     }
 
-    function sellFutureContract(uint256 amount, address token, address pool, uint24 poolFee, uint24 leverage, Types.FutureType futureType) external {
+    function sellFutureContract(uint256 amount, address token, address pool, uint24 poolFee, uint24 leverage, Types.FutureType futureType) external onlyDiamond {
         address token0 = IUniswapV3Pool(pool).token0();
         address token1 = IUniswapV3Pool(pool).token1();
         if (s.poolRegistry[token0][token1][poolFee] != pool) revert Errors.NotSupportedPool();
@@ -47,8 +47,12 @@ contract PerpFuturesFacet is Modifiers {
         /// @dev due to onlyDiamond modifier, address(this) is the Diamond contract, so PoolController will be able to move the tokens
         IERC20(token).transferFrom(msg.sender, address(this), uint256(int256(amount) + int256(premium) + fundingRatePayment));
 
+        uint256 borrowAmount =  (amount * leverage) / Constants.BASIS_POINTS;
+
+        int24 currentTick = IUniswapV3Pool(pool).slot0.tick;
+        
         // call PoolController to move liquidity
-        IDiamond(address(this)).mintNewPos(token, );
+        IDiamond(address(this)).mintNewPosXinfin(token == token0 ? borrowAmount : 0, token == token1 ? borrowAmount : 0, currentTick, poolFee); 
 
         unchecked {
             recordId = s.numOfRecordFutures[pool][msg.sender]++;
@@ -61,7 +65,7 @@ contract PerpFuturesFacet is Modifiers {
         future.leverage = leverage;
         future.collateralAmount = amount;
         future.fundingRatePayment = fundingRatePayment;
-        future.borrowAmount = (amount * leverage) / Constants.BASIS_POINTS;
+        future.borrowAmount = borrowAmount;
         // if leverage is x10, then maintenance margin is 10% of collateral
         future.maintenanceMargin = (100 * Constants.PRECISION / leverage) / (Constants.PRECISION / Constants.BASIS_POINTS);
         future.status = Types.OrderStatus.MINTED;

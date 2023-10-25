@@ -7,7 +7,7 @@ import {Types} from "../libraries/Types.sol";
 import {Errors} from "../libraries/Errors.sol";
 import {Constants} from "../libraries/Constants.sol";
 import { TWAPOracle } from "../libraries/TWAPOracle.sol";
-import { IUniswapV3Pool } from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+import { IUniswapV3Pool } from "../interfaces/IUniswapV3Pool.sol";
 
 /// @dev Used to view data from the AppStorage
 contract ViewFacet is Modifiers {

@@ -6,9 +6,10 @@ import { Modifiers } from "../libraries/Modifiers.sol";
 import { Errors } from "../libraries/Errors.sol";
 import { Types } from "../libraries/Types.sol";
 import { TWAPOracle } from "../libraries/TWAPOracle.sol";
-import { IERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-import { IUniswapV3Pool } from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
-import { TWAPOracle } from "../libraries/TWAPOracle.sol";
+import { IERC20 } from "../interfaces/IERC20.sol";
+import { IUniswapV3Pool } from "../interfaces/IUniswapV3Pool.sol";
+import {Constants} from "../libraries/Constants.sol";
+import {IDiamond} from "../interfaces/IDiamond.sol";
 
 contract PerpOptionsFacet is Modifiers {
     using TWAPOracle for address;
@@ -18,7 +19,6 @@ contract PerpOptionsFacet is Modifiers {
      * @param pool Pool you are buying the option from
      * @param owner Owner of the option
      * @param contractId Id of the option
-     * @param token Token you are using to buy the option
      */
     function buyOptionContract(address pool, address owner, uint256 contractId) external {
         if (msg.sender == owner) revert Errors.CannotBuyFromYourself(owner);
@@ -29,7 +29,7 @@ contract PerpOptionsFacet is Modifiers {
         IERC20(optionToBuy.collateralToken).transferFrom(msg.sender, owner, optionToBuy.collateralAmount + optionToBuy.fundingRatePayment);
 
         optionToBuy.status = Types.OrderStatus.BOUGHT;
-        s.optionRecord[pool][msg.sender][recordId] = optionToBuy;
+        s.optionRecord[pool][msg.sender][contractId] = optionToBuy;
         delete s.optionRecord[pool][owner][contractId];
     }
 
@@ -48,7 +48,7 @@ contract PerpOptionsFacet is Modifiers {
         address token1 = IUniswapV3Pool(pool).token1();
         if (s.poolRegistry[token0][token1][poolFee] != pool) revert Errors.NotSupportedPool();
 
-        uint256 amountCost = TWAPOracle.getPoolTWAP(token0, token1, poolFee, amount, true);
+        uint256 amountCost = TWAPOracle.getPoolTWAP(token0, token1, poolFee, uint128(amount), true);
         uint256 price = amountCost / amount;
         if (optionType == Types.OptionType.PUT) {
             if (strike > price) revert Errors.IncorrectStrike(price, strike);
@@ -56,22 +56,26 @@ contract PerpOptionsFacet is Modifiers {
             if (strike < price) revert Errors.IncorrectStrike(price, strike);
         }
 
-        if (leverage > Constants.MAX_LEVERAGE || leverage < Constants.MIN_LEVERAGE) revert Errors.IncorrectLeverage(leverage);
+        if (leverage > Constants.MAX_LEVERAGE || leverage < Constants.MIN_LEVERAGE) revert Errors.IncorrectLeverage();
 
         if (token != token0 || token != token1) revert Errors.NotIncludedInPool(token, token0, token1);
 
         // EFFECTS
         uint256 premium = ((amount * leverage) / poolFee) / Constants.BASIS_POINTS;
-        uint256 priceRatio = getRatioXinfinityXSwapPool(token0, token1, poolFee, amount);
+        uint256 priceRatio = TWAPOracle.getRatioXinfinityXSwapPool(token0, token1, poolFee, uint128(amount));
         // ((1.01 * 10_000 * 100) / 10_000) - 100 = 1 token  (if xSwap pool price is 1% higher than Xinfinity pool, shorters will pay 1 token more to longers, to raise the price of the pool)
         // ((0.99 * 10_000 * 100) / 10_000) - 100 = -1 token  (if xSwap pool price is 1% lower than Xinfinity pool, shorters will receive 1 token more from longers, to lower the price of the pool)
-        int256 fundingRate = ((priceRatio * amount) / Constants.BASIS_POINTS) - amount;
+        int256 fundingRate = int256(((priceRatio * amount) / Constants.BASIS_POINTS) - amount);
         int256 fundingRatePayment = optionType == Types.OptionType.CALL ? fundingRate : -fundingRate;
         /// @dev due to onlyDiamond modifier, address(this) is the Diamond contract, so PoolController will be able to move the tokens
         IERC20(token).transferFrom(msg.sender, address(this), uint256(int256(amount) + int256(premium) + fundingRatePayment));
 
+        uint256 borrowAmount =  (amount * leverage) / Constants.BASIS_POINTS;
+
+        (,int24 currentTick,,,,,) = IUniswapV3Pool(pool).slot0();
+        
         // call PoolController to move liquidity
-        IDiamond(address(this)).mintNewPos(token,);
+        IDiamond(address(this)).mintNewPosXinfin(token == token0 ? borrowAmount : 0, token == token1 ? borrowAmount : 0, currentTick, poolFee); 
 
         // INTERACTIONS
         // update AppStorage position
@@ -94,9 +98,9 @@ contract PerpOptionsFacet is Modifiers {
 
     /**
      * @notice callable by shorters and longers
-     * @param pool 
-     * @param owner 
-     * @param contractId 
+     * @param pool Pool you are minting the option from
+     * @param owner Owner of the option
+     * @param contractId Id of the option
      */
     function exerciseOptionContract(address pool, address owner, uint256 contractId) external {
         Types.PerpOption memory optionToExercise = s.optionRecord[pool][owner][contractId];

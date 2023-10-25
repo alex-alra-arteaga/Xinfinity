@@ -32,6 +32,13 @@ library Types {
         CANCELLED
     }
 
+    struct Deposit {
+        address owner;
+        uint128 liquidity;
+        address token0;
+        address token1;
+    }
+
     struct PerpFuture {
         FutureType futureType; // call or put
         address xinfinityPool;

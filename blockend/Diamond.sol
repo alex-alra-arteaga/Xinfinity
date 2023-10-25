@@ -1,12 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import {LibDiamond} from "../libraries/LibDiamond.sol";
-import {IDiamondLoupe} from "../interfaces/IDiamondLoupe.sol";
-import {IDiamondCut} from "../interfaces/IDiamondCut.sol";
-import {IERC165} from "@openzeppelin/utils/introspection/IERC165.sol";
-import {AppStorage} from "../libraries/AppStorage.sol";
-import {Errors} from "../libraries/Errors.sol";
+import {LibDiamond} from "./libraries/LibDiamond.sol";
+
+import {Constants} from "./libraries/Constants.sol";
+import {IDiamondLoupe} from "./interfaces/IDiamondLoupe.sol";
+import {IDiamondCut} from "./interfaces/IDiamondCut.sol";
+import {IERC165} from "./lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol";
+import {AppStorage} from "./libraries/AppStorage.sol";
+import {Errors} from "./libraries/Errors.sol";
+import {UniswapV3Pool} from "./lib/v3-core/contracts/UniswapV3Pool.sol";
+import {NonfungiblePositionManager} from "./lib/v3-periphery/contracts/NonfungiblePositionManager"
+import {NonfungibleTokenPositionDescriptor} from"./lib/v3-periphery/contracts/NonfungibleTokenPositionDescriptor"
+
 // import {ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 // See https://github.com/mudgen/diamond-2-hardhat/blob/main/contracts/Diamond.sol
@@ -42,6 +48,11 @@ contract Diamond {
         s.feeAmountTickSpacing[500] = 10;
         s.feeAmountTickSpacing[3000] = 60;
         s.feeAmountTickSpacing[10000] = 200;
+
+        // here deploy factory -> Manager -> deascritpion
+        s.xinifinityFactory = new UniswapV3Pool();
+        s.xinifinityNFTDescriptor = new NonfungibleTokenPositionDescriptor(Constants.WXDC, "");
+        s.xinifinityManager = new NonfungiblePositionManager(s.xinifinityFactory, Constants.WXDC,  s.xinifinityNFTDescriptor);
 
     }
 

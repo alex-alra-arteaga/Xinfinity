@@ -48,7 +48,7 @@ contract PerpFuturesFacet is Modifiers {
         IERC20(token).transferFrom(msg.sender, address(this), uint256(int256(amount) + int256(premium) + fundingRatePayment));
 
         // call PoolController to move liquidity
-        IDiamond(address(this)).mintNewPos(token,);
+        IDiamond(address(this)).mintNewPos(token, );
 
         unchecked {
             recordId = s.numOfRecordFutures[pool][msg.sender]++;

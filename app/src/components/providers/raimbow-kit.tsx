@@ -9,7 +9,8 @@ import {
   darkTheme,
 } from "@rainbow-me/rainbowkit";
 import { RainbowKitSiweNextAuthProvider, GetSiweMessageOptions } from "@rainbow-me/rainbowkit-siwe-next-auth";
-import { WagmiConfig, configureChains, createConfig, mainnet, sepolia } from "wagmi";
+import { WagmiConfig, configureChains, createConfig, mainnet } from "wagmi";
+import { xdc } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, publicClient } = configureChains(
@@ -17,7 +18,7 @@ const { chains, publicClient } = configureChains(
     // process.env.NEXT_PUBLIC_MODEDEPLOY == "production"
     //   ? polygon
     //   : sepolia,
-    mainnet
+    xdc
   ],
   // [alchemyProvider({ apiKey: process.env.ALCHEMY_ID ?? "" }), publicProvider()]
   [publicProvider()]

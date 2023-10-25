@@ -15,4 +15,10 @@ library Constants {
     uint24 constant MAX_LEVERAGE = 400_000; // basis points 4000% = 40x
     uint256 constant PRECISION = 1e18;
     uint24 constant BASIS_POINTS = 10_000;
+
+     address constant WETH9 = 0xc778417E063141139Fce010982780140Aa0cD5Ab;
+    address constant  NON_FUNGIBLE_POSITION_MANAGER = INonfungiblePositionManager(0xC36442b4a4522E871399CD717aBDD847Ab11FE88);
+    uint256 constant LIQUIDITY_WIDTH = 10;
+}
+    
 }

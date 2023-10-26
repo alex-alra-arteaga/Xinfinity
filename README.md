@@ -86,12 +86,37 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 ![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/traders.png?raw=true)
 
 1. **Create Position**: Traders can create positions by depositing liquidity into the XSwap V3 pool. Take advatnage of the Xinity pool to trade with leverage.
+
+```solidity
+PoolControllerFacet:37
+
+ function mintNewPos(
+        uint256 amount0ToMint,
+        uint256 amount1ToMint,
+        int24 tickDesired,
+        uint24 poolFee,
+        address token0,
+        address token1
+    ) external returns (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1) {}
+```
 2. **Manage Position**: Traders can manage their positions by depositing or withdrawing liquidity from the XSwap V3 pool via the Manager, if they one they can hold the position for as long as they want.
+
+```solidity
+    PoolControllerFacet:123
+     function decreaseAllLiquidity(uint256 tokenId) external returns (uint256 amount0, uint256 amount1) {}
+```
 3. **Close Position**: Traders can close their positions by withdrawing liquidity from the XSwap V3 pool. And have it returned back to their wallet with the profits or losses.
 
 ### Other important actors
 
+
+
 - **Liquidators**: Entities ensuring market health.
+  ![Xinfinity Liquidators](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/Liquidator.png?raw=true)
+  ```solidity
+  LiquidatorFacet.sol:15
+  function liquidateFuture(IUniswapV3Pool pool, address owner, uint24 contractId) external {}
+  ```
   - <u>*Incentives*</u>: Liquidators are incentivized to maintain market health by receiving a portion of the liquidated trader's collateral. Additionally, we have implemented a *Funding Rate* mechanism to ensure that the price of the perpetual contract aligns closely with the price of the underlying asset. If the perpetual contract's price is higher than that of the underlying asset, long positions pay short positions, and vice versa. This mechanism is implemented in the *PerpFuturesFacet* contract.
 
 ## Features

@@ -40,7 +40,7 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 
 ![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/LiquidityProvider.png?raw=true)
 1. **Deposit Liquidity**: LPs can deposit liquidity into the Xinfinity pool. This liquidity is then used to facilitate trades.
-   https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cfe9336bf70839/blockend/facets/XinfinityLPManagerFacet.sol#L70
+        https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cfe9336bf70839/blockend/facets/XinfinityLPManagerFacet.sol#L70
 
 2. **Manager <==> pool**: The manager transfers the liquidity to the protocol pool, which is independent from the XSwap V3 pool.
         https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cfe9336bf70839/blockend/facets/XinfinityLPManagerFacet.sol#L96

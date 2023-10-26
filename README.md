@@ -19,11 +19,10 @@ Everything is already installed!
 
 ## Build
 
-```bash	
 $ forge build
 ```
 
-I have commited the `out/` folder so you don't have to build it yourself.
+I have commited the `out/` folder so you don't have to build it yourself.😁
 
 ## Overview
 

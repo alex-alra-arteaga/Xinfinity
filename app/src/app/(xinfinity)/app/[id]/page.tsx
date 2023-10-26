@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Pool } from "../../_components/pools";
+import { useRouter } from "next/navigation";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +12,8 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import StrategySidebar from "../../_components/sideBar";
+import {StrategyType} from "../../../../types/types";
+import { TradingInputs } from "../../_components/TradingInputs";
 
 ChartJS.register(
   CategoryScale,
@@ -27,8 +30,27 @@ interface TemplateIdPageProps {
 }
 
 const TemplateIdPage: React.FC<TemplateIdPageProps> = ({ params }) => {
-  const [currentChart, setCurrentChart] = useState<string>("FUTURES_SHORT"); // default char
-  const [strategy, setStrategy] = useState<string>("Short Put");
+  const [currentChart, setCurrentChart] = useState<string>("FUTURES_SHORT");
+  const [strategy, setStrategy] = useState<StrategyType>(StrategyType.FUTURES_SHORT);
+
+  const updateButton = (newState: StrategyType) => {
+    setStrategy(newState);
+  }
+
+  const getState = () => strategy!;
+
+  useEffect(() => { 
+    console.log(strategy)
+    setCurrentChart(
+      strategy === StrategyType.FUTURES_SHORT ? "FUTURES_SHORT" :
+      strategy === StrategyType.FUTURES_LONG ? "FUTURES_LONG" :
+      strategy === StrategyType.OPTIONS_PUT ? "OPTIONS_PUT" :
+      strategy === StrategyType.OPTIONS_CALL ? "OPTIONS_CALL" :
+      strategy === StrategyType.CLOSE_FUTURE ? "FUTURES_LONG" :
+      strategy === StrategyType.CLOSE_OPTION ? "OPTIONS_CALL" :
+      "FUTURES_SHORT"
+    )
+  }, [strategy]);
 
   const [legs, setLegs] = useState<Array<{ type: string; value: number }>>([
     {
@@ -84,11 +106,12 @@ const TemplateIdPage: React.FC<TemplateIdPageProps> = ({ params }) => {
 
   return (
     // from-black via-indigo-900 to-black p-4 text-white
-    <div className="flex h-screen items-center justify-center bg-gradient-to-b from-black via-indigo-900 to-black p-4  text-white ">
+    <div className="bg-gradient-to-b from-black via-indigo-900 to-black p-4text-white">
+    <div className="flex h-screen items-center justify-center ">
       {/* <div className="h-3/4 w-full max-w-6xl overflow-auto rounded border border-gray-300 p-10 shadow"> */}
-      <StrategySidebar id={params.id} />
-      <div className="mt-20 max-h-[80vh] w-3/4 max-w-6xl rounded border border-gray-300  p-10  shadow">
-        <div className="mb-2 ">
+      <StrategySidebar id={params.id} strategyFn={updateButton} currentStrategy={getState} />
+      <div className="mt-20 relative max-h-[80vh] w-3/4 max-w-6xl rounded border border-gray-300 p-10 shadow">
+        <div className="mb-2">
           <button
             onClick={() => setCurrentChart("FUTURES_SHORT")}
             className={`mr-2 rounded border px-4 py-2 ${
@@ -121,6 +144,7 @@ const TemplateIdPage: React.FC<TemplateIdPageProps> = ({ params }) => {
           >
             Options - Call
           </button>
+          <div className="absolute top-2 right-4 text-white font-bold text-3xl">{params.id}</div>
         </div>
 
         {currentChart === "FUTURES_SHORT" && (
@@ -214,6 +238,10 @@ const TemplateIdPage: React.FC<TemplateIdPageProps> = ({ params }) => {
           </button>
         </div> */}
       </div>
+    </div>
+    <div className="pl-[350px]">
+      <TradingInputs currentStrategy={getState} poolName={params.id as string} />
+    </div>
     </div>
   );
 };

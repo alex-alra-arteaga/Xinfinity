@@ -43,9 +43,6 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-white">
-                Change languaje
-              </h2>
             </div>
             <div>
               <h2 className="mb-6 text-sm font-semibold uppercase text-white">

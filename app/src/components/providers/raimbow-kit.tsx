@@ -25,7 +25,7 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
+  appName: "Xinfinity DEX",
   projectId: "7a76c4b8cb7a09d36cf52b4406bb3f7c",
   chains,
 });
@@ -38,7 +38,7 @@ const wagmiConfig = createConfig({
 });
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: 'Regístrese a Lottery GT',
+  statement: 'Register to Xinfinity DEX',
 });
 
 export default function RainbowKitProvider({

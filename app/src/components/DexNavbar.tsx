@@ -12,6 +12,7 @@ const Navbar = async () => {
       <div className="container mx-auto flex h-full max-w-7xl items-center justify-between gap-2">
         {/* logo */}
         <SheetNav />
+        <ConnectButton />
         <Link href="/" className="flex items-center gap-2">
           <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6" />
           <h2 className="font-large hidden text-sm text-white md:block">

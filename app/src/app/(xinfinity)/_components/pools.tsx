@@ -56,7 +56,7 @@ export const columns: ColumnDef<Pool>[] = [
     cell: ({ row }) => (
       // <Icons.logo className="h-8 w-8 rounded-md sm:h-6 sm:w-6" />
       <div>
-        {row.getValue("pool") == "PRNT/WXDC" && (
+        {row.getValue("pool") == "PRNT-WXDC" && (
           <ImageComponent
             src1="/PRNTLogo.png"
             alt1="PRNT logo"
@@ -64,7 +64,7 @@ export const columns: ColumnDef<Pool>[] = [
             alt2="XdcLogo"
           />
         )}
-        {row.getValue("pool") == "XTT/XSP" && (
+        {row.getValue("pool") == "XTT-XSP" && (
           <ImageComponent
             src1="/SttLogo.png "
             alt1="STT logo"
@@ -72,7 +72,7 @@ export const columns: ColumnDef<Pool>[] = [
             alt2="XspLogo"
           />
         )}
-        {row.getValue("pool") == "BIC/WXDC" && (
+        {row.getValue("pool") == "BIC-WXDC" && (
           <ImageComponent
             src1="/BICLogo.png "
             alt1="BIC Logo"
@@ -80,7 +80,7 @@ export const columns: ColumnDef<Pool>[] = [
             alt2="xdcLogo"
           />
         )}
-        {row.getValue("pool") == "PRNT/BIC" && (
+        {row.getValue("pool") == "PRNT-BIC" && (
           <ImageComponent
             src1="/PRNTLogo.png "
             alt1="BIC Logo"
@@ -88,7 +88,7 @@ export const columns: ColumnDef<Pool>[] = [
             alt2="BICLogo"
           />
         )}
-        {row.getValue("pool") == "BIC/XSP" && (
+        {row.getValue("pool") == "BIC-XSP" && (
           <ImageComponent
             src1="/BICLogo.png"
             alt1="BIC Logo"
@@ -96,7 +96,7 @@ export const columns: ColumnDef<Pool>[] = [
             alt2="BICLogo"
           />
         )}
-         {row.getValue("pool") == "WXDC/xUSDT" && (
+         {row.getValue("pool") == "WXDC-xUSDT" && (
           <ImageComponent
             src1="/xdcLogo.png"
             alt1="XDC Logo"
@@ -104,7 +104,7 @@ export const columns: ColumnDef<Pool>[] = [
             alt2="BICLogo"
           />
         )}
-         {row.getValue("pool") == "BIC/xUSDT" && (
+         {row.getValue("pool") == "BIC-xUSDT" && (
           <ImageComponent
             src1="/BICLogo.png"
             alt1="XDC Logo"
@@ -112,7 +112,7 @@ export const columns: ColumnDef<Pool>[] = [
             alt2="BICLogo"
           />
         )}
-        {row.getValue("pool") == "XSP/WXDC" && (
+        {row.getValue("pool") == "XSP-WXDC" && (
           <ImageComponent
             src1="/xspLogo.png"
             alt1="XSP Logo"
@@ -144,7 +144,7 @@ export const columns: ColumnDef<Pool>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("TVL")}</div>,
+    cell: ({ row }) => <div className="lowercase">$ {row.getValue("TVL")}</div>,
   },
   {
     accessorKey: "volume24h",
@@ -305,7 +305,7 @@ export function Pools() {
                 <TableRow
                   className="cursor-pointer"
                   onClick={() => {
-                    window.location.href = `/app/${row.id}`;
+                    window.location.href = `/app/${row.getValue("pool")}`;
                   }}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}

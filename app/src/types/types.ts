@@ -1,0 +1,9 @@
+export enum StrategyType {
+  NONE,
+  FUTURES_LONG,
+  FUTURES_SHORT,
+  CLOSE_FUTURE,
+  OPTIONS_CALL,
+  OPTIONS_PUT,
+  CLOSE_OPTION,
+}

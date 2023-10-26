@@ -43,12 +43,16 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 
 ### Key Actors:
 - **LP Providers**: Those who provide liquidity.
-  - <u>*Xinfinity LP Providers*</u>: Interact with the protocol pools that are independent form the XSwap V3 pool.
+  - <u>*Xinfinity LP Providers*</u>: Interact with protocol pools that are independent from the XSwap V3 pool.
+
 - **Option Traders**: Both buyers and sellers.
-  - <u>*Traders*</u>: When a trader buys an option, they are given the right to purchase or sell an asset at a specific price. When a trader sells an option, they are obligated to purchase or sell an asset at a specific price. They need to pay a premium if option is choosed. They can acces the protocol liquidity to make possible the trade, even with leverage if they want.
-  - <u>*Xswap usage*</u>: To create positions we add concentred liquidity to the XSwap V3 pool. Depending on the type of positions we will add to one segment or another to be complient with the business logic. 
+  - <u>*Traders*</u>: When a trader buys an option, they gain the right to buy or sell an asset at a specific price. Conversely, selling an option obligates them to buy or sell an asset at a specific price. They must pay a premium if the option is chosen. Traders can access the protocol liquidity to facilitate trades, with the option of using leverage.
+  - <u>*Xswap Usage*</u>: To create positions, we add concentrated liquidity to the XSwap V3 pool. Depending on the type of position, we add liquidity to specific segments in compliance with business logic.
+
 - **Liquidators**: Entities ensuring market health.
-  - <u>*Incentives*</u>: Liquidators are incentivized to maintain the market's health by receiving a portion of the liquidated trader's collateral. Also we have implemented a *Funding Rate* mechanims to ensure that the price of the perpetual contract is close to the price of the underlying asset. If the price of the perpetual contract is higher than the price of the underlying asset, long positions pay short positions. If the price of the perpetual contract is lower than the price of the underlying asset, short positions pay long positions. Is implemented in the *PerpFuturesFacet* contract.
+  - <u>*Incentives*</u>: Liquidators are incentivized to maintain market health by receiving a portion of the liquidated trader's collateral. Additionally, we have implemented a *Funding Rate* mechanism to ensure that the price of the perpetual contract aligns closely with the price of the underlying asset. If the perpetual contract's price is higher than that of the underlying asset, long positions pay short positions, and vice versa. This mechanism is implemented in the *PerpFuturesFacet* contract.
+
+
 
 ## Features
 

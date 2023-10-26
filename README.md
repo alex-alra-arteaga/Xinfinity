@@ -35,6 +35,11 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 - **Options Market**: Facilitates the buying and selling of options at diverse strike prices.
 - **Liquidity Provision**: LPs (Liquidity Providers) are given the capacity to deposit, withdraw, and even collect fees.
 
+### Protocol Design
+![Protocol Schema](../app/)
+
+
+
 ### Key Stakeholders:
 - **LP Providers**: Those who provide liquidity.
 - **Option Traders**: Both buyers and sellers.

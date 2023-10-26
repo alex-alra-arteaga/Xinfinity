@@ -60,36 +60,36 @@ contract PerpFuturesFacet is Modifiers {
         delete s.futureRecord[pool][owner][contractId];
     }
 
-function sellFutureContract(uint256 amount, address token, address pool, uint24 poolFee, uint24 leverage, Types.FutureType futureType) external onlyDiamond returns (uint24 recordId){
-    (address token0, address token1, uint256 price, uint256 borrowAmount, int24 currentTick) = _preSellValidations(amount, token, pool, poolFee, leverage);
-    int256 fundingRatePayment = _processSell(amount, token, poolFee, price, futureType, borrowAmount, token0, token1, currentTick);
-    recordId = _updateFutureRecord(amount, price, leverage, fundingRatePayment, borrowAmount, pool, futureType);
+function sellFutureContract(Types.FutureParams memory param) external onlyDiamond returns (uint24 recordId){
+    (address token0, address token1, uint256 price, uint256 borrowAmount, int24 currentTick) = _preSellValidations(param);
+    int256 fundingRatePayment = _processSell(param, borrowAmount, token0, token1, currentTick);
+    recordId = _updateFutureRecord(param.amount, price, param.leverage, fundingRatePayment, borrowAmount, param.pool, param.futureType);
 }
 
-function _preSellValidations(uint256 amount, address token, address pool, uint24 poolFee, uint24 leverage) internal view returns (address, address, uint256, uint256, int24) {
-    address token0 = IUniswapV3Pool(pool).token0();
-    address token1 = IUniswapV3Pool(pool).token1();
-    if (s.poolRegistry[token0][token1][poolFee] != pool) revert Errors.NotSupportedPool();
-    uint256 amountCost = TWAPOracle.getPoolTWAP(token0, token1, poolFee, uint128(amount), true);
-    uint256 price = amountCost / amount;
-    if (leverage > Constants.MAX_LEVERAGE || leverage < Constants.MIN_LEVERAGE) revert Errors.IncorrectLeverage();
-    if (token != token0 || token != token1) revert Errors.NotIncludedInPool(token, token0, token1);
-    uint256 borrowAmount =  (amount * leverage) / Constants.BASIS_POINTS;
-    (,int24 currentTick,,,,,) = IUniswapV3Pool(pool).slot0();
+function _preSellValidations(Types.FutureParams memory param) internal view returns (address, address, uint256, uint256, int24) {
+    address token0 = IUniswapV3Pool(param.pool).token0();
+    address token1 = IUniswapV3Pool(param.pool).token1();
+    if (s.poolRegistry[token0][token1][param.poolFee] != param.pool) revert Errors.NotSupportedPool();
+    uint256 amountCost = TWAPOracle.getPoolTWAP(token0, token1, param.poolFee, uint128(param.amount), true);
+    uint256 price = amountCost / param.amount;
+    if (param.leverage > Constants.MAX_LEVERAGE || param.leverage < Constants.MIN_LEVERAGE) revert Errors.IncorrectLeverage();
+    if (param.token != token0 || param.token != token1) revert Errors.NotIncludedInPool(param.token, token0, token1);
+    uint256 borrowAmount = (param.amount * param.leverage) / Constants.BASIS_POINTS;
+    (,int24 currentTick,,,,,) = IUniswapV3Pool(param.pool).slot0();
     return (token0, token1, price, borrowAmount, currentTick);
 }
 
-function _processSell(uint256 amount, address token, uint24 poolFee, uint256 price, Types.FutureType futureType, uint256 borrowAmount, address token0, address token1, int24 currentTick) internal returns (int256) {
-    uint256 priceRatio = TWAPOracle.getRatioXinfinityXSwapPool(token0, token1, poolFee, uint128(amount));
+function _processSell(Types.FutureParams memory param, uint256 borrowAmount, address token0, address token1, int24 currentTick) internal returns (int256) {
+    uint256 priceRatio = TWAPOracle.getRatioXinfinityXSwapPool(token0, token1, param.poolFee, uint128(param.amount));
     // ((1.01 * 10_000 * 100) / 10_000) - 100 = 1 token  (if xSwap pool price is 1% higher than Xinfinity pool, shorters will pay 1 token more to longers, to raise the price of the pool)
-    int256 fundingRate = int256((priceRatio * amount) / Constants.BASIS_POINTS) - int256(amount);
+    int256 fundingRate = int256((priceRatio * param.amount) / Constants.BASIS_POINTS) - int256(param.amount);
     // ((0.99 * 10_000 * 100) / 10_000) - 100 = -1 token  (if xSwap pool price is 1% lower than Xinfinity pool, shorters will receive 1 token more from longers, to lower the price of the pool)
-    int256 fundingRatePayment = futureType == Types.FutureType.CALL ? fundingRate : -fundingRate;
+    int256 fundingRatePayment = param.futureType == Types.FutureType.CALL ? fundingRate : -fundingRate;
     /// @dev due to onlyDiamond modifier, address(this) is the Diamond contract, so PoolController will be able to move the tokens
-    bool success = IERC20(token).transferFrom(msg.sender, address(this), uint256(int256(amount) + fundingRatePayment));
+    bool success = IERC20(param.token).transferFrom(msg.sender, address(this), uint256(int256(param.amount) + fundingRatePayment));
     if (!success) revert Errors.TransferFailed();
     // call PoolController to move liquidity
-    IDiamond(address(this)).mintNewPosXinfin(token == token0 ? borrowAmount : 0, token == token1 ? borrowAmount : 0, currentTick, poolFee, token0, token1);
+    IDiamond(address(this)).mintNewPosXinfin(param.token == token0 ? borrowAmount : 0, param.token == token1 ? borrowAmount : 0, currentTick, param.poolFee, token0, token1);
     return fundingRatePayment;
 }
 

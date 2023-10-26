@@ -57,6 +57,15 @@ interface INonfungiblePositionManager {
             uint128 tokensOwed1
         );
 
+    function positions1(uint256 tokenId)
+        external
+        view
+        returns (
+            address token0,                
+            address token1,
+            uint128 liquidity
+        );
+
     struct MintParams {
         address token0;
         address token1;

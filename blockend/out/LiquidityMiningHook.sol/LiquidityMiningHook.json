@@ -41,19 +41,19 @@
     }
   ],
   "bytecode": {
-    "object": "0x60808060405234601457609a908161001a8239f35b600080fdfe6080806040526004361015601257600080fd5b600090813560e01c6350385dc114602857600080fd5b34605c5760a0366003190112605c576001600160a01b036004358181160360605760243590811603605c5780600160209252f35b5080fd5b8280fdfea2646970667358221220fdeda2c768fe23f6fa9d27ab32dd390f94f7c2dbc2c4c50ea7a17dbe7a4b8ae064736f6c63430008130033",
-    "sourceMap": "62:225:105:-:0;;;;;;;;;;;;;;;;;",
+    "object": "0x608060405234801561001057600080fd5b5060f08061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806350385dc114602d575b600080fd5b604360383660046072565b600195945050505050565b604051901515815260200160405180910390f35b80356001600160a01b0381168114606d57600080fd5b919050565b600080600080600060a08688031215608957600080fd5b6090866057565b9450609c602087016057565b9497949650505050604083013592606081013592608090910135915056fea264697066735822122095ccf5793e1c0d3849d9d6b5c707a24b412a285099cd024950813207a8b44be164736f6c63430008130033",
+    "sourceMap": "62:225:163:-:0;;;;;;;;;;;;;;;;;;;",
     "linkReferences": {}
   },
   "deployedBytecode": {
-    "object": "0x6080806040526004361015601257600080fd5b600090813560e01c6350385dc114602857600080fd5b34605c5760a0366003190112605c576001600160a01b036004358181160360605760243590811603605c5780600160209252f35b5080fd5b8280fdfea2646970667358221220fdeda2c768fe23f6fa9d27ab32dd390f94f7c2dbc2c4c50ea7a17dbe7a4b8ae064736f6c63430008130033",
-    "sourceMap": "62:225:105:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;62:225:105;;;;-1:-1:-1;;;;;62:225:105;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+    "object": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c806350385dc114602d575b600080fd5b604360383660046072565b600195945050505050565b604051901515815260200160405180910390f35b80356001600160a01b0381168114606d57600080fd5b919050565b600080600080600060a08688031215608957600080fd5b6090866057565b9450609c602087016057565b9497949650505050604083013592606081013592608090910135915056fea264697066735822122095ccf5793e1c0d3849d9d6b5c707a24b412a285099cd024950813207a8b44be164736f6c63430008130033",
+    "sourceMap": "62:225:163:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;98:186;;;;;;:::i;:::-;272:4;98:186;;;;;;;;;;;828:14:165;;821:22;803:41;;791:2;776:18;98:186:163;;;;;;;14:173:165;82:20;;-1:-1:-1;;;;;131:31:165;;121:42;;111:70;;177:1;174;167:12;111:70;14:173;;;:::o;192:466::-;287:6;295;303;311;319;372:3;360:9;351:7;347:23;343:33;340:53;;;389:1;386;379:12;340:53;412:29;431:9;412:29;:::i;:::-;402:39;;460:38;494:2;483:9;479:18;460:38;:::i;:::-;192:466;;450:48;;-1:-1:-1;;;;545:2:165;530:18;;517:32;;596:2;581:18;;568:32;;647:3;632:19;;;619:33;;-1:-1:-1;192:466:165:o",
     "linkReferences": {}
   },
   "methodIdentifiers": {
     "onLiquidityMining(address,address,uint256,uint256,uint256)": "50385dc1"
   },
-  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"onLiquidityMining\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"utils/LiquidityMiningHook.sol\":\"LiquidityMiningHook\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":v3-core/=lib/v3-core/\"],\"viaIR\":true},\"sources\":{\"utils/LiquidityMiningHook.sol\":{\"keccak256\":\"0x5d1ecf508f65e2570c96f51fc93d8e41cb8d1bc3b2242c57ae79093893f5ce77\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b8546327c97b93d4293e8cf618ef229f46e8af31e034e70a69cf007952b9feb3\",\"dweb:/ipfs/QmcrvoaF44b6XbTN6USKioCYyBrrkMHST2u6iceFXBk61c\"]}},\"version\":1}",
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"onLiquidityMining\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"utils/LiquidityMiningHook.sol\":\"LiquidityMiningHook\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin/=lib/openzeppelin/contracts/\",\":v3-core/=lib/v3-core/\",\":v3-periphery/=lib/v3-periphery/\"]},\"sources\":{\"utils/LiquidityMiningHook.sol\":{\"keccak256\":\"0x5d1ecf508f65e2570c96f51fc93d8e41cb8d1bc3b2242c57ae79093893f5ce77\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b8546327c97b93d4293e8cf618ef229f46e8af31e034e70a69cf007952b9feb3\",\"dweb:/ipfs/QmcrvoaF44b6XbTN6USKioCYyBrrkMHST2u6iceFXBk61c\"]}},\"version\":1}",
   "metadata": {
     "compiler": {
       "version": "0.8.19+commit.7dd6d404"
@@ -116,7 +116,9 @@
       "remappings": [
         ":ds-test/=lib/forge-std/lib/ds-test/src/",
         ":forge-std/=lib/forge-std/src/",
-        ":v3-core/=lib/v3-core/"
+        ":openzeppelin/=lib/openzeppelin/contracts/",
+        ":v3-core/=lib/v3-core/",
+        ":v3-periphery/=lib/v3-periphery/"
       ],
       "optimizer": {
         "enabled": true,
@@ -128,8 +130,7 @@
       "compilationTarget": {
         "utils/LiquidityMiningHook.sol": "LiquidityMiningHook"
       },
-      "libraries": {},
-      "viaIR": true
+      "libraries": {}
     },
     "sources": {
       "utils/LiquidityMiningHook.sol": {
@@ -145,19 +146,19 @@
   },
   "ast": {
     "absolutePath": "utils/LiquidityMiningHook.sol",
-    "id": 76294,
+    "id": 87009,
     "exportedSymbols": {
       "LiquidityMiningHook": [
-        76293
+        87008
       ]
     },
     "nodeType": "SourceUnit",
-    "src": "35:252:105",
+    "src": "35:252:163",
     "nodes": [
       {
-        "id": 76274,
+        "id": 86989,
         "nodeType": "PragmaDirective",
-        "src": "35:23:105",
+        "src": "35:23:163",
         "nodes": [],
         "literals": [
           "solidity",
@@ -166,42 +167,42 @@
         ]
       },
       {
-        "id": 76293,
+        "id": 87008,
         "nodeType": "ContractDefinition",
-        "src": "62:225:105",
+        "src": "62:225:163",
         "nodes": [
           {
-            "id": 76292,
+            "id": 87007,
             "nodeType": "FunctionDefinition",
-            "src": "98:186:105",
+            "src": "98:186:163",
             "nodes": [],
             "body": {
-              "id": 76291,
+              "id": 87006,
               "nodeType": "Block",
-              "src": "254:30:105",
+              "src": "254:30:163",
               "nodes": [],
               "statements": [
                 {
                   "expression": {
                     "hexValue": "74727565",
-                    "id": 76289,
+                    "id": 87004,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "272:4:105",
+                    "src": "272:4:163",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
                     "value": "true"
                   },
-                  "functionReturnParameters": 76288,
-                  "id": 76290,
+                  "functionReturnParameters": 87003,
+                  "id": 87005,
                   "nodeType": "Return",
-                  "src": "265:11:105"
+                  "src": "265:11:163"
                 }
               ]
             },
@@ -210,20 +211,20 @@
             "kind": "function",
             "modifiers": [],
             "name": "onLiquidityMining",
-            "nameLocation": "107:17:105",
+            "nameLocation": "107:17:163",
             "parameters": {
-              "id": 76285,
+              "id": 87000,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 76276,
+                  "id": 86991,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 76292,
-                  "src": "135:7:105",
+                  "scope": 87007,
+                  "src": "135:7:163",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -231,10 +232,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 76275,
+                    "id": 86990,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "135:7:105",
+                    "src": "135:7:163",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -245,13 +246,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 76278,
+                  "id": 86993,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 76292,
-                  "src": "153:7:105",
+                  "scope": 87007,
+                  "src": "153:7:163",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -259,10 +260,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 76277,
+                    "id": 86992,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "153:7:105",
+                    "src": "153:7:163",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -273,13 +274,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 76280,
+                  "id": 86995,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 76292,
-                  "src": "171:7:105",
+                  "scope": 87007,
+                  "src": "171:7:163",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -287,10 +288,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 76279,
+                    "id": 86994,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "171:7:105",
+                    "src": "171:7:163",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -300,13 +301,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 76282,
+                  "id": 86997,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 76292,
-                  "src": "189:7:105",
+                  "scope": 87007,
+                  "src": "189:7:163",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -314,10 +315,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 76281,
+                    "id": 86996,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "189:7:105",
+                    "src": "189:7:163",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -327,13 +328,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 76284,
+                  "id": 86999,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 76292,
-                  "src": "207:7:105",
+                  "scope": 87007,
+                  "src": "207:7:163",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -341,10 +342,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 76283,
+                    "id": 86998,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "207:7:105",
+                    "src": "207:7:163",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -353,21 +354,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "124:97:105"
+              "src": "124:97:163"
             },
             "returnParameters": {
-              "id": 76288,
+              "id": 87003,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 76287,
+                  "id": 87002,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 76292,
-                  "src": "248:4:105",
+                  "scope": 87007,
+                  "src": "248:4:163",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -375,10 +376,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 76286,
+                    "id": 87001,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "248:4:105",
+                    "src": "248:4:163",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -387,9 +388,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "247:6:105"
+              "src": "247:6:163"
             },
-            "scope": 76293,
+            "scope": 87008,
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "external"
@@ -402,15 +403,15 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "linearizedBaseContracts": [
-          76293
+          87008
         ],
         "name": "LiquidityMiningHook",
-        "nameLocation": "71:19:105",
-        "scope": 76294,
+        "nameLocation": "71:19:163",
+        "scope": 87009,
         "usedErrors": []
       }
     ],
     "license": "MIT"
   },
-  "id": 105
+  "id": 163
 }

@@ -14,3 +14,5 @@ Important, you need to build the contracts with the `--via-ir` flag, otherwise t
 ```bash	
 $ forge build --via-ir
 ```
+
+I have commited the `out/` folder so you don't have to build it yourself.

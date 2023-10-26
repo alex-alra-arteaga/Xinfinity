@@ -27,7 +27,7 @@
   "methodIdentifiers": {
     "IS_SCRIPT()": "f8ccbf47"
   },
-  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"IS_SCRIPT\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"lib/forge-std/src/Script.sol\":\"Script\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":v3-core/=lib/v3-core/\"],\"viaIR\":true},\"sources\":{\"lib/forge-std/src/Base.sol\":{\"keccak256\":\"0x658ad7c2171d17c092c21f7834536c6da1309e9e0e64de2ff6b4afbad6ccd261\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4ed5efd8b2c1567bdb73550566b9c5b833e000682bd71d59f80b844edab18379\",\"dweb:/ipfs/QmepP8nqGWqZ8338GbzFTGPJgFuZ2e6EeSoCBf85uaQ4fn\"]},\"lib/forge-std/src/Script.sol\":{\"keccak256\":\"0x41e2186ca895c999baef9feb02b8bca358b324c275a5cea63e9a25ba5aac308e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://45449475c2abac276f31089ea913436935349de8f1148be597473f2664d0162c\",\"dweb:/ipfs/QmaKWzH6Ust5JiXBvepzu7AWxgvvDHSBmdWYStjxffG6tz\"]},\"lib/forge-std/src/StdChains.sol\":{\"keccak256\":\"0x17a4ddfc8bff0db824ba8a76180a90e7a5362e28564082a319f7e7077bc15632\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0caee7e96133f7634df4e75350a9c250c6bff1270d4188254b1873f3b2346d06\",\"dweb:/ipfs/QmT4cmG1uEzJokb6NfcWWCj6NAWUZeZwV8feESSou1DGii\"]},\"lib/forge-std/src/StdCheats.sol\":{\"keccak256\":\"0x0acf2b89a63dbc2f3dbab48d1b8e3b2ebc014cef1e16c7807a3826f51adcc3cc\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://903c973ddab09497ea57d7f33d757af851322d330225792993f14f13c7e82731\",\"dweb:/ipfs/QmSm3hdFVfE4hqtw8CBHjZvMoCR3STe8k7pLjfDpwQWSw2\"]},\"lib/forge-std/src/StdJson.sol\":{\"keccak256\":\"0xa915d14227430c3a1ed8e80bdd5ceb5a1fff791a4454565f5122d9685914cffb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://db8ae45845bfb42d0ddb2ffd7233b803c02f4d0eef3140211eb06266fd59645f\",\"dweb:/ipfs/QmW7oRpvPsCW2BU8HFZXPJAQwEWZszjeEmD1y7sdFPoCfw\"]},\"lib/forge-std/src/StdMath.sol\":{\"keccak256\":\"0x2937c68a288dbb54c9bb4209119817ea197ffbed21167c493f14dcbbc327c399\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a222d841d2d7e9bb92cf1fb0018a2b8f56d7829a7cab0dba8aa1ca6e7ef693a8\",\"dweb:/ipfs/QmUvKzRrjPthS5m4rKrs7zGq38xgjWRrQpKMLQJrHkAgX6\"]},\"lib/forge-std/src/StdStorage.sol\":{\"keccak256\":\"0xee79340b675b42ba1192a7698aceaf775518099bd9d89c88eb5a890e8c3bef04\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3f2f034f1f0e6c2b7cef172d457872e060a1309a4b69630d9c30caaa12f83c1c\",\"dweb:/ipfs/QmPAaZeAKCn4JLafoxVL4TBYzcrADAVC8dmjT1WPpZ4f4D\"]},\"lib/forge-std/src/StdStyle.sol\":{\"keccak256\":\"0xe3e5d092bfcad345b1c25ea431473039295fbd9efde2b702881f1f4edc2c1417\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://89b16a8e997a1bed9ffb113924222d521542b1bc13b475763d8a8b890a27cd8a\",\"dweb:/ipfs/QmXeeuDTgjBYWgun7EiQgUJZF9JVKdARNM8qobLHdG9r4Q\"]},\"lib/forge-std/src/StdUtils.sol\":{\"keccak256\":\"0x41cafaff048da9639ce9ec82f0d0f0dc7d1430c2e029cad49010bd8d77e81357\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a4193803ee128be194786ff806e4a39b6498331969df756bc41985dd3d26c254\",\"dweb:/ipfs/QmcdNtApALPVkoZG5V24ttXJsDKnyQ53LKTfYsCyiuv8m9\"]},\"lib/forge-std/src/Vm.sol\":{\"keccak256\":\"0x31249ae406f2e348859338b3e989b18d1ba92b72afd2136a9f3e8cff549badb6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cc4d33b0f8f059f00ecd7b2228292d6f8e7875dd7ce50a84a03a8af34d2d19d5\",\"dweb:/ipfs/QmYruE5DR2Eu62Ja5uGnhr5Wx1FzFNzgkqzdD74P7AB6eN\"]},\"lib/forge-std/src/console.sol\":{\"keccak256\":\"0xbbdc11ec3a00e6b8c6c76e7f0ea46581239faee116324de4184dd0af011dd837\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://10581f46c044a7561d25d8ea203f4e89e13a807b40bf9d87520f69407447de42\",\"dweb:/ipfs/QmSFVUzcDB9QtNyjJ5fLzi3kqKhtEbDD7TZMgbzJ9wiC63\"]},\"lib/forge-std/src/console2.sol\":{\"keccak256\":\"0x194c2bb6bb02214ca445209140821fdad6f82fc1672ec900a31e4f7547ee34fb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2bde7d0db7b21399717c6969027759ec7dfa3563c543a577dfd6b140803325e4\",\"dweb:/ipfs/QmV5CKK1yECaPAeA7edxuftEwUXGLxVR4vSeBZRcWQkbkE\"]},\"lib/forge-std/src/interfaces/IMulticall3.sol\":{\"keccak256\":\"0x1313e079d13b9f3a47177eff1d226c41b0b51c0802c248d47d038eb65a084307\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2b51e2203055cda450dc04ce55644f209f67e208fc143a1f118cff66de010f20\",\"dweb:/ipfs/QmVtQjmG6YnHaDt81TvJM74TvzEh3SULR3HyzxVQFM59xZ\"]},\"lib/forge-std/src/safeconsole.sol\":{\"keccak256\":\"0x60cc2f1eb24e38fc92e067c622d6eeebfea4173c9e6517f16d440fbc8f0257fb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b7b73fff39ec51e2f181962e5ea1306d8a2e953c0a9116849d086b5432227ca1\",\"dweb:/ipfs/QmRrScdwdioNyyG7pPwsiQE1k5iJvuhYgt4MLY6xGu8uKh\"]}},\"version\":1}",
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"IS_SCRIPT\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"lib/forge-std/src/Script.sol\":\"Script\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin/=lib/openzeppelin/contracts/\",\":v3-core/=lib/v3-core/\",\":v3-periphery/=lib/v3-periphery/\"]},\"sources\":{\"lib/forge-std/src/Base.sol\":{\"keccak256\":\"0x658ad7c2171d17c092c21f7834536c6da1309e9e0e64de2ff6b4afbad6ccd261\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4ed5efd8b2c1567bdb73550566b9c5b833e000682bd71d59f80b844edab18379\",\"dweb:/ipfs/QmepP8nqGWqZ8338GbzFTGPJgFuZ2e6EeSoCBf85uaQ4fn\"]},\"lib/forge-std/src/Script.sol\":{\"keccak256\":\"0x41e2186ca895c999baef9feb02b8bca358b324c275a5cea63e9a25ba5aac308e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://45449475c2abac276f31089ea913436935349de8f1148be597473f2664d0162c\",\"dweb:/ipfs/QmaKWzH6Ust5JiXBvepzu7AWxgvvDHSBmdWYStjxffG6tz\"]},\"lib/forge-std/src/StdChains.sol\":{\"keccak256\":\"0x17a4ddfc8bff0db824ba8a76180a90e7a5362e28564082a319f7e7077bc15632\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0caee7e96133f7634df4e75350a9c250c6bff1270d4188254b1873f3b2346d06\",\"dweb:/ipfs/QmT4cmG1uEzJokb6NfcWWCj6NAWUZeZwV8feESSou1DGii\"]},\"lib/forge-std/src/StdCheats.sol\":{\"keccak256\":\"0x0acf2b89a63dbc2f3dbab48d1b8e3b2ebc014cef1e16c7807a3826f51adcc3cc\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://903c973ddab09497ea57d7f33d757af851322d330225792993f14f13c7e82731\",\"dweb:/ipfs/QmSm3hdFVfE4hqtw8CBHjZvMoCR3STe8k7pLjfDpwQWSw2\"]},\"lib/forge-std/src/StdJson.sol\":{\"keccak256\":\"0xa915d14227430c3a1ed8e80bdd5ceb5a1fff791a4454565f5122d9685914cffb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://db8ae45845bfb42d0ddb2ffd7233b803c02f4d0eef3140211eb06266fd59645f\",\"dweb:/ipfs/QmW7oRpvPsCW2BU8HFZXPJAQwEWZszjeEmD1y7sdFPoCfw\"]},\"lib/forge-std/src/StdMath.sol\":{\"keccak256\":\"0x2937c68a288dbb54c9bb4209119817ea197ffbed21167c493f14dcbbc327c399\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a222d841d2d7e9bb92cf1fb0018a2b8f56d7829a7cab0dba8aa1ca6e7ef693a8\",\"dweb:/ipfs/QmUvKzRrjPthS5m4rKrs7zGq38xgjWRrQpKMLQJrHkAgX6\"]},\"lib/forge-std/src/StdStorage.sol\":{\"keccak256\":\"0xee79340b675b42ba1192a7698aceaf775518099bd9d89c88eb5a890e8c3bef04\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3f2f034f1f0e6c2b7cef172d457872e060a1309a4b69630d9c30caaa12f83c1c\",\"dweb:/ipfs/QmPAaZeAKCn4JLafoxVL4TBYzcrADAVC8dmjT1WPpZ4f4D\"]},\"lib/forge-std/src/StdStyle.sol\":{\"keccak256\":\"0xe3e5d092bfcad345b1c25ea431473039295fbd9efde2b702881f1f4edc2c1417\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://89b16a8e997a1bed9ffb113924222d521542b1bc13b475763d8a8b890a27cd8a\",\"dweb:/ipfs/QmXeeuDTgjBYWgun7EiQgUJZF9JVKdARNM8qobLHdG9r4Q\"]},\"lib/forge-std/src/StdUtils.sol\":{\"keccak256\":\"0x41cafaff048da9639ce9ec82f0d0f0dc7d1430c2e029cad49010bd8d77e81357\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a4193803ee128be194786ff806e4a39b6498331969df756bc41985dd3d26c254\",\"dweb:/ipfs/QmcdNtApALPVkoZG5V24ttXJsDKnyQ53LKTfYsCyiuv8m9\"]},\"lib/forge-std/src/Vm.sol\":{\"keccak256\":\"0x31249ae406f2e348859338b3e989b18d1ba92b72afd2136a9f3e8cff549badb6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cc4d33b0f8f059f00ecd7b2228292d6f8e7875dd7ce50a84a03a8af34d2d19d5\",\"dweb:/ipfs/QmYruE5DR2Eu62Ja5uGnhr5Wx1FzFNzgkqzdD74P7AB6eN\"]},\"lib/forge-std/src/console.sol\":{\"keccak256\":\"0xbbdc11ec3a00e6b8c6c76e7f0ea46581239faee116324de4184dd0af011dd837\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://10581f46c044a7561d25d8ea203f4e89e13a807b40bf9d87520f69407447de42\",\"dweb:/ipfs/QmSFVUzcDB9QtNyjJ5fLzi3kqKhtEbDD7TZMgbzJ9wiC63\"]},\"lib/forge-std/src/console2.sol\":{\"keccak256\":\"0x194c2bb6bb02214ca445209140821fdad6f82fc1672ec900a31e4f7547ee34fb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2bde7d0db7b21399717c6969027759ec7dfa3563c543a577dfd6b140803325e4\",\"dweb:/ipfs/QmV5CKK1yECaPAeA7edxuftEwUXGLxVR4vSeBZRcWQkbkE\"]},\"lib/forge-std/src/interfaces/IMulticall3.sol\":{\"keccak256\":\"0x1313e079d13b9f3a47177eff1d226c41b0b51c0802c248d47d038eb65a084307\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2b51e2203055cda450dc04ce55644f209f67e208fc143a1f118cff66de010f20\",\"dweb:/ipfs/QmVtQjmG6YnHaDt81TvJM74TvzEh3SULR3HyzxVQFM59xZ\"]},\"lib/forge-std/src/safeconsole.sol\":{\"keccak256\":\"0x60cc2f1eb24e38fc92e067c622d6eeebfea4173c9e6517f16d440fbc8f0257fb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b7b73fff39ec51e2f181962e5ea1306d8a2e953c0a9116849d086b5432227ca1\",\"dweb:/ipfs/QmRrScdwdioNyyG7pPwsiQE1k5iJvuhYgt4MLY6xGu8uKh\"]}},\"version\":1}",
   "metadata": {
     "compiler": {
       "version": "0.8.19+commit.7dd6d404"
@@ -64,7 +64,9 @@
       "remappings": [
         ":ds-test/=lib/forge-std/lib/ds-test/src/",
         ":forge-std/=lib/forge-std/src/",
-        ":v3-core/=lib/v3-core/"
+        ":openzeppelin/=lib/openzeppelin/contracts/",
+        ":v3-core/=lib/v3-core/",
+        ":v3-periphery/=lib/v3-periphery/"
       ],
       "optimizer": {
         "enabled": true,
@@ -76,8 +78,7 @@
       "compilationTarget": {
         "lib/forge-std/src/Script.sol": "Script"
       },
-      "libraries": {},
-      "viaIR": true
+      "libraries": {}
     },
     "sources": {
       "lib/forge-std/src/Base.sol": {
@@ -197,56 +198,56 @@
   },
   "ast": {
     "absolutePath": "lib/forge-std/src/Script.sol",
-    "id": 10710,
+    "id": 10816,
     "exportedSymbols": {
       "Script": [
-        10709
+        10815
       ],
       "ScriptBase": [
-        10670
+        10776
       ],
       "StdChains": [
-        12865
+        12971
       ],
       "StdCheatsSafe": [
-        14925
+        15031
       ],
       "StdStorage": [
-        16809
+        16915
       ],
       "StdStyle": [
-        19659
+        19765
       ],
       "StdUtils": [
-        20507
+        20613
       ],
       "VmSafe": [
-        21793
+        21899
       ],
       "console": [
-        30328
+        30434
       ],
       "console2": [
-        38453
+        38559
       ],
       "safeconsole": [
-        52269
+        52375
       ],
       "stdJson": [
-        16635
+        16741
       ],
       "stdMath": [
-        16777
+        16883
       ],
       "stdStorageSafe": [
-        17857
+        17963
       ]
     },
     "nodeType": "SourceUnit",
     "src": "33:826:26",
     "nodes": [
       {
-        "id": 10672,
+        "id": 10778,
         "nodeType": "PragmaDirective",
         "src": "33:31:26",
         "nodes": [],
@@ -261,23 +262,23 @@
         ]
       },
       {
-        "id": 10674,
+        "id": 10780,
         "nodeType": "ImportDirective",
         "src": "134:38:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/console.sol",
         "file": "./console.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 30329,
+        "scope": 10816,
+        "sourceUnit": 30435,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10673,
+              "id": 10779,
               "name": "console",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 30328,
+              "referencedDeclaration": 30434,
               "src": "142:7:26",
               "typeDescriptions": {}
             },
@@ -287,23 +288,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10676,
+        "id": 10782,
         "nodeType": "ImportDirective",
         "src": "174:40:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/console2.sol",
         "file": "./console2.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 38454,
+        "scope": 10816,
+        "sourceUnit": 38560,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10675,
+              "id": 10781,
               "name": "console2",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 38453,
+              "referencedDeclaration": 38559,
               "src": "182:8:26",
               "typeDescriptions": {}
             },
@@ -313,23 +314,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10678,
+        "id": 10784,
         "nodeType": "ImportDirective",
         "src": "216:46:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/safeconsole.sol",
         "file": "./safeconsole.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 52270,
+        "scope": 10816,
+        "sourceUnit": 52376,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10677,
+              "id": 10783,
               "name": "safeconsole",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 52269,
+              "referencedDeclaration": 52375,
               "src": "224:11:26",
               "typeDescriptions": {}
             },
@@ -339,23 +340,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10680,
+        "id": 10786,
         "nodeType": "ImportDirective",
         "src": "264:42:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/StdChains.sol",
         "file": "./StdChains.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 12866,
+        "scope": 10816,
+        "sourceUnit": 12972,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10679,
+              "id": 10785,
               "name": "StdChains",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 12865,
+              "referencedDeclaration": 12971,
               "src": "272:9:26",
               "typeDescriptions": {}
             },
@@ -365,23 +366,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10682,
+        "id": 10788,
         "nodeType": "ImportDirective",
         "src": "308:46:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/StdCheats.sol",
         "file": "./StdCheats.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 15719,
+        "scope": 10816,
+        "sourceUnit": 15825,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10681,
+              "id": 10787,
               "name": "StdCheatsSafe",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 14925,
+              "referencedDeclaration": 15031,
               "src": "316:13:26",
               "typeDescriptions": {}
             },
@@ -391,23 +392,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10684,
+        "id": 10790,
         "nodeType": "ImportDirective",
         "src": "356:38:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/StdJson.sol",
         "file": "./StdJson.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 16636,
+        "scope": 10816,
+        "sourceUnit": 16742,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10683,
+              "id": 10789,
               "name": "stdJson",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 16635,
+              "referencedDeclaration": 16741,
               "src": "364:7:26",
               "typeDescriptions": {}
             },
@@ -417,23 +418,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10686,
+        "id": 10792,
         "nodeType": "ImportDirective",
         "src": "396:38:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/StdMath.sol",
         "file": "./StdMath.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 16778,
+        "scope": 10816,
+        "sourceUnit": 16884,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10685,
+              "id": 10791,
               "name": "stdMath",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 16777,
+              "referencedDeclaration": 16883,
               "src": "404:7:26",
               "typeDescriptions": {}
             },
@@ -443,23 +444,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10689,
+        "id": 10795,
         "nodeType": "ImportDirective",
         "src": "436:60:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/StdStorage.sol",
         "file": "./StdStorage.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 18449,
+        "scope": 10816,
+        "sourceUnit": 18555,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10687,
+              "id": 10793,
               "name": "StdStorage",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 16809,
+              "referencedDeclaration": 16915,
               "src": "444:10:26",
               "typeDescriptions": {}
             },
@@ -467,11 +468,11 @@
           },
           {
             "foreign": {
-              "id": 10688,
+              "id": 10794,
               "name": "stdStorageSafe",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 17857,
+              "referencedDeclaration": 17963,
               "src": "456:14:26",
               "typeDescriptions": {}
             },
@@ -481,23 +482,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10691,
+        "id": 10797,
         "nodeType": "ImportDirective",
         "src": "498:40:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/StdStyle.sol",
         "file": "./StdStyle.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 19660,
+        "scope": 10816,
+        "sourceUnit": 19766,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10690,
+              "id": 10796,
               "name": "StdStyle",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 19659,
+              "referencedDeclaration": 19765,
               "src": "506:8:26",
               "typeDescriptions": {}
             },
@@ -507,23 +508,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10693,
+        "id": 10799,
         "nodeType": "ImportDirective",
         "src": "540:40:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/StdUtils.sol",
         "file": "./StdUtils.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 20508,
+        "scope": 10816,
+        "sourceUnit": 20614,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10692,
+              "id": 10798,
               "name": "StdUtils",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 20507,
+              "referencedDeclaration": 20613,
               "src": "548:8:26",
               "typeDescriptions": {}
             },
@@ -533,23 +534,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10695,
+        "id": 10801,
         "nodeType": "ImportDirective",
         "src": "582:32:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/Vm.sol",
         "file": "./Vm.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 22265,
+        "scope": 10816,
+        "sourceUnit": 22371,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10694,
+              "id": 10800,
               "name": "VmSafe",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 21793,
+              "referencedDeclaration": 21899,
               "src": "590:6:26",
               "typeDescriptions": {}
             },
@@ -559,23 +560,23 @@
         "unitAlias": ""
       },
       {
-        "id": 10697,
+        "id": 10803,
         "nodeType": "ImportDirective",
         "src": "639:38:26",
         "nodes": [],
         "absolutePath": "lib/forge-std/src/Base.sol",
         "file": "./Base.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 10710,
-        "sourceUnit": 10671,
+        "scope": 10816,
+        "sourceUnit": 10777,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 10696,
+              "id": 10802,
               "name": "ScriptBase",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 10670,
+              "referencedDeclaration": 10776,
               "src": "647:10:26",
               "typeDescriptions": {}
             },
@@ -585,12 +586,12 @@
         "unitAlias": ""
       },
       {
-        "id": 10709,
+        "id": 10815,
         "nodeType": "ContractDefinition",
         "src": "699:158:26",
         "nodes": [
           {
-            "id": 10708,
+            "id": 10814,
             "nodeType": "VariableDeclaration",
             "src": "825:28:26",
             "nodes": [],
@@ -599,7 +600,7 @@
             "mutability": "mutable",
             "name": "IS_SCRIPT",
             "nameLocation": "837:9:26",
-            "scope": 10709,
+            "scope": 10815,
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -607,7 +608,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 10706,
+              "id": 10812,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "825:4:26",
@@ -618,7 +619,7 @@
             },
             "value": {
               "hexValue": "74727565",
-              "id": 10707,
+              "id": 10813,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -639,61 +640,61 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 10698,
+              "id": 10804,
               "name": "ScriptBase",
               "nameLocations": [
                 "727:10:26"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 10670,
+              "referencedDeclaration": 10776,
               "src": "727:10:26"
             },
-            "id": 10699,
+            "id": 10805,
             "nodeType": "InheritanceSpecifier",
             "src": "727:10:26"
           },
           {
             "baseName": {
-              "id": 10700,
+              "id": 10806,
               "name": "StdChains",
               "nameLocations": [
                 "739:9:26"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 12865,
+              "referencedDeclaration": 12971,
               "src": "739:9:26"
             },
-            "id": 10701,
+            "id": 10807,
             "nodeType": "InheritanceSpecifier",
             "src": "739:9:26"
           },
           {
             "baseName": {
-              "id": 10702,
+              "id": 10808,
               "name": "StdCheatsSafe",
               "nameLocations": [
                 "750:13:26"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 14925,
+              "referencedDeclaration": 15031,
               "src": "750:13:26"
             },
-            "id": 10703,
+            "id": 10809,
             "nodeType": "InheritanceSpecifier",
             "src": "750:13:26"
           },
           {
             "baseName": {
-              "id": 10704,
+              "id": 10810,
               "name": "StdUtils",
               "nameLocations": [
                 "765:8:26"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 20507,
+              "referencedDeclaration": 20613,
               "src": "765:8:26"
             },
-            "id": 10705,
+            "id": 10811,
             "nodeType": "InheritanceSpecifier",
             "src": "765:8:26"
           }
@@ -703,16 +704,16 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "linearizedBaseContracts": [
-          10709,
-          20507,
-          14925,
-          12865,
-          10670,
-          10658
+          10815,
+          20613,
+          15031,
+          12971,
+          10776,
+          10764
         ],
         "name": "Script",
         "nameLocation": "717:6:26",
-        "scope": 10710,
+        "scope": 10816,
         "usedErrors": []
       }
     ],

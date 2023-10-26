@@ -268,6 +268,16 @@ contract XinfinityLPManagerFacet is Modifiers, IERC721Receiver {
         TransferHelper.safeTransfer(token1, owner, amount1);
     }
 
+    /**
+     *
+     * @param tokenId tokenId of the Liquidity representation NFT
+     * @param amountAdd0 amount of token 0 to add
+     * @param amountAdd1 amount of token 1 to add
+     * @return liquidity
+     * @return amount0
+     * @return amount1
+     */
+
     function increaseLiquidityCurrentRange(uint256 tokenId, uint256 amountAdd0, uint256 amountAdd1)
         public
         returns (uint128 liquidity, uint256 amount0, uint256 amount1)

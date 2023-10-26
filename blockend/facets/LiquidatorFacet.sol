@@ -14,7 +14,7 @@ contract LiquidatorFacet is Modifiers {
 
     function liquidateFuture(IUniswapV3Pool pool, address owner, uint24 contractId) external {
 
-        (bool isLiquidable, int256 actualMarginPercentage, int256 actualMarginAmount) = IDiamond(address(this)).positionHealthFactorFutures(pool, owner, contractId);
+        (bool isLiquidable, int256 actualMarginPercentage, int256 actualMarginAmount) = IDiamond(address(this)).positionHealthFactorFutures(address(pool), owner, contractId);
         if (!isLiquidable) revert Errors.NotLiquidable();
 
         Types.PerpFuture memory future = s.futureRecord[address(pool)][owner][contractId];

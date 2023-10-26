@@ -4,7 +4,6 @@ pragma solidity 0.8.19;
 
 import {IUniswapV3Pool} from "../interfaces/IUniswapV3Pool.sol";
 import {TickMath} from "../libraries/TickMath.sol";
-import {IERC721Receiver} from "../interfaces/IERC721Receiver.sol";
 import {ISwapRouter} from "../interfaces/ISwapRouter.sol";
 import {INonfungiblePositionManager} from "../interfaces/INonfungiblePositionManager.sol";
 import {TransferHelper} from "../libraries/TransferHelper.sol";
@@ -13,34 +12,8 @@ import {Modifiers} from "../libraries/Modifiers.sol";
 import {Types} from "../libraries/Types.sol";
 
 // POOL CONTROLLOR OF UNISWAP interacting with xSwap
-contract PoolControllerFacet is Modifiers, IERC721Receiver {
+contract PoolControllerFacet is Modifiers {
     // when the contract receive a NFT == liquidity position (can recieve custody of the NFT)
-    function onERC721Received(
-        address operator,
-        address,
-        uint256 tokenId,
-        bytes calldata
-    ) external override returns (bytes4) {
-        // in case we recieve the nft
-        _createDeposit(operator, tokenId);
-        return this.onERC721Received.selector;
-    }
-
-    function _createDeposit(address owner, uint256 tokenId) internal {
-        (address token0, address token1,uint128 liquidity) = Constants.NON_FUNGIBLE_POSITION_MANAGER.positions1(tokenId);
-
-        // set the owner and data for position
-        // operator is msg.sender
-
-        // get info from the tokenId
-        s.depositXswap[tokenId] = Types.Deposit({
-            owner: owner,
-            liquidity: liquidity,
-            token0: token0,
-            token1: token1
-        });
-    }
-
     function collectAllFeesXinfin(
         uint256 tokenId
     ) external returns (uint256 amount0, uint256 amount1) {

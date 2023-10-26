@@ -48,10 +48,7 @@ contract Diamond {
         s.feeAmountTickSpacing[3000] = 60;
         s.feeAmountTickSpacing[10000] = 200;
 
-        // here deploy factory -> Manager -> deascritpion
-        // s.xinfinityFactory = new UniswapV3Pool();
-        // s.xinfinityNFTDescriptor = new NonfungibleTokenPositionDescriptor(Constants.WXDC, "");
-        // s.xinfinityManager = new NonfungiblePositionManager(s.xinfinityFactory, Constants.WXDC,  s.xinfinityNFTDescriptor);
+        // here deploy factory -> Manager -> descritpion
         s.xinfinityFactory = _xinfinityFactory;
         s.xinfinityNFTDescriptor = _xinfinityNFTDescriptor;
         s.xinfinityManager = _xinfinityManager;

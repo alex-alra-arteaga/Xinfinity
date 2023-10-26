@@ -28,7 +28,7 @@ contract LeverageFacet is Modifiers {
         Types.PerpFuture memory future = s.futureRecord[pool][msg.sender][contractId];
         if (future.status != Types.OrderStatus.MINTED && future.status != Types.OrderStatus.BOUGHT) revert Errors.NotAvaibleFuture(pool, msg.sender, contractId);
 
-        (bool isLiquidable, int256 actualMarginPercentage, int256 actualMarginAmount) = IDiamond(address(this)).positionHealthFactorFutures(IUniswapV3Pool(pool), msg.sender, contractId);
+        (bool isLiquidable, int256 actualMarginPercentage, int256 actualMarginAmount) = IDiamond(address(this)).positionHealthFactorFutures(pool, msg.sender, contractId);
         if (isLiquidable || amount < uint256(-actualMarginAmount)) revert Errors.PositionsIsLiquidable();
 
         bool success = IERC20(future.collateralToken).transferFrom(address(this), msg.sender, amount);

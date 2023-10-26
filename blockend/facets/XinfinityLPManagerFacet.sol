@@ -14,7 +14,7 @@ import {Constants} from "../libraries/Constants.sol";
 import {Types} from "../libraries/Types.sol";
 
 // use this contract to manage our own pool
-contract PoolController is Modifiers, IERC721Receiver {
+contract XinfinityLPManagerFacet is Modifiers, IERC721Receiver {
     // when the contract receive a NFT == liquidity position (can recieve custody of the NFT)
     function onERC721Received(
         address operator,
@@ -22,7 +22,7 @@ contract PoolController is Modifiers, IERC721Receiver {
         uint256 tokenId,
         bytes calldata
     ) external override returns (bytes4) {
-        // in case we recieve the nft
+        // in case we receive the nft
         _createDeposit(operator, tokenId);
         return this.onERC721Received.selector;
     }
@@ -45,7 +45,7 @@ contract PoolController is Modifiers, IERC721Receiver {
         });
     }
 
-    function mintNewPos(
+    function mintNewPosXinfin(
         uint256 amount0ToMint,
         uint256 amount1ToMint,
         int24 tickDesired,

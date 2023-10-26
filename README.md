@@ -36,7 +36,7 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 - **Liquidity Provision**: LPs (Liquidity Providers) are given the capacity to deposit, withdraw, and even collect fees.
 
 ### Protocol Design
-![Protocol Schema](../app/)
+![Protocol Schema](../app/../Xinfinity/app/public/protocolSchema.png)
 
 
 

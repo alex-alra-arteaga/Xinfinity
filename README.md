@@ -1,10 +1,12 @@
 # Xinfinity - First Futures and Options Perpetual DEX ever
 
+![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/baner.png?raw=true)
 A decentralized perpetual exchange protocol built on XSwap v3. This document offers an insight into the protocol's mechanics, its design, and associated smart contracts.
 
 # Website
 
 [Link to Website](#) - Need to deploy in vercel
+
 
 
 # Blockend
@@ -17,11 +19,10 @@ Everything is already installed!
 
 ## Build
 
-```bash	
 $ forge build
 ```
 
-I have commited the `out/` folder so you don't have to build it yourself.
+I have commited the `out/` folder so you don't have to build it yourself.😁
 
 ## Overview
 
@@ -34,7 +35,7 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 
 ### Protocol Design
 
-![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/protocolSchema.png?raw=true)
+![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/protocol.png?raw=true)
 
 ### Liquidity Provider Journey 
 
@@ -51,13 +52,13 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 
 ### Trader's Journey
 
-![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/traders.png?raw=true)
+![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/traders1.png?raw=true)
 
 1. **Create Position**: Traders can create positions by depositing liquidity into the XSwap V3 pool. Take advatnage of the Xinity pool to trade with leverage.
 
 https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cfe9336bf70839/blockend/facets/PoolControllerFacet.sol#L37
 
-1. **Manage Position**: Traders can manage their positions by depositing or withdrawing liquidity from the XSwap V3 pool via the Manager, if they one they can hold the position for as long as they want.
+2. **Manage Position**: Traders can manage their positions by depositing or withdrawing liquidity from the XSwap V3 pool via the Manager, if they one they can hold the position for as long as they want.
 
     https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cfe9336bf70839/blockend/facets/PoolControllerFacet.sol#L96
 
@@ -65,9 +66,9 @@ https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cf
 
   
 
-2. **Close Position**: Traders can close their positions by withdrawing liquidity from the XSwap V3 pool. And have it returned back to their wallet with the profits or losses.
+3. **Close Position**: Traders can close their positions by withdrawing liquidity from the XSwap V3 pool. And have it returned back to their wallet with the profits or losses.
 
-### Other important actors
+### Other important actors 🎭
 
 
 
@@ -77,18 +78,18 @@ https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cf
 
   - <u>*Incentives*</u>: Liquidators are incentivized to maintain market health by receiving a portion of the liquidated trader's collateral. Additionally, we have implemented a *Funding Rate* mechanism to ensure that the price of the perpetual contract aligns closely with the price of the underlying asset. If the perpetual contract's price is higher than that of the underlying asset, long positions pay short positions, and vice versa. This mechanism is implemented in the *PerpFuturesFacet* contract.
 
-## Features
+## Features 🚀
 
-### Current Features
+### Current Features 
 - **Pool Factory**: Streamlines the creation of pools atop the existing XSwap V3 pool.
 - **"PROTOCOL" POOL**: Serves as centralized pools that champion the trading of pairs and foster seamless interaction with perpetuals while managing liquidity.
 - **Liquidity Position Manager**: Overseeing the process of depositing and retracting liquidity at varied price levels (K) within XSwap.
 
-### Coming Soon
+### Coming Soon 
 - **Liquidity Mining Hook**: Proposes incentives for the integration pool, granting projects the ability to bestow liquidity rewards upon their LPs.
 
 
-## Contracts Addresses on XDC Mainnet
+## Contracts Addresses on XDC Mainnet ⛓
 
 - **Diamond**: `0x2c678c775E706cA552016C9c447983167463124a`
   - *Called Contract via DelegateCall holds all the selectors to execute all functions form all facets + libraries*
@@ -118,3 +119,8 @@ https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cf
   - *Necessary for hte Manager to get the information of the NFTs*
 - **XinfinityManager**: `0x27f1B6A8b7347567b6e657ebD3E38d814F46c657`
   - *Acts as a midelware between the XinfinityLPManagerFacet and the Pool, is a helper that aids in the process*
+
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md) - see the file for details.

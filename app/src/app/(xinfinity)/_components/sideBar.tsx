@@ -60,21 +60,21 @@ const StrategySidebar: React.FC<StrategySidebarProps> = ({ id }) => {
             className="flex items-center rounded bg-purple-500 px-4 py-2 text-white hover:bg-purple-700"
           >
             <FontAwesomeIcon icon={faMinusCircle} className="mr-2" />
-            Sell Future
+            Sell
           </button>
           <button
             onClick={handleBuyFuture}
             className="flex items-center rounded bg-green-500 px-4 py-2 text-white hover:bg-green-700"
           >
             <FontAwesomeIcon icon={faPlusCircle} className="mr-2" />
-            Buy Future
+            Buy
           </button>
           <button
             onClick={handleCloseFuture}
             className="flex items-center rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-700"
           >
             <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
-            Close Future
+            Close
           </button>
           <h3>Options</h3>
           <button
@@ -82,21 +82,21 @@ const StrategySidebar: React.FC<StrategySidebarProps> = ({ id }) => {
             className="flex items-center rounded bg-purple-500 px-4 py-2 text-white hover:bg-purple-700"
           >
             <FontAwesomeIcon icon={faMinusCircle} className="mr-2" />
-            Sell Option
+            Sell
           </button>
           <button
             onClick={handleBuyOption}
             className="flex items-center rounded bg-green-500 px-4 py-2 text-white hover:bg-green-700"
           >
             <FontAwesomeIcon icon={faPlusCircle} className="mr-2" />
-            Buy Option
+            Buy
           </button>
           <button
             onClick={handleCloseOption}
             className="flex items-center rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-700"
           >
             <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
-            Close Option
+            Close
           </button>
         </div>
       </div>

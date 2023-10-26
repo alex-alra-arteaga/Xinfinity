@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pool } from "../../_components/pools";
 import {
   Chart as ChartJS,
@@ -28,19 +28,15 @@ interface TemplateIdPageProps {
 
 const TemplateIdPage: React.FC<TemplateIdPageProps> = ({ params }) => {
   const [currentChart, setCurrentChart] = useState<string>("FUTURES_SHORT"); // default char
-  const [strategy, setStrategy] = useState<string>('Short Put');
-  const [legs, setLegs] = useState<Array<{ type: string, value: number }>>([{
-      type: 'Put',
-      value: 1606.854
-  }]);
-  // Don't forget to define these functions somewhere in your component or its parent:
-  function handleBuyAction() {
-    // Your logic for handling the buy action
-  }
+  const [strategy, setStrategy] = useState<string>("Short Put");
 
-  function handleSellAction() {
-    // Your logic for handling the sell action
-  }
+  const [legs, setLegs] = useState<Array<{ type: string; value: number }>>([
+    {
+      type: "Put",
+      value: 1606.854,
+    },
+  ]);
+  // Don't forget to define these functions somewhere in your component or its parent:
 
   const getChartData = () => {
     let chartColor;
@@ -90,9 +86,8 @@ const TemplateIdPage: React.FC<TemplateIdPageProps> = ({ params }) => {
     // from-black via-indigo-900 to-black p-4 text-white
     <div className="flex h-screen items-center justify-center bg-gradient-to-b from-black via-indigo-900 to-black p-4  text-white ">
       {/* <div className="h-3/4 w-full max-w-6xl overflow-auto rounded border border-gray-300 p-10 shadow"> */}
-      <StrategySidebar />
+      <StrategySidebar id={params.id} />
       <div className="mt-20 max-h-[80vh] w-3/4 max-w-6xl rounded border border-gray-300  p-10  shadow">
-        
         <div className="mb-2 ">
           <button
             onClick={() => setCurrentChart("FUTURES_SHORT")}
@@ -224,76 +219,3 @@ const TemplateIdPage: React.FC<TemplateIdPageProps> = ({ params }) => {
 };
 
 export default TemplateIdPage;
-
-const poolData: Pool[] = [
-  {
-    id: "1",
-    pool: "PRNT/WXDC",
-    TVL: 57580,
-    volume24h: 496.34,
-    volume7D: 2660,
-  },
-  {
-    id: "2",
-    pool: "XTT/XSP",
-    TVL: 42120,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "3",
-    pool: "BIC/WXDC",
-    TVL: 4640,
-    volume24h: 0,
-    volume7D: 1,
-  },
-  {
-    id: "4",
-    pool: "PRNT/BIC",
-    TVL: 1900,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "5",
-    pool: "BIC/XSP",
-    TVL: 1150,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "6",
-    pool: "BIC/WXDC",
-    TVL: 86117,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "7", // id to be address
-    pool: "WXDC/xUSDT",
-    TVL: 62371,
-    volume24h: 34.23,
-    volume7D: 24976,
-  },
-  {
-    id: "8",
-    pool: "BIC/xUSDT",
-    TVL: 56485,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "9",
-    pool: "BIC/xUSDT",
-    TVL: 24849,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "10",
-    pool: "XSP/WXDC",
-    TVL: 21514,
-    volume24h: 1.13,
-    volume7D: 4647,
-  },
-];

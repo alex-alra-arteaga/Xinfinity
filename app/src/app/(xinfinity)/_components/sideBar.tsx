@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle, faPlusCircle, faRightFromBracket, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { poolData } from '@/lib/constants';
 
-const StrategySidebar: React.FC = () => {
+interface StrategySidebarProps {
+    id: string;
+  }
+  
+
+const StrategySidebar: React.FC<StrategySidebarProps> = ({id}) => {
+
+    const [currentPoolName, setCurrentPoolName] = useState<string>("");
+    useEffect(() => {
+        console.log("id", id);
+        const pool = poolData.find((p) => p.id === id);
+        if (pool) {
+          setCurrentPoolName(pool.pool);
+        }
+      }, []);
+
 
     // Handlers for the new functionalities
     const handleSellFuture = () => {
@@ -31,8 +47,8 @@ const StrategySidebar: React.FC = () => {
 
     return (
         <div className="flex h-full">
-            <div className="w-64 bg-gradient-to-b from-black via-indigo-900 items-center justify-center to-black p-4 overflow-y-auto shadow-lg h-3/4 p-1 rounded border border-gray-300 mt-36">
-                <h2 className="text-xl font-semibold mb-6 text-white">Strategy Sidebar</h2>
+            <div className="w-64 bg-gradient-to-b from-black via-indigo-900 items-center justify-center to-black p-4 overflow-y-auto shadow-lg h-3/4  rounded border border-gray-300 mt-36">
+                <h2 className="text-xl font-semibold mb-6 text-white">{currentPoolName}</h2>
                 <div className="flex flex-col space-y-4 ">
                     <button onClick={handleSellFuture} className="flex items-center bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded">
                         <FontAwesomeIcon icon={faMinusCircle} className="mr-2"/>

@@ -12,7 +12,6 @@ import {
     PERP_FUTURES_ABI,
     PERP_OPTIONS_ABI,
     VIEW_ABI,
-    XDC,
   } from "../../constants";
 
   enum TradingDirection {
@@ -20,63 +19,67 @@ import {
     PUT = 1,
   }
   
-  export const useSellFuture = (
+  export const useSellOption = (
     amount: bigint,
+    strikePrice: bigint,
     tokenAddress: `0x${string}`,
     pool: `0x${string}`,
     poolFee: number,
     leverage: number,
   ) => {
-    const futureParamsStruct = {
+    const optionParamsStruct = {
       amount,
+      strike: strikePrice,
       token: tokenAddress,
       pool,
       poolFee,
       leverage,
-      futureType: 1
+      token0: `0x`.padEnd(40, `0`) as `0x${string}`,
+      token1: `0x`.padEnd(40, `0`) as `0x${string}`,
+      optionType: 1
     };
   
     const {
-      config: createPerpFutureConfig,
-      error: createPrepareFail,
-      isError: hasCreatePrepareFailed,
-      isFetching: isCreatePrepareFetching,
+      config: createPerpOptionSellConfig,
+      error: createPrepareOptionSellFail,
+      isError: hasCreatePreparOptionSellFailed,
+      isFetching: isCreateOptionSellFetching,
     } = usePrepareContractWrite({
-      abi: PERP_FUTURES_ABI,
+      abi: PERP_OPTIONS_ABI,
       address: Diamond,
-      functionName:  "sellFutureContract",
-      args: [futureParamsStruct],
+      functionName:  "sellOptionContract",
+      args: [optionParamsStruct],
     });
   
     const { data: perpFutureData, write: executePerpFuture } =
-      useContractWrite(createPerpFutureConfig);
+      useContractWrite(createPerpOptionSellConfig);
   
     const {
-      isLoading: isPerpFutureLoading,
-      isSuccess: isPerpFutureSuccessful,
-      isError: isPerpFutureFailed,
+      isLoading: isPerpOptionSellLoading,
+      isSuccess: isPerpOptionSellSuccessful,
+      isError: isPerpOptionSellFailed,
     } = useWaitForTransaction({
       hash: perpFutureData?.hash,
     });
   
     return {
-      isPerpFutureLoading,
-      isPerpFutureSuccessful,
+        isPerpOptionSellLoading,
+        isPerpOptionSellSuccessful,
       executePerpFuture,
-      createPrepareFail,
-      hasCreatePrepareFailed,
-      isCreatePrepareFetching,
-      isPerpFutureFailed,
+      createPrepareOptionSellFail,
+      hasCreatePreparOptionSellFailed,
+      isCreateOptionSellFetching,
+      isPerpOptionSellFailed,
     };
   };
   
-  export const useBuyFuture = (
+  export const useBuyOption = (
     pool: `0x${string}`,
     owner: `0x${string}`,
     contractId: number
   ) => {
     const {
-      config: createPerpFutureConfig,
+      config: createPerpOptionConfig,
       error: createPrepareFail,
       isError: hasCreatePrepareFailed,
       isFetching: isCreatePrepareFetching,
@@ -87,25 +90,25 @@ import {
       args: [pool, owner, contractId, 0],
     });
   
-    const { data: perpFutureBuyData, write: executePerpBuyFuture } =
-      useContractWrite(createPerpFutureConfig);
+    const { data: perpOptionBuyData, write: executePerpBuyOption } =
+      useContractWrite(createPerpOptionConfig);
   
     const {
-      isLoading: isPerpBuyFutureLoading,
-      isSuccess: isPerpBuyFutureSuccessful,
-      isError: isPerpBuyFutureFailed,
+      isLoading: isPerpBuyOptionLoading,
+      isSuccess: isPerpBuyOptionSuccessful,
+      isError: isPerpBuyOptionFailed,
     } = useWaitForTransaction({
-      hash: perpFutureBuyData?.hash,
+      hash: perpOptionBuyData?.hash,
     });
   
     return {
-      isPerpBuyFutureLoading,
-      isPerpBuyFutureSuccessful,
-      executePerpBuyFuture,
+        isPerpBuyOptionLoading,
+        isPerpBuyOptionSuccessful,
+      executePerpBuyOption,
       createPrepareFail,
       hasCreatePrepareFailed,
       isCreatePrepareFetching,
-      isPerpBuyFutureFailed,
+      isPerpBuyOptionFailed,
     };
   };
   

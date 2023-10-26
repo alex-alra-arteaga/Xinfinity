@@ -48,6 +48,7 @@ export type Pool = {
   TVL: number | string;
   volume24h: number;
   volume7D: number;
+  address: string;
 };
 
 export const columns: ColumnDef<Pool>[] = [

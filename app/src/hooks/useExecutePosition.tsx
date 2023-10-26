@@ -19,23 +19,11 @@ import {
     PUT = 1,
   }
   
-  export const useSellFuture = (
-    amount: bigint,
-    tokenAddress: `0x${string}`,
+  export const useExecuteFuture = (
     pool: `0x${string}`,
-    ownerPosition: `0x${string}`,
-    poolFee: number,
-    leverage: number,
+    owner: `0x${string}`,
+    contractId: number
   ) => {
-    const futureParamsStruct = {
-      amount,
-      token: tokenAddress,
-      pool,
-      poolFee,
-      leverage,
-      futureType: Number(futureType)
-    };
-  
     const {
       config: createPerpFutureConfig,
       error: createPrepareFail,
@@ -44,84 +32,68 @@ import {
     } = usePrepareContractWrite({
       abi: PERP_FUTURES_ABI,
       address: Diamond,
-      functionName:  "sellFutureContract",
-      args: [futureParamsStruct],
+      functionName:  "settleFutureContract",
+      args: [pool, owner, contractId],
     });
   
-    const { data: perpFutureData, write: executePerpFuture } =
+    const { data: perpFutureData, write: executePerpFutureSettle } =
       useContractWrite(createPerpFutureConfig);
   
     const {
-      isLoading: isPerpFutureLoading,
-      isSuccess: isPerpFutureSuccessful,
-      isError: isPerpFutureFailed,
+      isLoading: isPerpFutureSettleLoading,
+      isSuccess: isPerpFutureSettleSuccessful,
+      isError: isPerpFutureSettleFailed,
     } = useWaitForTransaction({
       hash: perpFutureData?.hash,
     });
   
     return {
-      isPerpFutureLoading,
-      isPerpFutureSuccessful,
-      executePerpFuture,
+      isPerpFutureSettleLoading,
+      isPerpFutureSettleSuccessful,
+      executePerpFutureSettle,
       createPrepareFail,
       hasCreatePrepareFailed,
       isCreatePrepareFetching,
-      isPerpFutureFailed,
+      isPerpFutureSettleFailed,
     };
   };
   
-  export const useTradeOption = (
-    amount: bigint,
-    strike: bigint,
-    tokenAddress: `0x${string}`,
+  export const useExecuteOption = (
     pool: `0x${string}`,
-    poolFee: number,
-    leverage: number,
-    optionType: TradingDirection,
+    owner: `0x${string}`,
+    contractId: number
   ) => {
-    const optionParamsStruct = {
-      amount,
-      strike,
-      token: tokenAddress,
-      pool,
-      poolFee,
-      leverage,
-      token0: `0x`.padEnd(40, "0"),
-      token1: `0x`.padEnd(40, "0"),
-      optionType: Number(optionType)
-    };
-  
     const {
-      config: createPerpFutureConfig,
-      error: createPrepareFail,
-      isError: hasCreatePrepareFailed,
-      isFetching: isCreatePrepareFetching,
+      config: createPerpFutureExerciseConfig,
+      error: createPrepareExerciseFail,
+      isError: hasCreatePrepareExerciseFailed,
+      isFetching: isCreatePrepareExerciseFetching,
     } = usePrepareContractWrite({
-      abi: PERP_FUTURES_ABI,
+      abi: PERP_OPTIONS_ABI,
       address: Diamond,
-      functionName: futureType ? "buyFutureContract" : "sellFutureContract",
-      args: [optionParamsStruct],
+      functionName: "exerciseOptionContract",
+      args: [pool, owner, contractId],
     });
   
-    const { data: perpFutureData, write: executePerpFuture } =
-      useContractWrite(createPerpFutureConfig);
+    const { data: perpOptionExerciseData, write: executePerpOptionExerciseFuture } =
+      useContractWrite(createPerpFutureExerciseConfig);
   
     const {
-      isLoading: isPerpFutureLoading,
-      isSuccess: isPerpFutureSuccessful,
-      isError: isPerpFutureFailed,
+      isLoading: isPerpOptionExerciseLoading,
+      isSuccess: isPerpOptionExerciseSuccessful,
+      isError: isPerpOptionExerciseFailed,
     } = useWaitForTransaction({
-      hash: perpFutureData?.hash,
+      hash: perpOptionExerciseData?.hash,
     });
   
     return {
-      isPerpFutureLoading,
-      isPerpFutureSuccessful,
-      executePerpFuture,
-      createPrepareFail,
-      hasCreatePrepareFailed,
-      isCreatePrepareFetching,
-      isPerpFutureFailed,
+      isPerpOptionExerciseLoading,
+      isPerpOptionExerciseSuccessful,
+      executePerpOptionExerciseFuture,
+      createPrepareExerciseFail,
+      hasCreatePrepareExerciseFailed,
+      isCreatePrepareExerciseFetching,
+      isPerpOptionExerciseFailed,
     };
   };
   

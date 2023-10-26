@@ -12,6 +12,7 @@ export const ViewFacet = "0x67BF1837711370cB3E128f44BE21c08EbcE5CD1A"
 export const XinfinityFactory = "0xB4a85Aa632777692CA0D12b842e7109121bF6bA6"
 export const NFTDescriptor = "0x9AD6e4C397Aff843f38AC3982283a60fF53a0D1D"
 export const XinfinityManager = "0x27f1B6A8b7347567b6e657ebD3E38d814F46c657"
+export const XDC = "0x6ecdf74085a20164d6ece95d6d27692763948149";
 export const DIAMOND_ABI = [
     {
       "inputs": [

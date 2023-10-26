@@ -2,6 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { StrategyType } from "@/types/types";
+import {useExecuteFuture, useExecuteOption} from "@/hooks/useExecutePosition";
+import { useBuyFuture, useSellFuture } from "@/hooks/useTradeFuture";
+import { useBuyOption, useSellOption } from "@/hooks/useTradeOptions";
+import { poolData } from "@/lib/constants"
 
 interface TradingInputsProps {
   currentStrategy: () => StrategyType;
@@ -23,12 +27,17 @@ export const TradingInputs: React.FC<TradingInputsProps> = ({
   const [token0, setToken0] = useState<string | null>(null);
   const [token1, setToken1] = useState<string | null>(null);
   const [futureObject, setFutureObject] = useState<FutureObject>({direction: currentStrategy() === StrategyType.FUTURES_LONG ? "Long" : "Short", amount: 0, leverage: 1, token: ""});
-
   // Mock user's positions and options data
   const userFuturesPositions: any[] = [];
   const userOptionsPositions: any[] = [];
 
   const tokens = poolName.split("-");
+  const pool = poolData[0].address as `0x${string}`;
+  const pool1 = poolData[1].address as `0x${string}`;
+
+    const {
+        executePerpBuyFuture,
+    } = useBuyFuture(pool, pool1, 0);
 
   useEffect(() => {
     if (tokens.length === 2) {
@@ -197,7 +206,7 @@ export const TradingInputs: React.FC<TradingInputsProps> = ({
                 </>
               )}
               <div className="col-span-2 flex flex-col items-end">
-                <button className="mt-4 rounded-lg bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600">
+                <button onClick={executePerpBuyFuture} className="mt-4 rounded-lg bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600">
                   Execute Trade
                 </button>
               </div>

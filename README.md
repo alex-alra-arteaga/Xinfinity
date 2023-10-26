@@ -58,7 +58,7 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 
 https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cfe9336bf70839/blockend/facets/PoolControllerFacet.sol#L37
 
-1. **Manage Position**: Traders can manage their positions by depositing or withdrawing liquidity from the XSwap V3 pool via the Manager, if they one they can hold the position for as long as they want.
+2. **Manage Position**: Traders can manage their positions by depositing or withdrawing liquidity from the XSwap V3 pool via the Manager, if they one they can hold the position for as long as they want.
 
     https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cfe9336bf70839/blockend/facets/PoolControllerFacet.sol#L96
 
@@ -66,7 +66,7 @@ https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cf
 
   
 
-2. **Close Position**: Traders can close their positions by withdrawing liquidity from the XSwap V3 pool. And have it returned back to their wallet with the profits or losses.
+3. **Close Position**: Traders can close their positions by withdrawing liquidity from the XSwap V3 pool. And have it returned back to their wallet with the profits or losses.
 
 ### Other important actors 🎭
 

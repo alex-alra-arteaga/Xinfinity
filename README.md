@@ -68,7 +68,7 @@ https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cf
 
 2. **Close Position**: Traders can close their positions by withdrawing liquidity from the XSwap V3 pool. And have it returned back to their wallet with the profits or losses.
 
-### Other important actors
+### Other important actors 🎭
 
 
 
@@ -78,18 +78,18 @@ https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cf
 
   - <u>*Incentives*</u>: Liquidators are incentivized to maintain market health by receiving a portion of the liquidated trader's collateral. Additionally, we have implemented a *Funding Rate* mechanism to ensure that the price of the perpetual contract aligns closely with the price of the underlying asset. If the perpetual contract's price is higher than that of the underlying asset, long positions pay short positions, and vice versa. This mechanism is implemented in the *PerpFuturesFacet* contract.
 
-## Features
+## Features 🚀
 
-### Current Features
+### Current Features 
 - **Pool Factory**: Streamlines the creation of pools atop the existing XSwap V3 pool.
 - **"PROTOCOL" POOL**: Serves as centralized pools that champion the trading of pairs and foster seamless interaction with perpetuals while managing liquidity.
 - **Liquidity Position Manager**: Overseeing the process of depositing and retracting liquidity at varied price levels (K) within XSwap.
 
-### Coming Soon
+### Coming Soon 
 - **Liquidity Mining Hook**: Proposes incentives for the integration pool, granting projects the ability to bestow liquidity rewards upon their LPs.
 
 
-## Contracts Addresses on XDC Mainnet
+## Contracts Addresses on XDC Mainnet ⛓
 
 - **Diamond**: `0x2c678c775E706cA552016C9c447983167463124a`
   - *Called Contract via DelegateCall holds all the selectors to execute all functions form all facets + libraries*

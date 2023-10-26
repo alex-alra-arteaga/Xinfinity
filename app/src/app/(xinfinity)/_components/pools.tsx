@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import {
   ColumnDef,
@@ -37,125 +38,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Icons } from "@/components/Icons";
-
-const data: Payment[] = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-    test: "test",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
-    test: "test",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
-    test: "test",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
-    test: "test",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
-    test: "test",
-  },
-];
-
-const poolData: Pool[] = [
-  {
-    id: "1",
-    pool: "PRNT/WXDC",
-    TVL: 57580,
-    volume24h: 496.34,
-    volume7D: 2660,
-  },
-  {
-    id: "2",
-    pool: "XTT/XSP",
-    TVL: 42120,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "3",
-    pool: "BIC/WXDC",
-    TVL: 4640,
-    volume24h: 0,
-    volume7D: 1,
-  },
-  {
-    id: "4",
-    pool: "PRNT/BIC",
-    TVL: 1900,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "5",
-    pool: "BIC/XSP",
-    TVL: 1150,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "6",
-    pool: "BIC/WXDC",
-    TVL: 86117,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "7",
-    pool: "WXDC/xUSDT",
-    TVL: 62371,
-    volume24h: 34.23,
-    volume7D: 24976,
-  },
-  {
-    id: "8",
-    pool: "BIC/xUSDT",
-    TVL: 56485,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "9",
-    pool: "BIC/xUSDT",
-    TVL: 24849,
-    volume24h: 0,
-    volume7D: 0,
-  },
-  {
-    id: "10",
-    pool: "XSP/WXDC",
-    TVL: 21514,
-    volume24h: 1.13,
-    volume7D: 4647,
-  },
-];
-
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-  test: string;
-};
+import { toast } from "@/hooks/use-toast";
+import { poolData } from "@/lib/constants";
+import ImageComponent from "./ImageComponent";
 
 export type Pool = {
   id: string;
@@ -168,35 +53,79 @@ export type Pool = {
 export const columns: ColumnDef<Pool>[] = [
   {
     id: "select",
-    // header: ({ table }) => (
-    //   <Checkbox
-    //     className="text-black"
-    //     checked={table.getIsAllPageRowsSelected()}
-    //     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //     aria-label="Select all"
-    //   />
-    // ),
     cell: ({ row }) => (
-      //   <Checkbox
-      //     checked={row.getIsSelected()}
-      //     onCheckedChange={(value) => row.toggleSelected(!!value)}
-      //     aria-label="Select row"
-      //   />
-      <Icons.logo className="h-8 w-8 rounded-md sm:h-6 sm:w-6" />
+      // <Icons.logo className="h-8 w-8 rounded-md sm:h-6 sm:w-6" />
+      <div>
+        {row.getValue("pool") == "PRNT/WXDC" && (
+          <ImageComponent
+            src1="/PRNTLogo.png"
+            alt1="PRNT logo"
+            src2="/xdcLogo.png"
+            alt2="XdcLogo"
+          />
+        )}
+        {row.getValue("pool") == "XTT/XSP" && (
+          <ImageComponent
+            src1="/SttLogo.png "
+            alt1="STT logo"
+            src2="/xspLogo.png"
+            alt2="XspLogo"
+          />
+        )}
+        {row.getValue("pool") == "BIC/WXDC" && (
+          <ImageComponent
+            src1="/BICLogo.png "
+            alt1="BIC Logo"
+            src2="/xdcLogo.png"
+            alt2="xdcLogo"
+          />
+        )}
+        {row.getValue("pool") == "PRNT/BIC" && (
+          <ImageComponent
+            src1="/PRNTLogo.png "
+            alt1="BIC Logo"
+            src2="/BICLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+        {row.getValue("pool") == "BIC/XSP" && (
+          <ImageComponent
+            src1="/BICLogo.png"
+            alt1="BIC Logo"
+            src2="/xspLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+         {row.getValue("pool") == "WXDC/xUSDT" && (
+          <ImageComponent
+            src1="/xdcLogo.png"
+            alt1="XDC Logo"
+            src2="/USDTLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+         {row.getValue("pool") == "BIC/xUSDT" && (
+          <ImageComponent
+            src1="/BICLogo.png"
+            alt1="XDC Logo"
+            src2="/USDTLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+        {row.getValue("pool") == "XSP/WXDC" && (
+          <ImageComponent
+            src1="/xspLogo.png"
+            alt1="XSP Logo"
+            src2="/xdcLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+      </div>
     ),
 
     enableSorting: false,
     enableHiding: false,
   },
-  // {
-  //   accessorKey: "status",
-  //   header: "Status",
-  //   cell: ({ row }) => (
-  //     <div className="capitalize">{row.getValue("status")}</div>
-  //   ),
-  // },
-
-  // add accesoary keys for pool, liquidity, volume24h
   {
     accessorKey: "pool",
     header: "Pool",
@@ -223,7 +152,6 @@ export const columns: ColumnDef<Pool>[] = [
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("volume24h"));
 
-      // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -265,7 +193,13 @@ export const columns: ColumnDef<Pool>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(payment.id),
+                  toast({
+                    title: "success",
+                    description: "Adress copied to clipboard",
+                  });
+              }}
             >
               Copy pool Address
             </DropdownMenuItem>
@@ -349,7 +283,7 @@ export function Pools() {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow onClick={() => console.log("clicked in ")} key={headerGroup.id}>
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead className="text-white" key={header.id}>
@@ -369,6 +303,10 @@ export function Pools() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                  className="cursor-pointer"
+                  onClick={() => {
+                    window.location.href = `/app/${row.id}`;
+                  }}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
@@ -396,7 +334,7 @@ export function Pools() {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground text-white">
+        <div className="flex-1 text-sm text-muted-foreground ">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>

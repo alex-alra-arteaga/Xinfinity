@@ -8,8 +8,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useSession } from "next-auth/react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export function SheetNav() {
+  const { data } = useSession();
+
   return (
     <div>
       <Sheet>
@@ -18,11 +22,17 @@ export function SheetNav() {
         </SheetTrigger>
         <SheetContent side="left">
           <SheetHeader>
-            <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+            {!data && (
+              <div>
+              <div>Connect the wallet to signIn and start Operating</div>
+              <ConnectButton />
+              </div>
+            )}
+            {data && (<> <SheetTitle>Welcome {data?.user.address}</SheetTitle>
             <SheetDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </SheetDescription>
+             This is your dashboard, to see and manage your profile
+            </SheetDescription></>)}
+          
           </SheetHeader>
         </SheetContent>
       </Sheet>

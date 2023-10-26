@@ -35,7 +35,7 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 
 ### Protocol Design
 
-![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/protocolSchema.png?raw=true)
+![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/protocol.png?raw=true)
 
 ### Liquidity Provider Journey 
 
@@ -52,7 +52,7 @@ The protocol not only facilitates the trading of perpetual contracts but also en
 
 ### Trader's Journey
 
-![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/traders.png?raw=true)
+![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/traders1.png?raw=true)
 
 1. **Create Position**: Traders can create positions by depositing liquidity into the XSwap V3 pool. Take advatnage of the Xinity pool to trade with leverage.
 

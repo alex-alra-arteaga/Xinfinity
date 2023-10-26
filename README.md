@@ -6,6 +6,8 @@ A decentralized perpetual exchange protocol built on XSwap v3. This document off
 
 [Link to Website](#) - Need to deploy in vercel
 
+![Xinfinity Protocol Schema](https://github.com/alex-alra-arteaga/Xinfinity/blob/main/app/public/baner.png?raw=true)
+
 
 # Blockend
 

@@ -119,3 +119,8 @@ https://github.com/alex-alra-arteaga/Xinfinity/blob/b5c335d211969592731dc5ca63cf
   - *Necessary for hte Manager to get the information of the NFTs*
 - **XinfinityManager**: `0x27f1B6A8b7347567b6e657ebD3E38d814F46c657`
   - *Acts as a midelware between the XinfinityLPManagerFacet and the Pool, is a helper that aids in the process*
+
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md) - see the file for details.

@@ -59,13 +59,6 @@ export const poolData: Pool[] = [
     },
     {
       id: "8",
-      pool: "BIC/xUSDT",
-      TVL: 24849,
-      volume24h: 0,
-      volume7D: 0,
-    },
-    {
-      id: "9",
       pool: "XSP/WXDC",
       TVL: 21514,
       volume24h: 1.13,

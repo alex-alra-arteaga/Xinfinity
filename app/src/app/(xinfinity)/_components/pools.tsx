@@ -40,10 +40,10 @@ import {
 import { Icons } from "@/components/Icons";
 import { toast } from "@/hooks/use-toast";
 import { poolData } from "@/lib/constants";
-
+import ImageComponent from "./ImageComponent";
 
 export type Pool = {
-  id:  string;
+  id: string;
   pool: string;
   TVL: number | string;
   volume24h: number;
@@ -54,7 +54,73 @@ export const columns: ColumnDef<Pool>[] = [
   {
     id: "select",
     cell: ({ row }) => (
-      <Icons.logo className="h-8 w-8 rounded-md sm:h-6 sm:w-6" />
+      // <Icons.logo className="h-8 w-8 rounded-md sm:h-6 sm:w-6" />
+      <div>
+        {row.getValue("pool") == "PRNT/WXDC" && (
+          <ImageComponent
+            src1="/PRNTLogo.png"
+            alt1="PRNT logo"
+            src2="/xdcLogo.png"
+            alt2="XdcLogo"
+          />
+        )}
+        {row.getValue("pool") == "XTT/XSP" && (
+          <ImageComponent
+            src1="/SttLogo.png "
+            alt1="STT logo"
+            src2="/xspLogo.png"
+            alt2="XspLogo"
+          />
+        )}
+        {row.getValue("pool") == "BIC/WXDC" && (
+          <ImageComponent
+            src1="/BICLogo.png "
+            alt1="BIC Logo"
+            src2="/xdcLogo.png"
+            alt2="xdcLogo"
+          />
+        )}
+        {row.getValue("pool") == "PRNT/BIC" && (
+          <ImageComponent
+            src1="/PRNTLogo.png "
+            alt1="BIC Logo"
+            src2="/BICLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+        {row.getValue("pool") == "BIC/XSP" && (
+          <ImageComponent
+            src1="/BICLogo.png"
+            alt1="BIC Logo"
+            src2="/xspLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+         {row.getValue("pool") == "WXDC/xUSDT" && (
+          <ImageComponent
+            src1="/xdcLogo.png"
+            alt1="XDC Logo"
+            src2="/USDTLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+         {row.getValue("pool") == "BIC/xUSDT" && (
+          <ImageComponent
+            src1="/BICLogo.png"
+            alt1="XDC Logo"
+            src2="/USDTLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+        {row.getValue("pool") == "XSP/WXDC" && (
+          <ImageComponent
+            src1="/xspLogo.png"
+            alt1="XSP Logo"
+            src2="/xdcLogo.png"
+            alt2="BICLogo"
+          />
+        )}
+      </div>
     ),
 
     enableSorting: false,
@@ -156,8 +222,6 @@ export function Pools() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-
-
   const table = useReactTable({
     data: poolData,
     columns,
@@ -239,6 +303,7 @@ export function Pools() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                  className="cursor-pointer"
                   onClick={() => {
                     window.location.href = `/app/${row.id}`;
                   }}

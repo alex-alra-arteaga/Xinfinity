@@ -23,7 +23,6 @@ import {
     amount: bigint,
     tokenAddress: `0x${string}`,
     pool: `0x${string}`,
-    ownerPosition: `0x${string}`,
     poolFee: number,
     leverage: number,
   ) => {
@@ -33,7 +32,7 @@ import {
       pool,
       poolFee,
       leverage,
-      futureType: Number(futureType)
+      futureType: 1
     };
   
     const {
@@ -70,14 +69,14 @@ import {
     };
   };
   
-  export const useTradeOption = (
+  export const useBuyFuture = (
     amount: bigint,
     strike: bigint,
     tokenAddress: `0x${string}`,
     pool: `0x${string}`,
     poolFee: number,
     leverage: number,
-    optionType: TradingDirection,
+    optionType: 0,
   ) => {
     const optionParamsStruct = {
       amount,
@@ -99,8 +98,8 @@ import {
     } = usePrepareContractWrite({
       abi: PERP_FUTURES_ABI,
       address: Diamond,
-      functionName: futureType ? "buyFutureContract" : "sellFutureContract",
-      args: [optionParamsStruct],
+      functionName: "buyFutureContract",
+      args: [],
     });
   
     const { data: perpFutureData, write: executePerpFuture } =

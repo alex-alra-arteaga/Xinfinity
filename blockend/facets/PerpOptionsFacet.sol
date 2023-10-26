@@ -253,6 +253,31 @@ contract PerpOptionsFacet is Modifiers {
         address owner,
         uint24 contractId
     ) external {
+        Types.PerpOption memory optionToExercise = getOptionToExercise(
+            pool,
+            owner,
+            contractId
+        );
+        (
+            int24 currentTick,
+            int256 netProfit,
+            bool inTheMoney
+        ) = calculateProfits(optionToExercise, pool);
+        executeOption(
+            pool,
+            optionToExercise,
+            netProfit,
+            inTheMoney,
+            currentTick,
+            contractId
+        );
+    }
+
+    function getOptionToExercise(
+        IUniswapV3Pool pool,
+        address owner,
+        uint24 contractId
+    ) internal view returns (Types.PerpOption memory) {
         Types.PerpOption memory optionToExercise = s.optionRecord[
             address(pool)
         ][owner][contractId];
@@ -260,8 +285,17 @@ contract PerpOptionsFacet is Modifiers {
             optionToExercise.status != Types.OrderStatus.MINTED &&
             optionToExercise.status != Types.OrderStatus.BOUGHT
         ) revert Errors.NotAvailableOption(address(pool), owner, contractId);
+        return optionToExercise;
+    }
 
-        // (actual price * initialPrice) / initialPrice, result in basis points
+    function calculateProfits(
+        Types.PerpOption memory optionToExercise,
+        IUniswapV3Pool pool
+    )
+        internal
+        view
+        returns (int24 currentTick, int256 netProfit, bool inTheMoney)
+    {
         int256 priceDiffInPercentage = int256(
             ((TWAPOracle.getPoolTWAP(
                 pool.token0(),
@@ -272,34 +306,55 @@ contract PerpOptionsFacet is Modifiers {
             ) / optionToExercise.collateralAmount) *
                 optionToExercise.initialPrice) / optionToExercise.initialPrice
         );
+        // ... your price calculation logic ...
         int256 profitInPercentage = optionToExercise.optionType ==
             Types.OptionType.CALL
             ? priceDiffInPercentage
             : -priceDiffInPercentage;
 
-        // (5% * 10_000) * (100 * 10_000) / 10_000 = 500% in basis points
         int256 realProfitPercentage = (profitInPercentage *
             int256(optionToExercise.leverage)) / int24(Constants.BASIS_POINTS);
-        // 100 * (500 * 10_000 / 100) / 10_000 = 500 in tokens
-        int256 netProfit = (int256(optionToExercise.collateralAmount) *
-            (realProfitPercentage / 100)) / int24(Constants.BASIS_POINTS);
 
-        bool inTheMoney = netProfit > 0;
+        netProfit =
+            (int256(optionToExercise.collateralAmount) *
+                (realProfitPercentage / 100)) /
+            int24(Constants.BASIS_POINTS);
+
+        (, currentTick, , , , , ) = IUniswapV3Pool(pool).slot0();
+        inTheMoney = netProfit > 0;
+    }
+
+    function executeOption(
+        IUniswapV3Pool pool,
+        Types.PerpOption memory optionToExercise,
+        int256 netProfit,
+        bool inTheMoney,
+        int24 currentTick,
+        uint24 contractId
+    ) internal {
         if (inTheMoney) {
-            // @follow-up Take tokens from the pool to pay the profit
+            IDiamond(address(this)).mintNewPosXinfin(
+                optionToExercise.collateralToken == pool.token0()
+                    ? uint256(int256(netProfit))
+                    : 0,
+                optionToExercise.collateralToken == pool.token1()
+                    ? uint256(int256(netProfit))
+                    : 0,
+                currentTick,
+                pool.fee(),
+                pool.token0(),
+                pool.token1()
+            );
             IERC20(optionToExercise.collateralToken).transfer(
                 msg.sender,
                 uint256(netProfit)
             );
         } else {
-            // OTM (out of the money)
-            // because the option is OTM, the collateral is returned to the owner
             IERC20(optionToExercise.collateralToken).transfer(
                 msg.sender,
                 uint256(optionToExercise.collateralAmount)
             );
         }
-
-        delete s.optionRecord[address(pool)][owner][contractId];
+        delete s.optionRecord[address(pool)][msg.sender][contractId];
     }
 }

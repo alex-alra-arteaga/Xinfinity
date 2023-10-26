@@ -41,7 +41,7 @@ library Types {
         Types.FutureType futureType;
     }
 
-    struct OptionParams {
+    struct OptionParams { 
         uint256 amount;
         uint256 strike;
         address token;

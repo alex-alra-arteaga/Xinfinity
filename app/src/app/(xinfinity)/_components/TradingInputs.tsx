@@ -105,7 +105,7 @@ export const TradingInputs: React.FC<TradingInputsProps> = ({
                     </label>
                     <input
                         type="number"
-                        defaultValue={0}
+                        defaultValue={futureObject.amount}
                         onChange={(e) => setFutureObject((prevState) => ({...prevState, amount: Number(e.target.value)}))}
                         className="block w-full rounded-md border bg-gray-700 py-1 text-gray-200"
                 />
@@ -164,7 +164,7 @@ export const TradingInputs: React.FC<TradingInputsProps> = ({
                 </label>
                 <input
                   type="number"
-                  defaultValue={1}
+                    defaultValue={futureObject.leverage}
                   onChange={(e) => setFutureObject((prevState) => ({...prevState, leverage: Number(e.target.value)}))}
                   className="block w-full rounded-md border bg-gray-700 py-1 text-gray-200"
                 />
